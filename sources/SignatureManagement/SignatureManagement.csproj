@@ -4,7 +4,6 @@
         <TargetFramework>net48</TargetFramework>
         <OutputType>Exe</OutputType>
         <LangVersion>latest</LangVersion>
-        <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
         <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_").Replace("-", "_"))</RootNamespace>
     </PropertyGroup>
