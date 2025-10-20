@@ -22,14 +22,9 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
         List<SignatureKeyInfo> signatures = GetAllSignatures();
         DisplaySignatures(signatures);
 
-        SignatureKeyInfo selectedSignature = ChooseSignatureToUse(signatures);
+        SignatureKeyInfo selectedSignature = AskForSignatureToUse(signatures);
 
-        // Get data to sign
-        Console.Write("Enter data to sign: ");
-        string dataToSign = Console.ReadLine();
-
-        if (string.IsNullOrEmpty(dataToSign))
-            throw new NoDataToSignException();
+        string dataToSign = AskForDataToSign();
 
         // Load private key
         Ed25519PrivateKeyParameters privateKey = new(selectedSignature.PrivateKey, 0);
@@ -53,7 +48,7 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
     private List<SignatureKeyInfo> GetAllSignatures()
     {
         List<SignatureKeyInfo> signatures = signatureRepository.GetAll()
-                    .ToList();
+            .ToList();
 
         if (!signatures.Any())
             throw new NoSignaturesException();
@@ -72,7 +67,7 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
         userConsole.DisplaySignatures(signatureSummaries);
     }
 
-    private SignatureKeyInfo ChooseSignatureToUse(List<SignatureKeyInfo> signatures)
+    private SignatureKeyInfo AskForSignatureToUse(List<SignatureKeyInfo> signatures)
     {
         Guid? signatureId = userConsole.GetSignatureId();
 
@@ -84,5 +79,16 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
         return selectedSignature == null
             ? throw new InvalidSignatureIdException(signatureId.Value.ToString())
             : selectedSignature;
+    }
+
+    private static string AskForDataToSign()
+    {
+        Console.Write("Enter data to sign: ");
+        string dataToSign = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(dataToSign))
+            throw new NoDataToSignException();
+
+        return dataToSign;
     }
 }
