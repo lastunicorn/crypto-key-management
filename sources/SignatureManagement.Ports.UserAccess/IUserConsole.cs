@@ -3,4 +3,5 @@
 public interface IUserConsole
 {
     void DisplaySignatures(IEnumerable<SignatureSummary> signatures);
+    Guid? GetSignatureId();
 }

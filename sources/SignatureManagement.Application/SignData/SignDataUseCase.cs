@@ -19,24 +19,10 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 
     public Task<SignDataResponse> Query(SignDataCriteria criteria)
     {
-        List<SignatureKeyInfo> signatures = signatureRepository.GetAll()
-            .ToList();
-
-        if (!signatures.Any())
-            throw new NoSignaturesException();
-
+        List<SignatureKeyInfo> signatures = GetAllSignatures();
         DisplaySignatures(signatures);
 
-        // Get signature ID from user
-        Console.Write("\nEnter Signature ID (GUID): ");
-        string signatureIdInput = Console.ReadLine()?.Trim();
-
-        if (!Guid.TryParse(signatureIdInput, out Guid signatureId))
-            throw new InvalidSignatureIdException(signatureIdInput);
-
-        SignatureKeyInfo selectedSignature = signatures.FirstOrDefault(s => s.Id == signatureId);
-        if (selectedSignature == null)
-            throw new InvalidSignatureIdException(signatureIdInput);
+        SignatureKeyInfo selectedSignature = ChooseSignatureToUse(signatures);
 
         // Get data to sign
         Console.Write("Enter data to sign: ");
@@ -57,11 +43,21 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 
         SignDataResponse result = new()
         {
-            SignatureId = signatureId,
+            SignatureId = selectedSignature.Id,
             Signature = signature
         };
 
         return Task.FromResult(result);
+    }
+
+    private List<SignatureKeyInfo> GetAllSignatures()
+    {
+        List<SignatureKeyInfo> signatures = signatureRepository.GetAll()
+                    .ToList();
+
+        if (!signatures.Any())
+            throw new NoSignaturesException();
+        return signatures;
     }
 
     private void DisplaySignatures(List<SignatureKeyInfo> signatures)
@@ -74,5 +70,19 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
             });
 
         userConsole.DisplaySignatures(signatureSummaries);
+    }
+
+    private SignatureKeyInfo ChooseSignatureToUse(List<SignatureKeyInfo> signatures)
+    {
+        Guid? signatureId = userConsole.GetSignatureId();
+
+        if (!signatureId.HasValue)
+            throw new InvalidSignatureIdException("Invalid GUID format");
+
+        SignatureKeyInfo selectedSignature = signatures.FirstOrDefault(x => x.Id == signatureId.Value);
+
+        return selectedSignature == null
+            ? throw new InvalidSignatureIdException(signatureId.Value.ToString())
+            : selectedSignature;
     }
 }

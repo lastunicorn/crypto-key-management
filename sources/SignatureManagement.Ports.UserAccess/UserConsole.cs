@@ -20,4 +20,15 @@ public class UserConsole : IUserConsole
             Console.WriteLine();
         }
     }
+
+    public Guid? GetSignatureId()
+    {
+        Console.Write("\nEnter Signature ID (GUID): ");
+        string rawValue = Console.ReadLine()?.Trim();
+
+        if (Guid.TryParse(rawValue, out Guid signatureId))
+            return signatureId;
+
+        return null;
+    }
 }
