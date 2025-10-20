@@ -24,17 +24,8 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 
         SignatureKeyInfo selectedSignature = AskForSignatureToUse(signatures);
 
-        string dataToSign = AskForDataToSign();
-
-        // Load private key
-        Ed25519PrivateKeyParameters privateKey = new(selectedSignature.PrivateKey, 0);
-
-        // Sign the data
-        byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes(dataToSign);
-        Ed25519Signer signer = new();
-        signer.Init(true, privateKey);
-        signer.BlockUpdate(messageBytes, 0, messageBytes.Length);
-        byte[] signature = signer.GenerateSignature();
+        string dataToSign = userConsole.AskForDataToSign();
+        byte[] signature = SignTheData(selectedSignature, dataToSign);
 
         SignDataResponse result = new()
         {
@@ -80,14 +71,14 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
             : selectedSignature;
     }
 
-    private static string AskForDataToSign()
+    private static byte[] SignTheData(SignatureKeyInfo selectedSignature, string dataToSign)
     {
-        Console.Write("Enter data to sign: ");
-        string dataToSign = Console.ReadLine();
+        Ed25519PrivateKeyParameters privateKey = new(selectedSignature.PrivateKey, 0);
 
-        if (string.IsNullOrEmpty(dataToSign))
-            throw new NoDataToSignException();
-
-        return dataToSign;
+        byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes(dataToSign);
+        Ed25519Signer signer = new();
+        signer.Init(true, privateKey);
+        signer.BlockUpdate(messageBytes, 0, messageBytes.Length);
+        return signer.GenerateSignature();
     }
 }

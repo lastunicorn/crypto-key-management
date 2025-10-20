@@ -3,7 +3,7 @@
 namespace DustInTheWind.SignatureManagement.Application.SignData;
 
 [Serializable]
-internal class NoSignaturesException : Exception
+public class NoSignaturesException : Exception
 {
     public NoSignaturesException()
         : base("No signatures available. Please create a signature first.")

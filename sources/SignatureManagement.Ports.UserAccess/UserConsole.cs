@@ -26,4 +26,10 @@ public class UserConsole : IUserConsole
 
         return null;
     }
+
+    public string AskForDataToSign()
+    {
+        Console.Write("Enter data to sign: ");
+        return Console.ReadLine();
+    }
 }
