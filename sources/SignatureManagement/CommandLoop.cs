@@ -1,94 +1,105 @@
-﻿using System;
-using System.Threading.Tasks;
-using DustInTheWind.SignatureManagement.Application;
-using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+﻿using AsyncMediator;
+using DustInTheWind.SignatureManagement.Application.CreateSignature;
+using DustInTheWind.SignatureManagement.Application.ShowSignatures;
+using DustInTheWind.SignatureManagement.Application.SignData;
 
-namespace DustInTheWind.SignatureManagement
+namespace DustInTheWind.SignatureManagement;
+
+internal class CommandLoop
 {
-    internal class CommandLoop
+    private readonly IMediator mediator;
+
+    public event EventHandler Closed;
+
+    public CommandLoop(IMediator mediator)
     {
-        public event EventHandler Closed;
+        this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+    }
 
-        public Task RunAsync()
+    public async Task RunAsync()
+    {
+        while (true)
         {
-            return Task.Run(() => Run());
-        }
+            ShowMenu();
 
-        public void Run()
-        {
-            while (true)
+            string command = Console.ReadLine()?.Trim().ToLowerInvariant();
+            Console.WriteLine();
+
+            try
             {
-                ShowMenu();
-                string command = Console.ReadLine()?.Trim().ToLowerInvariant();
-                Console.WriteLine();
-
-                bool flowControl = ProcessCommand(command);
+                bool flowControl = await ProcessCommand(command);
                 if (!flowControl)
-                    return;
-            }
-        }
-
-        private static void ShowMenu()
-        {
-            Console.WriteLine("Available Commands:");
-            Console.WriteLine("1. Create Signature");
-            Console.WriteLine("2. Show Signatures");
-            Console.WriteLine("3. Sign Data");
-            Console.WriteLine("0. Exit");
-            Console.Write("\nEnter command (number or name): ");
-        }
-
-        private bool ProcessCommand(string command)
-        {
-            switch (command)
-            {
-                case "1":
-                case "create":
-                case "create signature":
-                    {
-                        ISignatureRepository signatureRepository = new SignatureRepository();
-                        CreateSignatureUseCase createSignatureUseCase = new CreateSignatureUseCase(signatureRepository);
-                        createSignatureUseCase.Execute();
-                        break;
-                    }
-
-                case "2":
-                case "show":
-                case "show signatures":
-                    {
-                        SignatureRepository signatureRepository = new SignatureRepository();
-                        ShowSignaturesUseCase showSignaturesUseCase = new ShowSignaturesUseCase(signatureRepository);
-                        showSignaturesUseCase.Execute();
-                        break;
-                    }
-
-                case "3":
-                case "sign":
-                    {
-                        SignatureRepository signatureRepository = new SignatureRepository();
-                        SignDataUseCase signDataUseCase = new SignDataUseCase(signatureRepository);
-                        signDataUseCase.Execute();
-                        break;
-                    }
-
-                case "0":
-                case "exit":
-                case "quit":
-                    Console.WriteLine("Goodbye!");
+                {
                     OnClosed();
-                    return false;
-
-                default:
-                    Console.WriteLine("Invalid command. Please try again.\n");
-                    break;
+                    return;
+                }
             }
-
-            return true;
+            catch (Exception ex)
+            {
+                ConsoleColor oldColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Error: {ex.Message}\n");
+                Console.ForegroundColor = oldColor;
+            }
         }
+    }
 
-        protected virtual void OnClosed()
+    private static void ShowMenu()
+    {
+        Console.WriteLine("Available Commands:");
+        Console.WriteLine("1. Create Signature");
+        Console.WriteLine("2. Show Signatures");
+        Console.WriteLine("3. Sign Data");
+        Console.WriteLine("0. Exit");
+        Console.Write("\nEnter command (number or name): ");
+    }
+
+    private async Task<bool> ProcessCommand(string cliCommand)
+    {
+        switch (cliCommand)
         {
-            Closed?.Invoke(this, EventArgs.Empty);
+            case "1":
+            case "create":
+            case "create signature":
+                {
+                    CreateSignatureCommand command = new CreateSignatureCommand();
+                    await mediator.Send(command).ConfigureAwait(false);
+                    break;
+                }
+
+            case "2":
+            case "show":
+            case "show signatures":
+                {
+                    ShowSignaturesCriteria criteria = new ShowSignaturesCriteria();
+                    await mediator.Query<ShowSignaturesCriteria, object>(criteria).ConfigureAwait(false);
+                    break;
+                }
+
+            case "3":
+            case "sign":
+                {
+                    SignDataCriteria criteria = new SignDataCriteria();
+                    await mediator.Query<SignDataCriteria, SignDataResult>(criteria).ConfigureAwait(false);
+                    break;
+                }
+
+            case "0":
+            case "exit":
+            case "quit":
+                Console.WriteLine("Goodbye!");
+                return false;
+
+            default:
+                Console.WriteLine("Invalid command. Please try again.\n");
+                break;
         }
+
+        return true;
+    }
+
+    protected virtual void OnClosed()
+    {
+        Closed?.Invoke(this, EventArgs.Empty);
     }
 }

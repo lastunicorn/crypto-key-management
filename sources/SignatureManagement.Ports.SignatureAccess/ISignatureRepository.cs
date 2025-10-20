@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Org.BouncyCastle.Crypto.Parameters;
+﻿using Org.BouncyCastle.Crypto.Parameters;
 
-namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess
+namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+
+public interface ISignatureRepository
 {
-    public interface ISignatureRepository
-    {
-        List<SignatureKeyInfo> GetAvailableSignatures();
+    List<SignatureKeyInfo> GetAvailableSignatures();
 
-        void SaveSignatureKey(Guid signatureId, Ed25519PrivateKeyParameters privateKey, Ed25519PublicKeyParameters publicKey, out string privateKeyPath, out string publicKeyPath);
-    }
+    void SaveSignatureKey(Guid signatureId, Ed25519PrivateKeyParameters privateKey, Ed25519PublicKeyParameters publicKey, out string privateKeyPath, out string publicKeyPath);
 }

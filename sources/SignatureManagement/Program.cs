@@ -1,32 +1,33 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using AsyncMediator.Extensions.DependencyInjection;
+using DustInTheWind.SignatureManagement.Application.CreateSignature;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace DustInTheWind.SignatureManagement
-{
-    internal static class Program
-    {
-        private static Task Main(string[] args)
-        {
-            Console.WriteLine("Ed25519 Signature Management Tool");
-            Console.WriteLine("=================================\n");
+namespace DustInTheWind.SignatureManagement;
 
-            return Host.CreateDefaultBuilder(args)
-                .ConfigureServices(services =>
-                {
-                    services.AddHostedService<HostedService>();
-                    
-                    services.AddTransient<ISignatureRepository, SignatureRepository>();
-                    services.AddSingleton<CommandLoop>();
-                })
-                .ConfigureLogging(logging =>
-                {
-                    logging.ClearProviders();
-                })
-                .RunConsoleAsync();
-        }
+internal static class Program
+{
+    private static Task Main(string[] args)
+    {
+        Console.WriteLine("Ed25519 Signature Management Tool");
+        Console.WriteLine("=================================\n");
+
+        return Host.CreateDefaultBuilder(args)
+            .ConfigureServices(services =>
+            {
+                services.AddHostedService<HostedService>();
+                
+                services.AddTransient<ISignatureRepository, SignatureRepository>();
+                services.AddSingleton<CommandLoop>();
+
+                services.AddAsyncMediator(typeof(CreateSignatureCommand).Assembly);
+            })
+            .ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+            })
+            .RunConsoleAsync();
     }
 }

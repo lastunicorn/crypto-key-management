@@ -2,16 +2,18 @@
 
     <PropertyGroup>
         <TargetFramework>net48</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
         <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_").Replace("-", "_"))</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AsyncMediator" Version="2.1.0" />
+        <PackageReference Include="AsyncMediator" Version="2.1.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" />
+        <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" />
     </ItemGroup>
 
 </Project>

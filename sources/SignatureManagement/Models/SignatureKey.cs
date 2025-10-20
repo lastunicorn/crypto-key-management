@@ -1,13 +1,10 @@
-﻿using System;
+﻿namespace DustInTheWind.SignatureManagement.Models;
 
-namespace DustInTheWind.SignatureManagement.Models
+internal class SignatureKey
 {
-    internal class SignatureKey
-    {
-        public Guid Id { get; set; }
+    public Guid Id { get; set; }
 
-        public string PrivateKey { get; set; }
+    public string PrivateKey { get; set; }
 
-        public string PublicKey { get; set; }
-    }
+    public string PublicKey { get; set; }
 }
