@@ -6,5 +6,7 @@ public interface ISignatureRepository
 {
     List<SignatureKeyInfo> GetAvailableSignatures();
 
-    Guid SaveSignatureKey(Ed25519PrivateKeyParameters privateKey, Ed25519PublicKeyParameters publicKey, out string privateKeyPath, out string publicKeyPath);
+    SignatureKeyInfo GetSignatureById(Guid id);
+
+    Guid SaveSignatureKey(Ed25519PrivateKeyParameters privateKey, Ed25519PublicKeyParameters publicKey);
 }

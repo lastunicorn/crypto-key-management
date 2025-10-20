@@ -28,14 +28,17 @@ internal class CreateSignatureUseCase : ICommandHandler<CreateSignatureCommand>
         Ed25519PrivateKeyParameters privateKey = (Ed25519PrivateKeyParameters)keyPair.Private;
         Ed25519PublicKeyParameters publicKey = (Ed25519PublicKeyParameters)keyPair.Public;
 
-        Guid signatureId = signatureRepository.SaveSignatureKey(privateKey, publicKey, out string privateKeyPath, out string publicKeyPath);
+        Guid signatureId = signatureRepository.SaveSignatureKey(privateKey, publicKey);
+
+        // Retrieve the saved signature to get file paths
+        SignatureKeyInfo savedSignature = signatureRepository.GetSignatureById(signatureId);
 
         Console.WriteLine($"✓ Signature created successfully!");
         Console.WriteLine($"  Signature ID: {signatureId}");
-        Console.WriteLine($"  Private Key saved to: {privateKeyPath}");
-        Console.WriteLine($"  Public Key saved to: {publicKeyPath}");
-        Console.WriteLine($"  Private Key Length: {privateKey.GetEncoded().Length} bytes");
-        Console.WriteLine($"  Public Key Length: {publicKey.GetEncoded().Length} bytes\n");
+        Console.WriteLine($"  Private Key saved to: {savedSignature.PrivateKeyPath}");
+        Console.WriteLine($"  Public Key saved to: {savedSignature.PublicKeyPath}");
+        Console.WriteLine($"  Private Key Length: {savedSignature.PrivateKey.Length} bytes");
+        Console.WriteLine($"  Public Key Length: {savedSignature.PublicKey.Length} bytes\n");
 
         ICommandWorkflowResult result = CommandWorkflowResult.Ok();
         return Task.FromResult(result);

@@ -30,10 +30,10 @@ internal class ShowSignaturesUseCase : IQuery<ShowSignaturesCriteria, object>
             Console.WriteLine($"ID: {signature.Id}");
 
             Console.WriteLine($"  Private Key Path: {signature.PrivateKeyPath}");
-            Console.WriteLine($"  Private Key Value: {signature.PrivateKey}");
+            Console.WriteLine($"  Private Key Value: {Convert.ToBase64String(signature.PrivateKey)}");
 
             Console.WriteLine($"  Public Key Path: {signature.PublicKeyPath}");
-            Console.WriteLine($"  Public Key Value: {signature.PublicKey}");
+            Console.WriteLine($"  Public Key Value: {Convert.ToBase64String(signature.PublicKey)}");
 
             Console.WriteLine($"  Created: {File.GetCreationTime(signature.PrivateKeyPath):yyyy-MM-dd HH:mm:ss}");
             Console.WriteLine();

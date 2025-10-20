@@ -16,7 +16,7 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResult>
 
     public Task<SignDataResult> Query(SignDataCriteria criteria)
     {
-        var signatures = signatureRepository.GetAvailableSignatures();
+        List<SignatureKeyInfo> signatures = signatureRepository.GetAvailableSignatures();
 
         if (!signatures.Any())
             throw new NoSignaturesException();
@@ -33,7 +33,7 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResult>
         if (!Guid.TryParse(signatureIdInput, out Guid signatureId))
             throw new InvalidSignatureIdException(signatureIdInput);
 
-        var selectedSignature = signatures.FirstOrDefault(s => s.Id == signatureId);
+        SignatureKeyInfo selectedSignature = signatures.FirstOrDefault(s => s.Id == signatureId);
         if (selectedSignature == null)
             throw new InvalidSignatureIdException(signatureIdInput);
 
@@ -45,27 +45,20 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResult>
             throw new NoDataToSignException();
 
         // Load private key
-        string privateKeyBase64 = File.ReadAllText(selectedSignature.PrivateKeyPath);
-        byte[] privateKeyBytes = Convert.FromBase64String(privateKeyBase64);
-        Ed25519PrivateKeyParameters privateKey = new Ed25519PrivateKeyParameters(privateKeyBytes, 0);
+        Ed25519PrivateKeyParameters privateKey = new(selectedSignature.PrivateKey, 0);
 
         // Sign the data
         byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes(dataToSign);
-        Ed25519Signer signer = new Ed25519Signer();
+        Ed25519Signer signer = new();
         signer.Init(true, privateKey);
         signer.BlockUpdate(messageBytes, 0, messageBytes.Length);
         byte[] signature = signer.GenerateSignature();
 
-        Console.WriteLine("\n✓ Data signed successfully!");
-        Console.WriteLine($"Original Data: {dataToSign}");
-        Console.WriteLine($"Signature ID: {signatureId}");
-        Console.WriteLine($"Signed Data (Base64): {Convert.ToBase64String(signature)}\n");
-
-        SignDataResult result = new SignDataResult
+        SignDataResult result = new()
         {
             SignatureId = signatureId,
             OriginalData = dataToSign,
-            SignedDataBase64 = Convert.ToBase64String(signature)
+            Signature = signature
         };
 
         return Task.FromResult(result);

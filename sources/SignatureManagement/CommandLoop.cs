@@ -2,6 +2,7 @@
 using DustInTheWind.SignatureManagement.Application.CreateSignature;
 using DustInTheWind.SignatureManagement.Application.ShowSignatures;
 using DustInTheWind.SignatureManagement.Application.SignData;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace DustInTheWind.SignatureManagement;
 
@@ -62,8 +63,10 @@ internal class CommandLoop
             case "create":
             case "create signature":
                 {
-                    CreateSignatureCommand command = new CreateSignatureCommand();
-                    await mediator.Send(command).ConfigureAwait(false);
+                    CreateSignatureCommand command = new();
+                    await mediator.Send(command)
+                        .ConfigureAwait(false);
+
                     break;
                 }
 
@@ -71,16 +74,24 @@ internal class CommandLoop
             case "show":
             case "show signatures":
                 {
-                    ShowSignaturesCriteria criteria = new ShowSignaturesCriteria();
-                    await mediator.Query<ShowSignaturesCriteria, object>(criteria).ConfigureAwait(false);
+                    ShowSignaturesCriteria criteria = new();
+                    await mediator.Query<ShowSignaturesCriteria, object>(criteria)
+                        .ConfigureAwait(false);
                     break;
                 }
 
             case "3":
             case "sign":
                 {
-                    SignDataCriteria criteria = new SignDataCriteria();
-                    await mediator.Query<SignDataCriteria, SignDataResult>(criteria).ConfigureAwait(false);
+                    SignDataCriteria criteria = new();
+                    SignDataResult result = await mediator.Query<SignDataCriteria, SignDataResult>(criteria)
+                        .ConfigureAwait(false);
+
+                    Console.WriteLine("\n✓ Data signed successfully!");
+                    Console.WriteLine($"Original Data: {result.OriginalData}");
+                    Console.WriteLine($"Signature ID: {result.SignatureId}");
+                    Console.WriteLine($"Signed Data (Base64): {Convert.ToBase64String(result.Signature)}\n");
+
                     break;
                 }
 
