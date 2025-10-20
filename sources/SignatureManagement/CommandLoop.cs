@@ -2,7 +2,6 @@
 using DustInTheWind.SignatureManagement.Application.CreateSignature;
 using DustInTheWind.SignatureManagement.Application.ShowSignatures;
 using DustInTheWind.SignatureManagement.Application.SignData;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace DustInTheWind.SignatureManagement;
 

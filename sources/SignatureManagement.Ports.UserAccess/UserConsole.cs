@@ -16,7 +16,7 @@ public class UserConsole : IUserConsole
             Console.WriteLine($"- {signature.Id} ({signature.CreatedDate:yyyy-MM-dd HH:mm:ss})");
     }
 
-    public Guid? GetSignatureId()
+    public Guid? AskSignatureId()
     {
         Console.Write("\nEnter Signature ID (GUID): ");
         string rawValue = Console.ReadLine()?.Trim();

@@ -68,7 +68,7 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 
     private SignatureKeyInfo AskForSignatureToUse(List<SignatureKeyInfo> signatures)
     {
-        Guid? signatureId = userConsole.GetSignatureId();
+        Guid? signatureId = userConsole.AskSignatureId();
 
         if (!signatureId.HasValue)
             throw new InvalidSignatureIdException("Invalid GUID format");
