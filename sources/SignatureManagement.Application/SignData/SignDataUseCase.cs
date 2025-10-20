@@ -58,7 +58,6 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
         SignDataResponse result = new()
         {
             SignatureId = signatureId,
-            OriginalData = dataToSign,
             Signature = signature
         };
 

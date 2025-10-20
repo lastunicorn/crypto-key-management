@@ -23,8 +23,8 @@ internal sealed class HostedService : IHostedService
                     hostApplicationLifetime.StopApplication();
                 };
 
-                commandLoop.RunAsync();
-                
+                _ = commandLoop.RunAsync();
+
             });
 
         return Task.CompletedTask;

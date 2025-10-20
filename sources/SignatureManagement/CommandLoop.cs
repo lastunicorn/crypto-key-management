@@ -97,9 +97,8 @@ internal class CommandLoop
                         .ConfigureAwait(false);
 
                     Console.WriteLine("\n✓ Data signed successfully!");
-                    Console.WriteLine($"Original Data: {response.OriginalData}");
-                    Console.WriteLine($"Signature ID: {response.SignatureId}");
-                    Console.WriteLine($"Signed Data (Base64): {Convert.ToBase64String(response.Signature)}\n");
+                    Console.WriteLine($"Signature key ID: {response.SignatureId}");
+                    Console.WriteLine($"Signature (Base64): {Convert.ToBase64String(response.Signature)}\n");
 
                     break;
                 }
