@@ -19,7 +19,8 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 
     public Task<SignDataResponse> Query(SignDataCriteria criteria)
     {
-        List<SignatureKeyInfo> signatures = signatureRepository.GetAvailableSignatures().ToList();
+        List<SignatureKeyInfo> signatures = signatureRepository.GetAll()
+            .ToList();
 
         if (!signatures.Any())
             throw new NoSignaturesException();
@@ -66,13 +67,13 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 
     private void DisplaySignatures(List<SignatureKeyInfo> signatures)
     {
-        IEnumerable<SignatureInfo> signatureInfos = signatures
-            .Select(x => new SignatureInfo
+        IEnumerable<SignatureSummary> signatureSummaries = signatures
+            .Select(x => new SignatureSummary
             {
                 Id = x.Id,
                 CreatedDate = x.CreatedDate
             });
 
-        userConsole.DisplaySignatures(signatureInfos);
+        userConsole.DisplaySignatures(signatureSummaries);
     }
 }

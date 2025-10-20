@@ -2,5 +2,5 @@
 
 public interface IUserConsole
 {
-    void DisplaySignatures(IEnumerable<SignatureInfo> signatures);
+    void DisplaySignatures(IEnumerable<SignatureSummary> signatures);
 }

@@ -17,7 +17,8 @@ internal class ShowSignaturesUseCase : IQuery<ShowSignaturesCriteria, object>
         Console.WriteLine("Existing Signatures:");
         Console.WriteLine("===================");
 
-        List<SignatureKeyInfo> signatures = signatureRepository.GetAvailableSignatures().ToList();
+        List<SignatureKeyInfo> signatures = signatureRepository.GetAll()
+            .ToList();
 
         if (!signatures.Any())
         {

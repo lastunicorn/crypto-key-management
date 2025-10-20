@@ -6,7 +6,7 @@ public class SignatureRepository : ISignatureRepository
 {
     private const string SignaturesDirectory = "signatures";
 
-    public IEnumerable<SignatureKeyInfo> GetAvailableSignatures()
+    public IEnumerable<SignatureKeyInfo> GetAll()
     {
         EnsureSignaturesDirectoryExists();
 
