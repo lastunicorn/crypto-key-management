@@ -25,13 +25,10 @@ internal class CreateSignatureUseCase : ICommandHandler<CreateSignatureCommand>
         keyPairGenerator.Init(new Ed25519KeyGenerationParameters(new SecureRandom()));
         AsymmetricCipherKeyPair keyPair = keyPairGenerator.GenerateKeyPair();
 
-        // Generate GUID for this signature
-        Guid signatureId = Guid.NewGuid();
-
         Ed25519PrivateKeyParameters privateKey = (Ed25519PrivateKeyParameters)keyPair.Private;
         Ed25519PublicKeyParameters publicKey = (Ed25519PublicKeyParameters)keyPair.Public;
 
-        signatureRepository.SaveSignatureKey(signatureId, privateKey, publicKey, out string privateKeyPath, out string publicKeyPath);
+        Guid signatureId = signatureRepository.SaveSignatureKey(privateKey, publicKey, out string privateKeyPath, out string publicKeyPath);
 
         Console.WriteLine($"✓ Signature created successfully!");
         Console.WriteLine($"  Signature ID: {signatureId}");

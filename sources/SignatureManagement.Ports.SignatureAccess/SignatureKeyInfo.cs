@@ -7,4 +7,8 @@ public class SignatureKeyInfo
     public string PrivateKeyPath { get; set; }
 
     public string PublicKeyPath { get; set; }
+
+    public string PrivateKey { get; set; }
+
+    public string PublicKey { get; set; }
 }

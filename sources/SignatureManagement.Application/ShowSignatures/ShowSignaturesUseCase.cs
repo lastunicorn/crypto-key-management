@@ -17,7 +17,7 @@ internal class ShowSignaturesUseCase : IQuery<ShowSignaturesCriteria, object>
         Console.WriteLine("Existing Signatures:");
         Console.WriteLine("===================");
 
-        var signatures = signatureRepository.GetAvailableSignatures();
+        List<SignatureKeyInfo> signatures = signatureRepository.GetAvailableSignatures();
 
         if (!signatures.Any())
         {
@@ -25,11 +25,16 @@ internal class ShowSignaturesUseCase : IQuery<ShowSignaturesCriteria, object>
             return Task.FromResult((object)null);
         }
 
-        foreach (var signature in signatures)
+        foreach (SignatureKeyInfo signature in signatures)
         {
             Console.WriteLine($"ID: {signature.Id}");
-            Console.WriteLine($"  Private Key: {signature.PrivateKeyPath}");
-            Console.WriteLine($"  Public Key: {signature.PublicKeyPath}");
+
+            Console.WriteLine($"  Private Key Path: {signature.PrivateKeyPath}");
+            Console.WriteLine($"  Private Key Value: {signature.PrivateKey}");
+
+            Console.WriteLine($"  Public Key Path: {signature.PublicKeyPath}");
+            Console.WriteLine($"  Public Key Value: {signature.PublicKey}");
+
             Console.WriteLine($"  Created: {File.GetCreationTime(signature.PrivateKeyPath):yyyy-MM-dd HH:mm:ss}");
             Console.WriteLine();
         }
