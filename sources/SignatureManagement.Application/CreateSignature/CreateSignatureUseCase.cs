@@ -21,7 +21,7 @@ internal class CreateSignatureUseCase : ICommandHandler<CreateSignatureCommand>
         Console.WriteLine("Creating new Ed25519 key pair...");
 
         // Generate new key pair
-        Ed25519KeyPairGenerator keyPairGenerator = new Ed25519KeyPairGenerator();
+        Ed25519KeyPairGenerator keyPairGenerator = new();
         keyPairGenerator.Init(new Ed25519KeyGenerationParameters(new SecureRandom()));
         AsymmetricCipherKeyPair keyPair = keyPairGenerator.GenerateKeyPair();
 
@@ -33,14 +33,16 @@ internal class CreateSignatureUseCase : ICommandHandler<CreateSignatureCommand>
         // Retrieve the saved signature to get file paths
         SignatureKeyInfo savedSignature = signatureRepository.GetSignatureById(signatureId);
 
-        Console.WriteLine($"✓ Signature created successfully!");
-        Console.WriteLine($"  Signature ID: {signatureId}");
-        Console.WriteLine($"  Private Key saved to: {savedSignature.PrivateKeyPath}");
-        Console.WriteLine($"  Public Key saved to: {savedSignature.PublicKeyPath}");
-        Console.WriteLine($"  Private Key Length: {savedSignature.PrivateKey.Length} bytes");
-        Console.WriteLine($"  Public Key Length: {savedSignature.PublicKey.Length} bytes\n");
+        CreateSignatureResponse response = new()
+        {
+            KeyId = signatureId,
+            PrivateKeyPath = savedSignature.PrivateKeyPath,
+            PublicKeyPath = savedSignature.PublicKeyPath,
+            PrivateKey = savedSignature.PrivateKey,
+            PublicKey = savedSignature.PublicKey
+        };
 
-        ICommandWorkflowResult result = CommandWorkflowResult.Ok();
+        ICommandWorkflowResult result = new CommandWorkflowResult<CreateSignatureResponse>(response);
         return Task.FromResult(result);
     }
 }

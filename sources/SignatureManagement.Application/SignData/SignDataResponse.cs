@@ -1,7 +1,7 @@
 ﻿
 namespace DustInTheWind.SignatureManagement.Application.SignData;
 
-public class SignDataResult
+public class SignDataResponse
 {
     public Guid SignatureId { get; internal set; }
 

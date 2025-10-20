@@ -64,8 +64,17 @@ internal class CommandLoop
             case "create signature":
                 {
                     CreateSignatureCommand command = new();
-                    await mediator.Send(command)
+                    ICommandWorkflowResult result = await mediator.Send(command)
                         .ConfigureAwait(false);
+
+                    CreateSignatureResponse response = result.Result<CreateSignatureResponse>();
+
+                    Console.WriteLine($"✓ Signature created successfully!");
+                    Console.WriteLine($"  Signature ID: {response.KeyId}");
+                    Console.WriteLine($"  Private Key saved to: {response.PrivateKeyPath}");
+                    Console.WriteLine($"  Public Key saved to: {response.PublicKeyPath}");
+                    Console.WriteLine($"  Private Key Length: {response.PrivateKey.Length} bytes");
+                    Console.WriteLine($"  Public Key Length: {response.PublicKey.Length} bytes\n");
 
                     break;
                 }
@@ -84,13 +93,13 @@ internal class CommandLoop
             case "sign":
                 {
                     SignDataCriteria criteria = new();
-                    SignDataResult result = await mediator.Query<SignDataCriteria, SignDataResult>(criteria)
+                    SignDataResponse response = await mediator.Query<SignDataCriteria, SignDataResponse>(criteria)
                         .ConfigureAwait(false);
 
                     Console.WriteLine("\n✓ Data signed successfully!");
-                    Console.WriteLine($"Original Data: {result.OriginalData}");
-                    Console.WriteLine($"Signature ID: {result.SignatureId}");
-                    Console.WriteLine($"Signed Data (Base64): {Convert.ToBase64String(result.Signature)}\n");
+                    Console.WriteLine($"Original Data: {response.OriginalData}");
+                    Console.WriteLine($"Signature ID: {response.SignatureId}");
+                    Console.WriteLine($"Signed Data (Base64): {Convert.ToBase64String(response.Signature)}\n");
 
                     break;
                 }

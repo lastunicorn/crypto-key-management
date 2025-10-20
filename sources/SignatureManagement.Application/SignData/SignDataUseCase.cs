@@ -5,7 +5,7 @@ using Org.BouncyCastle.Crypto.Signers;
 
 namespace DustInTheWind.SignatureManagement.Application.SignData;
 
-internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResult>
+internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 {
     private readonly ISignatureRepository signatureRepository;
 
@@ -14,7 +14,7 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResult>
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
     }
 
-    public Task<SignDataResult> Query(SignDataCriteria criteria)
+    public Task<SignDataResponse> Query(SignDataCriteria criteria)
     {
         List<SignatureKeyInfo> signatures = signatureRepository.GetAvailableSignatures();
 
@@ -54,7 +54,7 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResult>
         signer.BlockUpdate(messageBytes, 0, messageBytes.Length);
         byte[] signature = signer.GenerateSignature();
 
-        SignDataResult result = new()
+        SignDataResponse result = new()
         {
             SignatureId = signatureId,
             OriginalData = dataToSign,
