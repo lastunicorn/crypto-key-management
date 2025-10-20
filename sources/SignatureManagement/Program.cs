@@ -1,4 +1,5 @@
-﻿using AsyncMediator.Extensions.DependencyInjection;
+﻿using System.Reflection;
+using AsyncMediator.Extensions.DependencyInjection;
 using DustInTheWind.SignatureManagement.Application.CreateSignature;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using DustInTheWind.SignatureManagement.Ports.UserAccess;
@@ -12,7 +13,9 @@ internal static class Program
 {
     private static Task Main(string[] args)
     {
-        Console.WriteLine("Ed25519 Signature Management Tool");
+        Version version = Assembly.GetEntryAssembly().GetName().Version ?? new Version(0, 0, 0, 0);
+
+        Console.WriteLine("Signature Management Tool - " + version.ToString(3));
         Console.WriteLine("=================================\n");
 
         return Host.CreateDefaultBuilder(args)

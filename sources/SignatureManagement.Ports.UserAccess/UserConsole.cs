@@ -4,8 +4,7 @@ public class UserConsole : IUserConsole
 {
     public void DisplaySignatures(IEnumerable<SignatureSummary> signatures)
     {
-        Console.WriteLine("Existing Signatures:");
-        Console.WriteLine("===================");
+        Console.WriteLine("Signatures:");
 
         if (!signatures.Any())
         {
@@ -14,11 +13,7 @@ public class UserConsole : IUserConsole
         }
 
         foreach (SignatureSummary signature in signatures)
-        {
-            Console.WriteLine($"ID: {signature.Id}");
-            Console.WriteLine($"  Created: {signature.CreatedDate:yyyy-MM-dd HH:mm:ss}");
-            Console.WriteLine();
-        }
+            Console.WriteLine($"- {signature.Id} ({signature.CreatedDate:yyyy-MM-dd HH:mm:ss})");
     }
 
     public Guid? GetSignatureId()

@@ -14,8 +14,7 @@ internal class ShowSignaturesUseCase : IQuery<ShowSignaturesCriteria, object>
 
     public Task<object> Query(ShowSignaturesCriteria criteria)
     {
-        Console.WriteLine("Existing Signatures:");
-        Console.WriteLine("===================");
+        Console.WriteLine("Signatures:");
 
         List<SignatureKeyInfo> signatures = signatureRepository.GetAll()
             .ToList();

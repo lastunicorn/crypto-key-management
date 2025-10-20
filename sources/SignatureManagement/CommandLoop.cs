@@ -37,17 +37,23 @@ internal class CommandLoop
             }
             catch (Exception ex)
             {
-                ConsoleColor oldColor = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Error: {ex.Message}\n");
-                Console.ForegroundColor = oldColor;
+                WriteLineColor(ConsoleColor.Red, $"Error: {ex.Message}\n");
             }
         }
     }
 
+    private void WriteLineColor(ConsoleColor foregroundColor, string text)
+    {
+        ConsoleColor oldColor = Console.ForegroundColor;
+        Console.ForegroundColor = foregroundColor;
+        Console.WriteLine(text);
+        Console.ForegroundColor = oldColor;
+    }
+
     private static void ShowMenu()
     {
-        Console.WriteLine("Available Commands:");
+        Console.WriteLine("Available Commands");
+        Console.WriteLine("------------------");
         Console.WriteLine("1. Create Signature");
         Console.WriteLine("2. Show Signatures");
         Console.WriteLine("3. Sign Data");
@@ -69,7 +75,7 @@ internal class CommandLoop
 
                     CreateSignatureResponse response = result.Result<CreateSignatureResponse>();
 
-                    Console.WriteLine($"✓ Signature created successfully!");
+                    WriteLineColor(ConsoleColor.Green, "✓ Signature created successfully!");
                     Console.WriteLine($"  Signature ID: {response.KeyId}");
                     Console.WriteLine($"  Private Key saved to: {response.PrivateKeyPath}");
                     Console.WriteLine($"  Public Key saved to: {response.PublicKeyPath}");
@@ -96,8 +102,7 @@ internal class CommandLoop
                     SignDataResponse response = await mediator.Query<SignDataCriteria, SignDataResponse>(criteria)
                         .ConfigureAwait(false);
 
-                    Console.WriteLine("\n✓ Data signed successfully!");
-                    Console.WriteLine($"Signature key ID: {response.SignatureId}");
+                    WriteLineColor(ConsoleColor.Green, "\n✓ Data signed successfully!");
                     Console.WriteLine($"Signature (Base64): {Convert.ToBase64String(response.Signature)}\n");
 
                     break;
