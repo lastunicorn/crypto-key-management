@@ -6,7 +6,7 @@ public class SignatureRepository : ISignatureRepository
 {
     private const string SignaturesDirectory = "signatures";
 
-    public List<SignatureKeyInfo> GetAvailableSignatures()
+    public IEnumerable<SignatureKeyInfo> GetAvailableSignatures()
     {
         EnsureSignaturesDirectoryExists();
 
@@ -17,24 +17,25 @@ public class SignatureRepository : ISignatureRepository
 
         var privateKeyFiles = Directory.GetFiles(SignaturesDirectory, "*_private.key");
 
-        foreach (var privateKeyFilePath in privateKeyFiles)
+        foreach (var privateKeyPath in privateKeyFiles)
         {
-            string fileName = Path.GetFileNameWithoutExtension(privateKeyFilePath);
+            string fileName = Path.GetFileNameWithoutExtension(privateKeyPath);
             string guidPart = fileName.Replace("_private", "");
 
             if (Guid.TryParse(guidPart, out Guid id))
             {
-                string publicKeyFilePath = Path.Combine(SignaturesDirectory, $"{id}_public.key");
+                string publicKeyPath = Path.Combine(SignaturesDirectory, $"{id}_public.key");
 
-                if (File.Exists(publicKeyFilePath))
+                if (File.Exists(publicKeyPath))
                 {
                     signatures.Add(new SignatureKeyInfo
                     {
                         Id = id,
-                        PrivateKeyPath = privateKeyFilePath,
-                        PrivateKey = Convert.FromBase64String(File.ReadAllText(privateKeyFilePath)),
-                        PublicKeyPath = publicKeyFilePath,
-                        PublicKey = Convert.FromBase64String(File.ReadAllText(publicKeyFilePath))
+                        PrivateKeyPath = privateKeyPath,
+                        PrivateKey = Convert.FromBase64String(File.ReadAllText(privateKeyPath)),
+                        PublicKeyPath = publicKeyPath,
+                        PublicKey = Convert.FromBase64String(File.ReadAllText(publicKeyPath)),
+                        CreatedDate = File.GetCreationTime(privateKeyPath)
                     });
                 }
             }
@@ -61,7 +62,8 @@ public class SignatureRepository : ISignatureRepository
             PrivateKeyPath = privateKeyPath,
             PrivateKey = Convert.FromBase64String(File.ReadAllText(privateKeyPath)),
             PublicKeyPath = publicKeyPath,
-            PublicKey = Convert.FromBase64String(File.ReadAllText(publicKeyPath))
+            PublicKey = Convert.FromBase64String(File.ReadAllText(publicKeyPath)),
+            CreatedDate = File.GetCreationTime(privateKeyPath)
         };
     }
 

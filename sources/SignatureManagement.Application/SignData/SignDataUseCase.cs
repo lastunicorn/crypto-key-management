@@ -1,5 +1,6 @@
 ﻿using AsyncMediator;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+using DustInTheWind.SignatureManagement.Ports.UserAccess;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Crypto.Signers;
 
@@ -8,23 +9,22 @@ namespace DustInTheWind.SignatureManagement.Application.SignData;
 internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 {
     private readonly ISignatureRepository signatureRepository;
+    private readonly IUserConsole userConsole;
 
-    public SignDataUseCase(ISignatureRepository signatureRepository)
+    public SignDataUseCase(ISignatureRepository signatureRepository, IUserConsole userConsole)
     {
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
+        this.userConsole = userConsole ?? throw new ArgumentNullException(nameof(userConsole));
     }
 
     public Task<SignDataResponse> Query(SignDataCriteria criteria)
     {
-        List<SignatureKeyInfo> signatures = signatureRepository.GetAvailableSignatures();
+        List<SignatureKeyInfo> signatures = signatureRepository.GetAvailableSignatures().ToList();
 
         if (!signatures.Any())
             throw new NoSignaturesException();
 
-        // Show available signatures
-        Console.WriteLine("Available Signatures:");
-        foreach (var sig in signatures)
-            Console.WriteLine($"- {sig.Id}");
+        DisplaySignatures(signatures);
 
         // Get signature ID from user
         Console.Write("\nEnter Signature ID (GUID): ");
@@ -62,5 +62,17 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
         };
 
         return Task.FromResult(result);
+    }
+
+    private void DisplaySignatures(List<SignatureKeyInfo> signatures)
+    {
+        IEnumerable<SignatureInfo> signatureInfos = signatures
+            .Select(x => new SignatureInfo
+            {
+                Id = x.Id,
+                CreatedDate = x.CreatedDate
+            });
+
+        userConsole.DisplaySignatures(signatureInfos);
     }
 }

@@ -11,4 +11,6 @@ public class SignatureKeyInfo
     public byte[] PrivateKey { get; set; }
 
     public byte[] PublicKey { get; set; }
+
+    public DateTime CreatedDate { get; set; }
 }

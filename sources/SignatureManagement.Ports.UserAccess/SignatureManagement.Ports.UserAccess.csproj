@@ -8,13 +8,4 @@
         <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_").Replace("-", "_"))</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="AsyncMediator" Version="2.1.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" />
-        <ProjectReference Include="..\SignatureManagement.Ports.UserAccess\SignatureManagement.Ports.UserAccess.csproj" />
-    </ItemGroup>
-
 </Project>

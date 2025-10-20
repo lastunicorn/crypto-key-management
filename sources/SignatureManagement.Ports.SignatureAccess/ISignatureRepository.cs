@@ -4,7 +4,7 @@ namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
 public interface ISignatureRepository
 {
-    List<SignatureKeyInfo> GetAvailableSignatures();
+    IEnumerable<SignatureKeyInfo> GetAvailableSignatures();
 
     SignatureKeyInfo GetSignatureById(Guid id);
 

@@ -1,6 +1,7 @@
 ﻿using AsyncMediator.Extensions.DependencyInjection;
 using DustInTheWind.SignatureManagement.Application.CreateSignature;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+using DustInTheWind.SignatureManagement.Ports.UserAccess;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -20,7 +21,9 @@ internal static class Program
                 services.AddHostedService<HostedService>();
                 
                 services.AddTransient<ISignatureRepository, SignatureRepository>();
+                
                 services.AddSingleton<CommandLoop>();
+                services.AddScoped<IUserConsole, UserConsole>();
 
                 services.AddAsyncMediator(typeof(CreateSignatureCommand).Assembly);
             })
