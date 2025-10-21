@@ -1,6 +1,4 @@
-﻿using Org.BouncyCastle.Crypto.Parameters;
-
-namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+﻿namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
 public class SignatureKeyRepository : ISignatureKeyRepository
 {
@@ -65,17 +63,17 @@ public class SignatureKeyRepository : ISignatureKeyRepository
         };
     }
 
-    public Guid Add(Ed25519PrivateKeyParameters privateKey, Ed25519PublicKeyParameters publicKey)
+    public Guid Add(byte[] privateKey, byte[] publicKey)
     {
         EnsureSignaturesDirectoryExists();
 
         Guid signatureId = Guid.NewGuid();
 
         string privateKeyPath = Path.Combine(SignaturesDirectory, $"{signatureId}_private.key");
-        File.WriteAllText(privateKeyPath, Convert.ToBase64String(privateKey.GetEncoded()));
+        File.WriteAllText(privateKeyPath, Convert.ToBase64String(privateKey));
 
         string publicKeyPath = Path.Combine(SignaturesDirectory, $"{signatureId}_public.key");
-        File.WriteAllText(publicKeyPath, Convert.ToBase64String(publicKey.GetEncoded()));
+        File.WriteAllText(publicKeyPath, Convert.ToBase64String(publicKey));
 
         return signatureId;
     }

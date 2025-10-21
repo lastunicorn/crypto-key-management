@@ -18,31 +18,36 @@ internal class CreateSignatureUseCase : ICommandHandler<CreateSignatureCommand>
 
     public Task<ICommandWorkflowResult> Handle(CreateSignatureCommand command)
     {
-        Console.WriteLine("Creating new Ed25519 key pair...");
-
         // Generate new key pair
-        Ed25519KeyPairGenerator keyPairGenerator = new();
-        keyPairGenerator.Init(new Ed25519KeyGenerationParameters(new SecureRandom()));
-        AsymmetricCipherKeyPair keyPair = keyPairGenerator.GenerateKeyPair();
+        AsymmetricCipherKeyPair keyPair = GenerateNewKeyPair();
 
         Ed25519PrivateKeyParameters privateKey = (Ed25519PrivateKeyParameters)keyPair.Private;
         Ed25519PublicKeyParameters publicKey = (Ed25519PublicKeyParameters)keyPair.Public;
 
-        Guid signatureId = signatureRepository.Add(privateKey, publicKey);
-
-        // Retrieve the saved signature to get file paths
-        SignatureKey savedSignature = signatureRepository.GetById(signatureId);
+        Guid signatureKeyId = signatureRepository.Add(privateKey.GetEncoded(), publicKey.GetEncoded());
+        SignatureKey savedSignatureKey = signatureRepository.GetById(signatureKeyId);
 
         CreateSignatureResponse response = new()
         {
-            KeyId = signatureId,
-            PrivateKeyPath = savedSignature.PrivateKeyPath,
-            PublicKeyPath = savedSignature.PublicKeyPath,
-            PrivateKey = savedSignature.PrivateKey,
-            PublicKey = savedSignature.PublicKey
+            KeyId = signatureKeyId,
+            PrivateKeyPath = savedSignatureKey.PrivateKeyPath,
+            PublicKeyPath = savedSignatureKey.PublicKeyPath,
+            PrivateKey = savedSignatureKey.PrivateKey,
+            PublicKey = savedSignatureKey.PublicKey
         };
 
         ICommandWorkflowResult result = new CommandWorkflowResult<CreateSignatureResponse>(response);
         return Task.FromResult(result);
+    }
+
+    private static AsymmetricCipherKeyPair GenerateNewKeyPair()
+    {
+        Ed25519KeyPairGenerator keyPairGenerator = new();
+
+        SecureRandom secureRandom = new();
+        Ed25519KeyGenerationParameters parameters = new(secureRandom);
+        keyPairGenerator.Init(parameters);
+
+        return keyPairGenerator.GenerateKeyPair();
     }
 }

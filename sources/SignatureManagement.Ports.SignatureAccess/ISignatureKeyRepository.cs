@@ -1,6 +1,4 @@
-﻿using Org.BouncyCastle.Crypto.Parameters;
-
-namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+﻿namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
 public interface ISignatureKeyRepository
 {
@@ -8,5 +6,5 @@ public interface ISignatureKeyRepository
 
     SignatureKey GetById(Guid id);
 
-    Guid Add(Ed25519PrivateKeyParameters privateKey, Ed25519PublicKeyParameters publicKey);
+    Guid Add(byte[] privateKey, byte[] publicKey);
 }
