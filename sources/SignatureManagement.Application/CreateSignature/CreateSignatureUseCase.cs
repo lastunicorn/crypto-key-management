@@ -9,9 +9,9 @@ namespace DustInTheWind.SignatureManagement.Application.CreateSignature;
 
 internal class CreateSignatureUseCase : ICommandHandler<CreateSignatureCommand>
 {
-    private readonly ISignatureRepository signatureRepository;
+    private readonly ISignatureKeyRepository signatureRepository;
 
-    public CreateSignatureUseCase(ISignatureRepository signatureRepository)
+    public CreateSignatureUseCase(ISignatureKeyRepository signatureRepository)
     {
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
     }
@@ -28,10 +28,10 @@ internal class CreateSignatureUseCase : ICommandHandler<CreateSignatureCommand>
         Ed25519PrivateKeyParameters privateKey = (Ed25519PrivateKeyParameters)keyPair.Private;
         Ed25519PublicKeyParameters publicKey = (Ed25519PublicKeyParameters)keyPair.Public;
 
-        Guid signatureId = signatureRepository.SaveSignatureKey(privateKey, publicKey);
+        Guid signatureId = signatureRepository.Add(privateKey, publicKey);
 
         // Retrieve the saved signature to get file paths
-        SignatureKeyInfo savedSignature = signatureRepository.GetSignatureById(signatureId);
+        SignatureKey savedSignature = signatureRepository.GetById(signatureId);
 
         CreateSignatureResponse response = new()
         {

@@ -23,7 +23,7 @@ internal static class Program
             {
                 services.AddHostedService<HostedService>();
                 
-                services.AddTransient<ISignatureRepository, SignatureRepository>();
+                services.AddTransient<ISignatureKeyRepository, SignatureKeyRepository>();
                 
                 services.AddSingleton<CommandLoop>();
                 services.AddScoped<IUserConsole, UserConsole>();

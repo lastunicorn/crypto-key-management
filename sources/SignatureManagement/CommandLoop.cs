@@ -89,8 +89,10 @@ internal class CommandLoop
             case "show signatures":
                 {
                     ShowSignaturesCriteria criteria = new();
-                    await mediator.Query<ShowSignaturesCriteria, object>(criteria)
+                    ShowSignaturesResponse response = await mediator.Query<ShowSignaturesCriteria, ShowSignaturesResponse>(criteria)
                         .ConfigureAwait(false);
+                    
+                    DisplaySignatures(response);
                     break;
                 }
 
@@ -119,6 +121,31 @@ internal class CommandLoop
         }
 
         return true;
+    }
+
+    private static void DisplaySignatures(ShowSignaturesResponse response)
+    {
+        Console.WriteLine("Signatures:");
+
+        if (!response.Signatures.Any())
+        {
+            Console.WriteLine("No signatures found.\n");
+            return;
+        }
+
+        foreach (SignatureDetails signature in response.Signatures)
+        {
+            Console.WriteLine($"ID: {signature.Id}");
+
+            Console.WriteLine($"  Private Key Path: {signature.PrivateKeyPath}");
+            Console.WriteLine($"  Private Key Value: {signature.PrivateKeyValue}");
+
+            Console.WriteLine($"  Public Key Path: {signature.PublicKeyPath}");
+            Console.WriteLine($"  Public Key Value: {signature.PublicKeyValue}");
+
+            Console.WriteLine($"  Created: {signature.Created:yyyy-MM-dd HH:mm:ss}");
+            Console.WriteLine();
+        }
     }
 
     protected virtual void OnClosed()

@@ -3,42 +3,41 @@ using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
 namespace DustInTheWind.SignatureManagement.Application.ShowSignatures;
 
-internal class ShowSignaturesUseCase : IQuery<ShowSignaturesCriteria, object>
+internal class ShowSignaturesUseCase : IQuery<ShowSignaturesCriteria, ShowSignaturesResponse>
 {
-    private readonly ISignatureRepository signatureRepository;
+    private readonly ISignatureKeyRepository signatureRepository;
 
-    public ShowSignaturesUseCase(ISignatureRepository signatureRepository)
+    public ShowSignaturesUseCase(ISignatureKeyRepository signatureRepository)
     {
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
     }
 
-    public Task<object> Query(ShowSignaturesCriteria criteria)
+    public Task<ShowSignaturesResponse> Query(ShowSignaturesCriteria criteria)
     {
-        Console.WriteLine("Signatures:");
-
-        List<SignatureKeyInfo> signatures = signatureRepository.GetAll()
+        List<SignatureKey> signatures = signatureRepository.GetAll()
             .ToList();
 
-        if (!signatures.Any())
+        IEnumerable<SignatureDetails> signatureDetails = signatures
+            .Select(x => ToSignatureDetails(x));
+
+        var response = new ShowSignaturesResponse
         {
-            Console.WriteLine("No signatures found.\n");
-            return Task.FromResult((object)null);
-        }
+            Signatures = signatureDetails
+        };
 
-        foreach (SignatureKeyInfo signature in signatures)
+        return Task.FromResult(response);
+    }
+
+    private static SignatureDetails ToSignatureDetails(SignatureKey x)
+    {
+        return new SignatureDetails
         {
-            Console.WriteLine($"ID: {signature.Id}");
-
-            Console.WriteLine($"  Private Key Path: {signature.PrivateKeyPath}");
-            Console.WriteLine($"  Private Key Value: {Convert.ToBase64String(signature.PrivateKey)}");
-
-            Console.WriteLine($"  Public Key Path: {signature.PublicKeyPath}");
-            Console.WriteLine($"  Public Key Value: {Convert.ToBase64String(signature.PublicKey)}");
-
-            Console.WriteLine($"  Created: {File.GetCreationTime(signature.PrivateKeyPath):yyyy-MM-dd HH:mm:ss}");
-            Console.WriteLine();
-        }
-
-        return Task.FromResult((object)null);
+            Id = x.Id,
+            PrivateKeyPath = x.PrivateKeyPath,
+            PrivateKeyValue = Convert.ToBase64String(x.PrivateKey),
+            PublicKeyPath = x.PublicKeyPath,
+            PublicKeyValue = Convert.ToBase64String(x.PublicKey),
+            Created = x.CreatedDate
+        };
     }
 }

@@ -8,10 +8,10 @@ namespace DustInTheWind.SignatureManagement.Application.SignData;
 
 internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 {
-    private readonly ISignatureRepository signatureRepository;
+    private readonly ISignatureKeyRepository signatureRepository;
     private readonly IUserConsole userConsole;
 
-    public SignDataUseCase(ISignatureRepository signatureRepository, IUserConsole userConsole)
+    public SignDataUseCase(ISignatureKeyRepository signatureRepository, IUserConsole userConsole)
     {
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
         this.userConsole = userConsole ?? throw new ArgumentNullException(nameof(userConsole));
@@ -19,10 +19,10 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 
     public Task<SignDataResponse> Query(SignDataCriteria criteria)
     {
-        List<SignatureKeyInfo> signatures = GetAllSignatures();
+        List<SignatureKey> signatures = GetAllSignatures();
         DisplaySignatures(signatures);
 
-        SignatureKeyInfo selectedSignature = AskForSignatureToUse(signatures);
+        SignatureKey selectedSignature = AskForSignatureToUse(signatures);
 
         string dataToSign = userConsole.AskForDataToSign();
         byte[] signature = SignTheData(selectedSignature, dataToSign);
@@ -35,9 +35,9 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
         return Task.FromResult(result);
     }
 
-    private List<SignatureKeyInfo> GetAllSignatures()
+    private List<SignatureKey> GetAllSignatures()
     {
-        List<SignatureKeyInfo> signatures = signatureRepository.GetAll()
+        List<SignatureKey> signatures = signatureRepository.GetAll()
             .ToList();
 
         if (!signatures.Any())
@@ -45,7 +45,7 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
         return signatures;
     }
 
-    private void DisplaySignatures(List<SignatureKeyInfo> signatures)
+    private void DisplaySignatures(List<SignatureKey> signatures)
     {
         IEnumerable<SignatureSummary> signatureSummaries = signatures
             .Select(x => new SignatureSummary
@@ -57,21 +57,21 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
         userConsole.DisplaySignatures(signatureSummaries);
     }
 
-    private SignatureKeyInfo AskForSignatureToUse(List<SignatureKeyInfo> signatures)
+    private SignatureKey AskForSignatureToUse(List<SignatureKey> signatures)
     {
         Guid? signatureId = userConsole.AskSignatureId();
 
         if (!signatureId.HasValue)
             throw new InvalidSignatureIdException("Invalid GUID format");
 
-        SignatureKeyInfo selectedSignature = signatures.FirstOrDefault(x => x.Id == signatureId.Value);
+        SignatureKey selectedSignature = signatures.FirstOrDefault(x => x.Id == signatureId.Value);
 
         return selectedSignature == null
             ? throw new InvalidSignatureIdException(signatureId.Value.ToString())
             : selectedSignature;
     }
 
-    private static byte[] SignTheData(SignatureKeyInfo selectedSignature, string dataToSign)
+    private static byte[] SignTheData(SignatureKey selectedSignature, string dataToSign)
     {
         Ed25519PrivateKeyParameters privateKey = new(selectedSignature.PrivateKey, 0);
 

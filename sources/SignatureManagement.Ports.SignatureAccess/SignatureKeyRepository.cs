@@ -2,22 +2,22 @@
 
 namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
-public class SignatureRepository : ISignatureRepository
+public class SignatureKeyRepository : ISignatureKeyRepository
 {
-    private const string SignaturesDirectory = "signatures";
+    private const string SignaturesDirectory = "signature-keys";
 
-    public IEnumerable<SignatureKeyInfo> GetAll()
+    public IEnumerable<SignatureKey> GetAll()
     {
         EnsureSignaturesDirectoryExists();
 
-        var signatures = new List<SignatureKeyInfo>();
+        List<SignatureKey> signatures = [];
 
         if (!Directory.Exists(SignaturesDirectory))
             return signatures;
 
-        var privateKeyFiles = Directory.GetFiles(SignaturesDirectory, "*_private.key");
+        string[] privateKeyPaths = Directory.GetFiles(SignaturesDirectory, "*_private.key");
 
-        foreach (var privateKeyPath in privateKeyFiles)
+        foreach (string privateKeyPath in privateKeyPaths)
         {
             string fileName = Path.GetFileNameWithoutExtension(privateKeyPath);
             string guidPart = fileName.Replace("_private", "");
@@ -28,7 +28,7 @@ public class SignatureRepository : ISignatureRepository
 
                 if (File.Exists(publicKeyPath))
                 {
-                    signatures.Add(new SignatureKeyInfo
+                    signatures.Add(new SignatureKey
                     {
                         Id = id,
                         PrivateKeyPath = privateKeyPath,
@@ -41,12 +41,10 @@ public class SignatureRepository : ISignatureRepository
             }
         }
 
-        return signatures
-            .OrderBy(x => x.Id)
-            .ToList();
+        return signatures;
     }
 
-    public SignatureKeyInfo GetSignatureById(Guid id)
+    public SignatureKey GetById(Guid id)
     {
         EnsureSignaturesDirectoryExists();
 
@@ -56,7 +54,7 @@ public class SignatureRepository : ISignatureRepository
         if (!File.Exists(privateKeyPath) || !File.Exists(publicKeyPath))
             return null;
 
-        return new SignatureKeyInfo
+        return new SignatureKey
         {
             Id = id,
             PrivateKeyPath = privateKeyPath,
@@ -67,17 +65,16 @@ public class SignatureRepository : ISignatureRepository
         };
     }
 
-    public Guid SaveSignatureKey(Ed25519PrivateKeyParameters privateKey, Ed25519PublicKeyParameters publicKey)
+    public Guid Add(Ed25519PrivateKeyParameters privateKey, Ed25519PublicKeyParameters publicKey)
     {
         EnsureSignaturesDirectoryExists();
 
-        // Generate GUID for this signature
         Guid signatureId = Guid.NewGuid();
 
-        // Save keys to files
         string privateKeyPath = Path.Combine(SignaturesDirectory, $"{signatureId}_private.key");
-        string publicKeyPath = Path.Combine(SignaturesDirectory, $"{signatureId}_public.key");
         File.WriteAllText(privateKeyPath, Convert.ToBase64String(privateKey.GetEncoded()));
+
+        string publicKeyPath = Path.Combine(SignaturesDirectory, $"{signatureId}_public.key");
         File.WriteAllText(publicKeyPath, Convert.ToBase64String(publicKey.GetEncoded()));
 
         return signatureId;

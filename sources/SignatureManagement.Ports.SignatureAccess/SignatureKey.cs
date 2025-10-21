@@ -1,6 +1,6 @@
 ﻿namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
-public class SignatureKeyInfo
+public class SignatureKey
 {
     public Guid Id { get; set; }
 
