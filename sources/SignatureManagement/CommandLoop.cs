@@ -41,7 +41,7 @@ internal class CommandLoop
         }
     }
 
-    private void WriteLineColor(ConsoleColor foregroundColor, string text)
+    private static void WriteLineColor(ConsoleColor foregroundColor, string text)
     {
         ConsoleColor oldColor = Console.ForegroundColor;
         Console.ForegroundColor = foregroundColor;
@@ -53,8 +53,8 @@ internal class CommandLoop
     {
         Console.WriteLine("Available Commands");
         Console.WriteLine("------------------");
-        Console.WriteLine("1. Create Signature");
-        Console.WriteLine("2. Show Signatures");
+        Console.WriteLine("1. Create Keys");
+        Console.WriteLine("2. Show Keys");
         Console.WriteLine("3. Sign Data");
         Console.WriteLine("0. Exit");
         Console.Write("\nEnter command (number or name): ");
@@ -66,7 +66,7 @@ internal class CommandLoop
         {
             case "1":
             case "create":
-            case "create signature":
+            case "create keys":
                 {
                     CreateSignatureCommand command = new();
                     ICommandWorkflowResult result = await mediator.Send(command)
@@ -74,8 +74,8 @@ internal class CommandLoop
 
                     CreateSignatureResponse response = result.Result<CreateSignatureResponse>();
 
-                    WriteLineColor(ConsoleColor.Green, "✓ Signature created successfully!");
-                    Console.WriteLine($"  Signature ID: {response.KeyId}");
+                    WriteLineColor(ConsoleColor.Green, "✓ Keys created successfully!");
+                    Console.WriteLine($"  Key ID: {response.KeyId}");
                     Console.WriteLine($"  Private Key saved to: {response.PrivateKeyPath}");
                     Console.WriteLine($"  Public Key saved to: {response.PublicKeyPath}");
                     Console.WriteLine($"  Private Key Length: {response.PrivateKey.Length} bytes");
@@ -86,7 +86,7 @@ internal class CommandLoop
 
             case "2":
             case "show":
-            case "show signatures":
+            case "show keys":
                 {
                     ShowSignaturesCriteria criteria = new();
                     ShowSignaturesResponse response = await mediator.Query<ShowSignaturesCriteria, ShowSignaturesResponse>(criteria)
@@ -125,22 +125,18 @@ internal class CommandLoop
 
     private static void DisplaySignatures(ShowSignaturesResponse response)
     {
-        Console.WriteLine("Signatures:");
+        Console.WriteLine("Keys:");
 
         if (!response.Signatures.Any())
         {
-            Console.WriteLine("No signatures found.\n");
+            WriteLineColor(ConsoleColor.DarkYellow, "No keys found.\n");
             return;
         }
 
         foreach (SignatureDetails signature in response.Signatures)
         {
             Console.WriteLine($"ID: {signature.Id}");
-
-            Console.WriteLine($"  Private Key Path: {signature.PrivateKeyPath}");
             Console.WriteLine($"  Private Key Value: {signature.PrivateKeyValue}");
-
-            Console.WriteLine($"  Public Key Path: {signature.PublicKeyPath}");
             Console.WriteLine($"  Public Key Value: {signature.PublicKeyValue}");
 
             Console.WriteLine($"  Created: {signature.Created:yyyy-MM-dd HH:mm:ss}");

@@ -40,8 +40,9 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
         List<SignatureKey> signatures = signatureRepository.GetAll()
             .ToList();
 
-        if (!signatures.Any())
+        if (signatures.Count == 0)
             throw new NoSignaturesException();
+
         return signatures;
     }
 

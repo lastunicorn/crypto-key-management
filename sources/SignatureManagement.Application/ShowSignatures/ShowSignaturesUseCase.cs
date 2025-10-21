@@ -33,9 +33,7 @@ internal class ShowSignaturesUseCase : IQuery<ShowSignaturesCriteria, ShowSignat
         return new SignatureDetails
         {
             Id = x.Id,
-            PrivateKeyPath = x.PrivateKeyPath,
             PrivateKeyValue = Convert.ToBase64String(x.PrivateKey),
-            PublicKeyPath = x.PublicKeyPath,
             PublicKeyValue = Convert.ToBase64String(x.PublicKey),
             Created = x.CreatedDate
         };

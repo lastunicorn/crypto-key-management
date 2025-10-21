@@ -4,21 +4,21 @@ public class UserConsole : IUserConsole
 {
     public void DisplaySignatures(IEnumerable<SignatureSummary> signatures)
     {
-        Console.WriteLine("Signatures:");
+        Console.WriteLine("Keys:");
 
         if (!signatures.Any())
         {
-            Console.WriteLine("No signatures found.\n");
+            Console.WriteLine("No keys found.\n");
             return;
         }
 
         foreach (SignatureSummary signature in signatures)
-            Console.WriteLine($"- {signature.Id} ({signature.CreatedDate:yyyy-MM-dd HH:mm:ss})");
+            Console.WriteLine($"- [{signature.CreatedDate:yyyy-MM-dd HH:mm:ss}] {signature.Id}");
     }
 
     public Guid? AskSignatureId()
     {
-        Console.Write("\nEnter Signature ID (GUID): ");
+        Console.Write("\nEnter key ID (GUID): ");
         string rawValue = Console.ReadLine()?.Trim();
 
         if (Guid.TryParse(rawValue, out Guid signatureId))
