@@ -52,6 +52,8 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
             .Select(x => new SignatureSummary
             {
                 Id = x.Id,
+                PrivateKey = x.PrivateKey,
+                PublicKey = x.PublicKey,
                 CreatedDate = x.CreatedDate
             });
 

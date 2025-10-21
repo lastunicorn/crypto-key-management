@@ -136,8 +136,8 @@ internal class CommandLoop
         foreach (SignatureDetails signature in response.Signatures)
         {
             Console.WriteLine($"ID: {signature.Id}");
-            Console.WriteLine($"  Private Key Value: {signature.PrivateKeyValue}");
-            Console.WriteLine($"  Public Key Value: {signature.PublicKeyValue}");
+            Console.WriteLine($"  Private Key: {signature.PrivateKeyValue}");
+            Console.WriteLine($"  Public Key: {signature.PublicKeyValue}");
 
             Console.WriteLine($"  Created: {signature.Created:yyyy-MM-dd HH:mm:ss}");
             Console.WriteLine();

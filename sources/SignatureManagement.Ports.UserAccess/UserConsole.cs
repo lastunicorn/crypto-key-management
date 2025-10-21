@@ -1,4 +1,6 @@
-﻿namespace DustInTheWind.SignatureManagement.Ports.UserAccess;
+﻿using System.Collections.Generic;
+
+namespace DustInTheWind.SignatureManagement.Ports.UserAccess;
 
 public class UserConsole : IUserConsole
 {
@@ -8,17 +10,24 @@ public class UserConsole : IUserConsole
 
         if (!signatures.Any())
         {
-            Console.WriteLine("No keys found.\n");
+            WriteLineColor(ConsoleColor.DarkYellow, "No keys found.\n");
             return;
         }
 
         foreach (SignatureSummary signature in signatures)
-            Console.WriteLine($"- [{signature.CreatedDate:yyyy-MM-dd HH:mm:ss}] {signature.Id}");
+        {
+            Console.WriteLine($"ID: {signature.Id}");
+            Console.WriteLine($"  Private Key: {Convert.ToBase64String(signature.PrivateKey)}");
+            Console.WriteLine($"  Public Key: {Convert.ToBase64String(signature.PublicKey)}");
+
+            Console.WriteLine($"  Created: {signature.CreatedDate:yyyy-MM-dd HH:mm:ss}");
+            Console.WriteLine();
+        }
     }
 
     public Guid? AskSignatureId()
     {
-        Console.Write("\nEnter key ID (GUID): ");
+        WriteColor(ConsoleColor.White, "\nEnter key ID to use (GUID): ");
         string rawValue = Console.ReadLine()?.Trim();
 
         if (Guid.TryParse(rawValue, out Guid signatureId))
@@ -29,7 +38,33 @@ public class UserConsole : IUserConsole
 
     public string AskForDataToSign()
     {
-        Console.Write("Enter data to sign: ");
-        return Console.ReadLine();
+        Console.WriteLine();
+        WriteLineColor(ConsoleColor.White, "Enter data to sign (Ctrl+Z on new line to finish): ");
+        
+        List<string> lines = [];
+        string line;
+        
+        while ((line = Console.ReadLine()) != null)
+        {
+            lines.Add(line);
+        }
+        
+        return string.Join(Environment.NewLine, lines);
+    }
+
+    private static void WriteLineColor(ConsoleColor foregroundColor, string text)
+    {
+        ConsoleColor oldColor = Console.ForegroundColor;
+        Console.ForegroundColor = foregroundColor;
+        Console.WriteLine(text);
+        Console.ForegroundColor = oldColor;
+    }
+
+    private static void WriteColor(ConsoleColor foregroundColor, string text)
+    {
+        ConsoleColor oldColor = Console.ForegroundColor;
+        Console.ForegroundColor = foregroundColor;
+        Console.Write(text);
+        Console.ForegroundColor = oldColor;
     }
 }
