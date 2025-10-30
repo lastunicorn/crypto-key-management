@@ -1,4 +1,6 @@
-﻿namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+﻿using DustInTheWind.SignatureManagement.Domain;
+
+namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
 public interface ISignatureKeyRepository
 {

@@ -1,4 +1,4 @@
-﻿namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+﻿namespace DustInTheWind.SignatureManagement.Domain;
 
 public class SignatureKey
 {

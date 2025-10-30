@@ -1,8 +1,8 @@
-﻿using DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
+﻿using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Application.Events;
 
 public class SignatureKeySelectionChangedEvent
 {
-    public SignatureKeyDto SelectedKey { get; set; }
+    public SignatureKeyDto SignatureKey { get; set; }
 }

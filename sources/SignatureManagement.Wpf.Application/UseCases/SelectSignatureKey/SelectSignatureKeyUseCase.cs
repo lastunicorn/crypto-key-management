@@ -1,11 +1,12 @@
 using AsyncMediator;
+using DustInTheWind.SignatureManagement.Domain;
 using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using DustInTheWind.SignatureManagement.Ports.StateAccess;
 using DustInTheWind.SignatureManagement.Wpf.Application.Events;
-using DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Application.SelectSignatureKey;
+namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SelectSignatureKey;
 
 internal class SelectSignatureKeyUseCase : ICommandHandler<SelectSignatureKeyRequest>
 {
@@ -23,7 +24,7 @@ internal class SelectSignatureKeyUseCase : ICommandHandler<SelectSignatureKeyReq
     public async Task<ICommandWorkflowResult> Handle(SelectSignatureKeyRequest command)
     {
         SignatureKey signatureKey = RetrieveSignatureKey(command.SignatureKeyId);
-        applicationStateService.SelectedSignatureKeyId = signatureKey?.Id;
+        applicationStateService.CurrentSignatureKey = signatureKey;
 
         await RaiseSignatureKeySelectionChangedEvent(signatureKey);
 
@@ -34,7 +35,7 @@ internal class SelectSignatureKeyUseCase : ICommandHandler<SelectSignatureKeyReq
     {
         SignatureKeySelectionChangedEvent @event = new()
         {
-            SelectedKey = signatureKey.ToDto()
+            SignatureKey = signatureKey.ToDto()
         };
         await eventBus.PublishAsync(@event);
     }

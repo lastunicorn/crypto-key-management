@@ -12,8 +12,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" />
-        <ProjectReference Include="..\SignatureManagement.Ports.UserAccess\SignatureManagement.Ports.UserAccess.csproj" />
+        <ProjectReference Include="..\SignatureManagement.Domain\SignatureManagement.Domain.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Ports.UserAccess\SignatureManagement.Ports.UserAccess.csproj" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>

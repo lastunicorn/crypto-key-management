@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using AsyncMediator;
-using DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
-using DustInTheWind.SignatureManagement.Wpf.Application.SelectSignatureKey;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SelectSignatureKey;
 using DustInTheWind.SignatureManagement.Wpf.Presentation;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeysPanel;

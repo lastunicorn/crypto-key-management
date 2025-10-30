@@ -6,4 +6,8 @@
         <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_").Replace("-", "_"))</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\SignatureManagement.Domain\SignatureManagement.Domain.csproj" PrivateAssets="All" />
+    </ItemGroup>
+
 </Project>

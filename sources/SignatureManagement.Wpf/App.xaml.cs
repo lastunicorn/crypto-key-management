@@ -1,16 +1,9 @@
 ﻿using System.Windows;
-using AsyncMediator.Extensions.DependencyInjection;
-using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
-using DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
-using DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
-using Microsoft.Extensions.DependencyInjection;
+using DustInTheWind.SignatureManagement.Wpf.Application.Watchers;
 using DustInTheWind.SignatureManagement.Wpf.Main;
-using DustInTheWind.SignatureManagement.Ports.StateAccess;
-using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
-using DustInTheWind.SignatureManagement.Wpf.Presentation.KeysPanel;
-using DustInTheWind.SignatureManagement.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace SignatureManagement.Wpf;
+namespace DustInTheWind.SignatureManagement.Wpf;
 
 /// <summary>
 /// Interaction logic for App.xaml
@@ -22,22 +15,19 @@ public partial class App : System.Windows.Application
         base.OnStartup(e);
 
         ServiceCollection serviceCollection = new();
-
-        serviceCollection.AddAsyncMediator(typeof(InitializeMainRequest).Assembly);
-        serviceCollection.AddSingleton<EventBus>();
-
-        serviceCollection.AddTransient<MainWindow>();
-        serviceCollection.AddTransient<MainViewModel>();
-        serviceCollection.AddTransient<SigningPanelViewModel>();
-        serviceCollection.AddTransient<KeysPanelViewModel>();
-        serviceCollection.AddTransient<ISignatureKeyRepository, SignatureKeyRepository>();
-
-        serviceCollection.AddSingleton<IApplicationState, ApplicationState>();
-
+        Setup.ConfigureServices(serviceCollection);
         IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+
+        Initialize(serviceProvider);
 
         MainWindow = serviceProvider.GetService<MainWindow>();
         MainWindow.Show();
+    }
+
+    private void Initialize(IServiceProvider serviceProvider)
+    {
+        ApplicationStateWatcher applicationStateWatcher = serviceProvider.GetService<ApplicationStateWatcher>();
+        applicationStateWatcher?.Start();
     }
 }
 

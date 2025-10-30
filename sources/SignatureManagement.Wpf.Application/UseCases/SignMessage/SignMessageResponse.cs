@@ -1,4 +1,4 @@
-namespace DustInTheWind.SignatureManagement.Wpf.Application.SignMessage;
+namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SignMessage;
 
 public class SignMessageResponse
 {

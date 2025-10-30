@@ -1,26 +1,30 @@
+using DustInTheWind.SignatureManagement.Domain;
+
 namespace DustInTheWind.SignatureManagement.Ports.StateAccess;
 
 public class ApplicationState : IApplicationState
 {
-    private Guid? selectedSignatureKeyId;
+    private SignatureKey currentSignatureKey;
 
-    public Guid? SelectedSignatureKeyId
+    public SignatureKey CurrentSignatureKey
     {
-        get => selectedSignatureKeyId;
+        get => currentSignatureKey;
         set
         {
-            if (selectedSignatureKeyId != value)
+            if (currentSignatureKey != value)
             {
-                selectedSignatureKeyId = value;
-                OnSelectedSignatureKeyChanged(value);
+                currentSignatureKey = value;
+
+                CurrentSignatureKeyChangedEventArgs eventArgs = new(value);
+                OnCurrentSignatureKeyChanged(eventArgs);
             }
         }
     }
 
-    public event EventHandler<Guid?> SelectedSignatureKeyChanged;
+    public event EventHandler<CurrentSignatureKeyChangedEventArgs> CurrentSignatureKeyChanged;
 
-    private void OnSelectedSignatureKeyChanged(Guid? signatureKeyId)
+    private void OnCurrentSignatureKeyChanged(CurrentSignatureKeyChangedEventArgs eventArgs)
     {
-        SelectedSignatureKeyChanged?.Invoke(this, signatureKeyId);
+        CurrentSignatureKeyChanged?.Invoke(this, eventArgs);
     }
 }

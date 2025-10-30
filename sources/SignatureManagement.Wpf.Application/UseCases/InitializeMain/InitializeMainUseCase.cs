@@ -1,8 +1,9 @@
 ﻿using AsyncMediator;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using DustInTheWind.SignatureManagement.Ports.StateAccess;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
+namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 
 internal class InitializeMainUseCase : IQuery<InitializeMainRequest, InitializeMainResponse>
 {
@@ -21,7 +22,7 @@ internal class InitializeMainUseCase : IQuery<InitializeMainRequest, InitializeM
         InitializeMainResponse response = new()
         {
             SignatureKeys = LoadSignatureKeys(),
-            SelectedSignatureKeyId = applicationState.SelectedSignatureKeyId
+            SelectedSignatureKeyId = applicationState.CurrentSignatureKey?.Id
         };
 
         return Task.FromResult(response);

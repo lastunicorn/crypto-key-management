@@ -1,3 +1,5 @@
+using DustInTheWind.SignatureManagement.Domain;
+
 namespace DustInTheWind.SignatureManagement.Ports.StateAccess;
 
 public interface IApplicationState
@@ -5,10 +7,10 @@ public interface IApplicationState
     /// <summary>
     /// Gets or sets the currently selected signature key ID.
     /// </summary>
-    Guid? SelectedSignatureKeyId { get; set; }
+    SignatureKey CurrentSignatureKey { get; set; }
 
     /// <summary>
     /// Event raised when the selected signature key changes.
     /// </summary>
-    event EventHandler<Guid?> SelectedSignatureKeyChanged;
+    event EventHandler<CurrentSignatureKeyChangedEventArgs> CurrentSignatureKeyChanged;
 }

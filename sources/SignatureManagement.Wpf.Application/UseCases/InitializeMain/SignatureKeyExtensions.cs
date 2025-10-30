@@ -1,6 +1,6 @@
-﻿using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+﻿using DustInTheWind.SignatureManagement.Domain;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
+namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 
 internal static class SignatureKeyExtensions
 {

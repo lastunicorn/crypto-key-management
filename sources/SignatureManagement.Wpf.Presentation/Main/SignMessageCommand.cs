@@ -1,5 +1,5 @@
 using AsyncMediator;
-using DustInTheWind.SignatureManagement.Wpf.Application.SignMessage;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SignMessage;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 

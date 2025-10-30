@@ -1,19 +1,18 @@
 using AsyncMediator;
+using DustInTheWind.SignatureManagement.Domain;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using DustInTheWind.SignatureManagement.Ports.StateAccess;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Crypto.Signers;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Application.SignMessage;
+namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SignMessage;
 
 internal class SignMessageUseCase : ICommandHandler<SignMessageRequest>
 {
-    private readonly ISignatureKeyRepository signatureRepository;
     private readonly IApplicationState applicationState;
 
-    public SignMessageUseCase(ISignatureKeyRepository signatureRepository, IApplicationState applicationState)
+    public SignMessageUseCase(IApplicationState applicationState)
     {
-        this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
         this.applicationState = applicationState ?? throw new ArgumentNullException(nameof(applicationState));
     }
 
@@ -22,14 +21,10 @@ internal class SignMessageUseCase : ICommandHandler<SignMessageRequest>
         if (string.IsNullOrWhiteSpace(command.Message))
             throw new ArgumentException("Message cannot be empty", nameof(command.Message));
 
-        Guid? signatureKeyId = applicationState.SelectedSignatureKeyId;
+        SignatureKey signatureKey = applicationState.CurrentSignatureKey;
 
-        if (!signatureKeyId.HasValue)
-            throw new InvalidOperationException("No signature key selected");
-
-        SignatureKey signatureKey = signatureRepository.GetById(signatureKeyId.Value);
         if (signatureKey == null)
-            throw new InvalidOperationException($"Signature key with ID {signatureKeyId.Value} not found");
+            throw new InvalidOperationException("No signature key selected");
 
         string signature = SignTheMessage(signatureKey, command.Message);
 

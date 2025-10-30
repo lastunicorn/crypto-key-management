@@ -1,4 +1,5 @@
 ﻿using AsyncMediator;
+using DustInTheWind.SignatureManagement.Domain;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
 namespace DustInTheWind.SignatureManagement.Application.ShowSignatures;

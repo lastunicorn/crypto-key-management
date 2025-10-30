@@ -1,7 +1,7 @@
 using AsyncMediator;
 using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Wpf.Application.Events;
-using DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
@@ -118,7 +118,7 @@ public class SigningPanelViewModel : ViewModelBase
 
     private async Task HandleSignatureKeySelectionChanged(SignatureKeySelectionChangedEvent e, CancellationToken token)
     {
-        UpdateSelectedKey(e.SelectedKey);
+        UpdateSelectedKey(e.SignatureKey);
         await Task.CompletedTask;
     }
 
