@@ -2,7 +2,7 @@ using AsyncMediator;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Application.SelectSignatureKey;
 
-public class SelectSignatureKeyCommand : ICommand
+public class SelectSignatureKeyRequest : ICommand
 {
     public Guid? SignatureKeyId { get; set; }
 }

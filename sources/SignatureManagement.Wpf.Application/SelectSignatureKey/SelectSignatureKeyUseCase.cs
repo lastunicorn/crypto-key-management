@@ -3,7 +3,7 @@ using DustInTheWind.SignatureManagement.Ports.StateAccess;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Application.SelectSignatureKey;
 
-internal class SelectSignatureKeyUseCase : ICommandHandler<SelectSignatureKeyCommand>
+internal class SelectSignatureKeyUseCase : ICommandHandler<SelectSignatureKeyRequest>
 {
     private readonly IApplicationState applicationStateService;
 
@@ -12,7 +12,7 @@ internal class SelectSignatureKeyUseCase : ICommandHandler<SelectSignatureKeyCom
         this.applicationStateService = applicationStateService ?? throw new ArgumentNullException(nameof(applicationStateService));
     }
 
-    public Task<ICommandWorkflowResult> Handle(SelectSignatureKeyCommand command)
+    public Task<ICommandWorkflowResult> Handle(SelectSignatureKeyRequest command)
     {
         applicationStateService.SelectedSignatureKeyId = command.SignatureKeyId;
 

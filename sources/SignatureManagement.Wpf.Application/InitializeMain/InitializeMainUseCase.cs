@@ -24,11 +24,6 @@ internal class InitializeMainUseCase : IQuery<InitializeMainRequest, InitializeM
             SelectedSignatureKeyId = applicationState.SelectedSignatureKeyId
         };
 
-        response.SelectedSignatureKeyId = response.SignatureKeys
-            .Skip(1)
-            .FirstOrDefault()?
-            .Id;
-
         return Task.FromResult(response);
     }
 

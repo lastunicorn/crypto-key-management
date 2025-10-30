@@ -64,7 +64,10 @@ public class MainViewModel : ViewModelBase
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
-        SignMessageCommand = new RelayCommand(ExecuteSignMessage, CanExecuteSignMessage);
+        SignMessageCommand = new SignMessageCommand(
+            mediator,
+            () => SelectedSignatureKey,
+            signature => Signature = signature);
 
         _ = InitializeAsync();
     }
@@ -86,7 +89,7 @@ public class MainViewModel : ViewModelBase
     {
         try
         {
-            SelectSignatureKeyCommand command = new()
+            SelectSignatureKeyRequest command = new()
             {
                 SignatureKeyId = signatureKeyId
             };
@@ -97,35 +100,6 @@ public class MainViewModel : ViewModelBase
             // Handle error appropriately - you might want to show a message to the user
             // For now, just ensure we don't crash the application
             System.Diagnostics.Debug.WriteLine($"Error selecting signature key: {ex.Message}");
-        }
-    }
-
-    private bool CanExecuteSignMessage()
-    {
-        return !string.IsNullOrWhiteSpace(Message) && SelectedSignatureKey != null;
-    }
-
-    private async void ExecuteSignMessage()
-    {
-        try
-        {
-            SignMessageCommand command = new()
-            {
-                Message = Message,
-                SignatureKeyId = SelectedSignatureKey?.Id
-            };
-
-            ICommandWorkflowResult result = await mediator.Send(command);
-            SignMessageResponse response = result.Result<SignMessageResponse>();
-
-            Signature = response.Signature;
-        }
-        catch (Exception ex)
-        {
-            // Handle error appropriately - you might want to show a message to the user
-            // For now, just ensure we don't crash the application
-            System.Diagnostics.Debug.WriteLine($"Error signing message: {ex.Message}");
-            Signature = $"Error: {ex.Message}";
         }
     }
 }

@@ -26,7 +26,6 @@ public partial class App : System.Windows.Application
         serviceCollection.AddTransient<MainViewModel>();
         serviceCollection.AddTransient<ISignatureKeyRepository, SignatureKeyRepository>();
 
-        // Register application state service as singleton to maintain state across the application
         serviceCollection.AddSingleton<IApplicationState, ApplicationState>();
 
         IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
