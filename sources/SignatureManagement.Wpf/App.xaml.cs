@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using DustInTheWind.SignatureManagement.Wpf.Main;
 using DustInTheWind.SignatureManagement.Ports.StateAccess;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
+using DustInTheWind.SignatureManagement.Infrastructure;
 
 namespace SignatureManagement.Wpf;
 
@@ -22,6 +23,7 @@ public partial class App : System.Windows.Application
         ServiceCollection serviceCollection = new();
 
         serviceCollection.AddAsyncMediator(typeof(InitializeMainRequest).Assembly);
+        serviceCollection.AddSingleton<EventBus>();
 
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<MainViewModel>();

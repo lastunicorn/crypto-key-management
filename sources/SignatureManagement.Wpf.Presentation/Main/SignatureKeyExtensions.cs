@@ -12,6 +12,8 @@ internal static class SignatureKeyExtensions
             {
                 Id = dto.Id,
                 CreatedDateText = $"Created: {dto.CreatedDate:yyyy-MM-dd HH:mm:ss}",
+                PrivateKeyBase64 = Convert.ToBase64String(dto.PrivateKey),
+                PublicKeyBase64 = Convert.ToBase64String(dto.PublicKey)
             };
         }
     }

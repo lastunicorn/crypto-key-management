@@ -12,13 +12,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\SignatureManagement.Infrastructure\SignatureManagement.Infrastructure.csproj" />
         <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Wpf.Application\SignatureManagement.Wpf.Application.csproj" PrivateAssets="All" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="SignatureInput\" />
-      <Folder Include="SignPanel\" />
     </ItemGroup>
 
 </Project>

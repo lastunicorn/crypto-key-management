@@ -12,21 +12,111 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Message Input Section -->
+        <!-- Selected Key Information Section -->
         <TextBlock
             Grid.Row="0"
-            Text="Message to Sign"
+            Text="Selected Key Information"
             FontSize="14"
             FontWeight="Bold"
             Margin="10,10,10,5"/>
 
         <Grid
             Grid.Row="1"
+            Margin="10,0,10,10">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Key ID -->
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="Key ID:"
+                FontWeight="Bold"
+                VerticalAlignment="Top"
+                Margin="0,0,10,5"/>
+
+            <TextBox
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="{Binding SelectedKeyId, Mode=OneWay}"
+                IsReadOnly="True"
+                Background="LightGray"
+                Margin="0,0,0,5"/>
+
+            <!-- Private Key -->
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                Text="Private Key:"
+                FontWeight="Bold"
+                VerticalAlignment="Top"
+                Margin="0,0,10,5"/>
+
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="{Binding SelectedPrivateKey, Mode=OneWay}"
+                IsReadOnly="True"
+                Background="LightGray"
+                TextWrapping="Wrap"
+                Height="60"
+                VerticalScrollBarVisibility="Auto"
+                Margin="0,0,0,5"/>
+
+            <!-- Public Key -->
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                Text="Public Key:"
+                FontWeight="Bold"
+                VerticalAlignment="Top"
+                Margin="0,0,10,5"/>
+
+            <TextBox
+                Grid.Row="2"
+                Grid.Column="1"
+                Text="{Binding SelectedPublicKey, Mode=OneWay}"
+                IsReadOnly="True"
+                Background="LightGray"
+                TextWrapping="Wrap"
+                Height="60"
+                VerticalScrollBarVisibility="Auto"
+                Margin="0,0,0,5"/>
+            
+        </Grid>
+
+        <!-- Separator -->
+        <Separator
+            Grid.Row="2"
+            Margin="10,5"/>
+
+        <!-- Message Input Section -->
+        <TextBlock
+            Grid.Row="3"
+            Text="Message to Sign"
+            FontSize="14"
+            FontWeight="Bold"
+            Margin="10,10,10,5"/>
+
+        <Grid
+            Grid.Row="4"
             Margin="10,0,10,10">
 
             <Grid.ColumnDefinitions>
@@ -59,14 +149,14 @@
 
         <!-- Signature Output Section -->
         <TextBlock
-            Grid.Row="2"
+            Grid.Row="5"
             Text="Generated Signature (Base64)"
             FontSize="14"
             FontWeight="Bold"
             Margin="10,10,10,5"/>
 
         <TextBox
-            Grid.Row="3"
+            Grid.Row="6"
             Name="SignatureTextBox"
             Text="{Binding Signature, Mode=OneWay}"
             Margin="10,0,10,10"

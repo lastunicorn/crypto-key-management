@@ -30,16 +30,7 @@ internal class InitializeMainUseCase : IQuery<InitializeMainRequest, InitializeM
     private List<SignatureKeyDto> LoadSignatureKeys()
     {
         return signatureKeyRepository.GetAll()
-            .Select(ToDto)
+            .Select(SignatureKeyExtensions.ToDto)
             .ToList();
-    }
-
-    private SignatureKeyDto ToDto(SignatureKey key)
-    {
-        return new SignatureKeyDto
-        {
-            Id = key.Id,
-            CreatedDate = key.CreatedDate
-        };
     }
 }
