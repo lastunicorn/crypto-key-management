@@ -1,7 +1,7 @@
 using AsyncMediator;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SignMessage;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
+namespace DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 
 public class SignMessageCommand : System.Windows.Input.ICommand
 {

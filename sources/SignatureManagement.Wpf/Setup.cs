@@ -4,6 +4,7 @@ using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using DustInTheWind.SignatureManagement.Ports.StateAccess;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 using DustInTheWind.SignatureManagement.Wpf.Main;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeysPanel;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
@@ -20,8 +21,9 @@ internal static class Setup
 
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<MainViewModel>();
-        serviceCollection.AddTransient<SigningPanelViewModel>();
         serviceCollection.AddTransient<KeysPanelViewModel>();
+        serviceCollection.AddTransient<KeyInfoViewModel>();
+        serviceCollection.AddTransient<SigningPanelViewModel>();
         serviceCollection.AddTransient<ISignatureKeyRepository, SignatureKeyRepository>();
 
         serviceCollection.AddSingleton<IApplicationState, ApplicationState>();

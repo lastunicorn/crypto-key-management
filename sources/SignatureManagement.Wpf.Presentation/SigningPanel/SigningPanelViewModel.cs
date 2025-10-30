@@ -1,9 +1,4 @@
 using AsyncMediator;
-using DustInTheWind.SignatureManagement.Infrastructure;
-using DustInTheWind.SignatureManagement.Wpf.Application.Events;
-using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
-using DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo;
-using DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 
@@ -49,11 +44,6 @@ public class SigningPanelViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Gets the view model for the key information control.
-    /// </summary>
-    public KeyInfoViewModel KeyInfoViewModel { get; }
-
-    /// <summary>
     /// Command to sign the current message.
     /// </summary>
     public SignMessageCommand SignMessageCommand { get; }
@@ -62,12 +52,10 @@ public class SigningPanelViewModel : ViewModelBase
     /// Initializes a new instance of the SigningPanelViewModel class.
     /// </summary>
     /// <param name="mediator">The mediator for handling commands and queries.</param>
-    /// <param name="eventBus">The event bus for handling events.</param>
-    public SigningPanelViewModel(IMediator mediator, EventBus eventBus)
+    public SigningPanelViewModel(IMediator mediator)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
-        KeyInfoViewModel = new KeyInfoViewModel(eventBus);
         SignMessageCommand = new SignMessageCommand(mediator, signature => Signature = signature);
     }
 }

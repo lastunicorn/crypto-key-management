@@ -1,5 +1,7 @@
 ﻿using AsyncMediator;
+using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeysPanel;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 
@@ -11,13 +13,16 @@ public class MainViewModel : ViewModelBase
 
     public KeysPanelViewModel KeysPanelViewModel { get; }
 
+    public KeyInfoViewModel KeyInfoViewModel { get; }
+
     public SigningPanelViewModel SigningPanelViewModel { get; }
 
-    public MainViewModel(IMediator mediator, SigningPanelViewModel signingPanelViewModel, KeysPanelViewModel keysPanelViewModel)
+    public MainViewModel(IMediator mediator, KeysPanelViewModel keysPanelViewModel, SigningPanelViewModel signingPanelViewModel, KeyInfoViewModel keyInfoViewModel, EventBus eventBus)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        SigningPanelViewModel = signingPanelViewModel ?? throw new ArgumentNullException(nameof(signingPanelViewModel));
         KeysPanelViewModel = keysPanelViewModel ?? throw new ArgumentNullException(nameof(keysPanelViewModel));
+        SigningPanelViewModel = signingPanelViewModel ?? throw new ArgumentNullException(nameof(signingPanelViewModel));
+        KeyInfoViewModel = keyInfoViewModel ?? throw new ArgumentNullException(nameof(keyInfoViewModel));
 
         _ = InitializeAsync();
     }
