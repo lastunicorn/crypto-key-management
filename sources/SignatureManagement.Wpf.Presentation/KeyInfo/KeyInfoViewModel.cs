@@ -1,10 +1,8 @@
-using AsyncMediator;
 using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Wpf.Application.Events;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
-using DustInTheWind.SignatureManagement.Wpf.Presentation;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
+namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo;
 
 /// <summary>
 /// View model for the key information control that displays the currently selected signature key details.
