@@ -1,34 +1,27 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows;
-using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+using AsyncMediator;
+using SignatureManagement.Wpf.Application.InitializeMain;
 
 namespace SignatureManagement.Wpf.Main;
 
-internal class MainViewModel
+public class MainViewModel
 {
-    private readonly ISignatureKeyRepository _signatureKeyRepository;
+    private readonly IMediator mediator;
 
     public ObservableCollection<SignatureKeyViewModel> SignatureKeys { get; private set; }
 
-    public MainViewModel()
+    public MainViewModel(IMediator mediator)
     {
+        this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
-        _signatureKeyRepository = new SignatureKeyRepository();
-        LoadSignatureKeys();
+        _ = InitializeAsync();
     }
 
-    private void LoadSignatureKeys()
+    private async Task InitializeAsync()
     {
-        try
-        {
-            IEnumerable<SignatureKeyViewModel> signatureKeys = _signatureKeyRepository.GetAll()
-                .Select(SignatureKeyViewModel.FromSignatureKey);
+        InitializeMainRequest request = new();
+        InitializeMainResponse response = await mediator.Query<InitializeMainRequest, InitializeMainResponse>(request);
 
-            SignatureKeys = new ObservableCollection<SignatureKeyViewModel>(signatureKeys);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error loading signature keys: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
+        SignatureKeys = new ObservableCollection<SignatureKeyViewModel>(response.SignatureKeys.ToViewModels());
     }
 }

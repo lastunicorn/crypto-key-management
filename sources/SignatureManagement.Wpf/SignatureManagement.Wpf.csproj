@@ -5,9 +5,16 @@
         <TargetFramework>net8.0-windows</TargetFramework>
         <UseWPF>true</UseWPF>
     </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="AsyncMediator" Version="2.1.0" />
+        <PackageReference Include="AsyncMediator.Extensions.DependencyInjection" Version="1.2.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.10" />
+    </ItemGroup>    
 
     <ItemGroup>
         <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Wpf.Application\SignatureManagement.Wpf.Application.csproj" />
     </ItemGroup>
 
 </Project>
