@@ -2,6 +2,7 @@
 using AsyncMediator;
 using DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
 using DustInTheWind.SignatureManagement.Wpf.Application.SelectSignatureKey;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
@@ -9,8 +10,6 @@ public class MainViewModel : ViewModelBase
 {
     private readonly IMediator mediator;
     private SignatureKeyViewModel selectedSignatureKey;
-    private string message = string.Empty;
-    private string signature = string.Empty;
 
     public ObservableCollection<SignatureKeyViewModel> SignatureKeys { get; private set; }
 
@@ -31,40 +30,12 @@ public class MainViewModel : ViewModelBase
         }
     }
 
-    public string Message
-    {
-        get => message;
-        set
-        {
-            if (message != value)
-            {
-                message = value;
-                OnPropertyChanged(nameof(Message));
-            }
-        }
-    }
+    public SigningPanelViewModel SigningPanelViewModel { get; }
 
-    public string Signature
-    {
-        get => signature;
-        private set
-        {
-            if (signature != value)
-            {
-                signature = value;
-                OnPropertyChanged(nameof(Signature));
-            }
-        }
-    }
-
-    public System.Windows.Input.ICommand SignMessageCommand { get; }
-
-    public MainViewModel(IMediator mediator)
+    public MainViewModel(IMediator mediator, SigningPanelViewModel signingPanelViewModel)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-
-        SignMessageCommand = new SignMessageCommand(mediator,
-            signature => Signature = signature);
+        SigningPanelViewModel = signingPanelViewModel ?? throw new ArgumentNullException(nameof(signingPanelViewModel));
 
         _ = InitializeAsync();
     }

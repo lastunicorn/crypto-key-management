@@ -16,4 +16,9 @@
         <ProjectReference Include="..\SignatureManagement.Wpf.Application\SignatureManagement.Wpf.Application.csproj" PrivateAssets="All" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="SignatureInput\" />
+      <Folder Include="SignPanel\" />
+    </ItemGroup>
+
 </Project>

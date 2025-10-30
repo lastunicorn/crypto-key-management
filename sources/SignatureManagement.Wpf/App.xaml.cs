@@ -6,6 +6,7 @@ using DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 using Microsoft.Extensions.DependencyInjection;
 using DustInTheWind.SignatureManagement.Wpf.Main;
 using DustInTheWind.SignatureManagement.Ports.StateAccess;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 
 namespace SignatureManagement.Wpf;
 
@@ -24,6 +25,7 @@ public partial class App : System.Windows.Application
 
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<MainViewModel>();
+        serviceCollection.AddTransient<SigningPanelViewModel>();
         serviceCollection.AddTransient<ISignatureKeyRepository, SignatureKeyRepository>();
 
         serviceCollection.AddSingleton<IApplicationState, ApplicationState>();
