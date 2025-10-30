@@ -5,6 +5,7 @@ using DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 using Microsoft.Extensions.DependencyInjection;
 using DustInTheWind.SignatureManagement.Wpf.Main;
+using DustInTheWind.SignatureManagement.Ports.StateAccess;
 
 namespace SignatureManagement.Wpf;
 
@@ -24,6 +25,9 @@ public partial class App : System.Windows.Application
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<MainViewModel>();
         serviceCollection.AddTransient<ISignatureKeyRepository, SignatureKeyRepository>();
+
+        // Register application state service as singleton to maintain state across the application
+        serviceCollection.AddSingleton<IApplicationState, ApplicationState>();
 
         IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 

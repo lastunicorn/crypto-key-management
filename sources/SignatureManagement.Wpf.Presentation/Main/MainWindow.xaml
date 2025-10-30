@@ -35,7 +35,8 @@
         <ListBox Grid.Row="2"
             Name="SignatureKeysListBox"
             Margin="10"
-            ItemsSource="{Binding SignatureKeys}">
+            ItemsSource="{Binding SignatureKeys}"
+            SelectedItem="{Binding SelectedSignatureKey}">
 
             <ListBox.ItemTemplate>
                 <DataTemplate>

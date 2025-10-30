@@ -12,6 +12,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Ports.StateAccess\SignatureManagement.Ports.StateAccess.csproj" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>

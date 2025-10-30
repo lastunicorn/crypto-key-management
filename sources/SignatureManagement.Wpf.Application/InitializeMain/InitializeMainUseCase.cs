@@ -1,30 +1,40 @@
 ﻿using AsyncMediator;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+using DustInTheWind.SignatureManagement.Ports.StateAccess;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
 
 internal class InitializeMainUseCase : IQuery<InitializeMainRequest, InitializeMainResponse>
 {
-    private readonly ISignatureKeyRepository _signatureKeyRepository;
+    private readonly ISignatureKeyRepository signatureKeyRepository;
+    private readonly IApplicationState applicationState;
 
-    public InitializeMainUseCase(ISignatureKeyRepository signatureKeyRepository)
+    public InitializeMainUseCase(ISignatureKeyRepository signatureKeyRepository, IApplicationState applicationState)
     {
-        _signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
+        this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
+        this.applicationState = applicationState ?? throw new ArgumentNullException(nameof(applicationState));
     }
 
     public Task<InitializeMainResponse> Query(InitializeMainRequest criteria)
     {
+
         InitializeMainResponse response = new()
         {
-            SignatureKeys = LoadSignatureKeys()
+            SignatureKeys = LoadSignatureKeys(),
+            SelectedSignatureKeyId = applicationState.SelectedSignatureKeyId
         };
+
+        response.SelectedSignatureKeyId = response.SignatureKeys
+            .Skip(1)
+            .FirstOrDefault()?
+            .Id;
 
         return Task.FromResult(response);
     }
 
     private List<SignatureKeyDto> LoadSignatureKeys()
     {
-        return _signatureKeyRepository.GetAll()
+        return signatureKeyRepository.GetAll()
             .Select(ToDto)
             .ToList();
     }

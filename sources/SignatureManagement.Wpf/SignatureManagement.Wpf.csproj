@@ -16,6 +16,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Ports.StateAccess\SignatureManagement.Ports.StateAccess.csproj" />
         <ProjectReference Include="..\SignatureManagement.Wpf.Application\SignatureManagement.Wpf.Application.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Wpf.Presentation\SignatureManagement.Wpf.Presentation.csproj" PrivateAssets="All" />
     </ItemGroup>
