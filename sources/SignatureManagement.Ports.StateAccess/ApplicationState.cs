@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using DustInTheWind.SignatureManagement.Domain;
 
 namespace DustInTheWind.SignatureManagement.Ports.StateAccess;
@@ -14,17 +15,15 @@ public class ApplicationState : IApplicationState
             if (currentSignatureKey != value)
             {
                 currentSignatureKey = value;
-
-                CurrentSignatureKeyChangedEventArgs eventArgs = new(value);
-                OnCurrentSignatureKeyChanged(eventArgs);
+                OnPropertyChanged(nameof(CurrentSignatureKey));
             }
         }
     }
 
-    public event EventHandler<CurrentSignatureKeyChangedEventArgs> CurrentSignatureKeyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 
-    private void OnCurrentSignatureKeyChanged(CurrentSignatureKeyChangedEventArgs eventArgs)
+    protected virtual void OnPropertyChanged(string propertyName)
     {
-        CurrentSignatureKeyChanged?.Invoke(this, eventArgs);
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

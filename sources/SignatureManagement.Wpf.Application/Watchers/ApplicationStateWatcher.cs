@@ -1,4 +1,5 @@
-﻿using DustInTheWind.SignatureManagement.Infrastructure;
+﻿using System.ComponentModel;
+using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Ports.StateAccess;
 using DustInTheWind.SignatureManagement.Wpf.Application.Events;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
@@ -18,21 +19,24 @@ public class ApplicationStateWatcher
 
     public void Start()
     {
-        applicationState.CurrentSignatureKeyChanged += HandleSelectedSignatureKeyChanged;
+        applicationState.PropertyChanged += HandlePropertyChanged;
     }
 
     public void Stop()
     {
-        applicationState.CurrentSignatureKeyChanged -= HandleSelectedSignatureKeyChanged;
+        applicationState.PropertyChanged -= HandlePropertyChanged;
     }
 
-    private void HandleSelectedSignatureKeyChanged(object sender, CurrentSignatureKeyChangedEventArgs e)
+    private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
     {
-        SignatureKeySelectionChangedEvent @event = new()
+        if (e.PropertyName == nameof(IApplicationState.CurrentSignatureKey))
         {
-            SignatureKey = e.SignatureKey.ToDto()
-        };
+            SignatureKeySelectionChangedEvent @event = new()
+            {
+                SignatureKey = applicationState.CurrentSignatureKey?.ToDto()
+            };
 
-        _ = eventBus.PublishAsync(@event);
+            _ = eventBus.PublishAsync(@event);
+        }
     }
 }
