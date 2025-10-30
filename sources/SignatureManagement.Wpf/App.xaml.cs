@@ -1,9 +1,10 @@
 ﻿using System.Windows;
 using AsyncMediator.Extensions.DependencyInjection;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
+using DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 using Microsoft.Extensions.DependencyInjection;
-using SignatureManagement.Wpf.Application.InitializeMain;
-using SignatureManagement.Wpf.Main;
+using DustInTheWind.SignatureManagement.Wpf.Main;
 
 namespace SignatureManagement.Wpf;
 

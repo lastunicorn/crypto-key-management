@@ -1,5 +1,4 @@
-﻿
-namespace SignatureManagement.Wpf.Application.InitializeMain;
+﻿namespace DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
 
 public class SignatureKeyDto
 {

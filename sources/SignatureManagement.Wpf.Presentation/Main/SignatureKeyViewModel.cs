@@ -1,6 +1,6 @@
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
-namespace SignatureManagement.Wpf.Main;
+namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
 public class SignatureKeyViewModel
 {

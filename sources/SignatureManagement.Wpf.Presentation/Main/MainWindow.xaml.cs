@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using SignatureManagement.Wpf.Main;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
-namespace SignatureManagement.Wpf.Main;
+namespace DustInTheWind.SignatureManagement.Wpf.Main;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml

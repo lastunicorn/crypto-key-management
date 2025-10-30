@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using AsyncMediator;
-using SignatureManagement.Wpf.Application.InitializeMain;
+using DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
 
-namespace SignatureManagement.Wpf.Main;
+namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
 public class MainViewModel
 {

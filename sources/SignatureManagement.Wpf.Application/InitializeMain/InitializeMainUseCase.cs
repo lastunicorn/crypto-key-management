@@ -1,7 +1,7 @@
 ﻿using AsyncMediator;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
-namespace SignatureManagement.Wpf.Application.InitializeMain;
+namespace DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
 
 internal class InitializeMainUseCase : IQuery<InitializeMainRequest, InitializeMainResponse>
 {
