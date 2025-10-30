@@ -1,6 +1,7 @@
 ﻿using System.Windows;
+using SignatureManagement.Wpf.Main;
 
-namespace SignatureManagement.Wpf;
+namespace SignatureManagement.Wpf.Main;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -10,5 +11,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
+        DataContext = new MainViewModel();
     }
 }

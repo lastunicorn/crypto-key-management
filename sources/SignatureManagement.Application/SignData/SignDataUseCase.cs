@@ -41,7 +41,7 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
             .ToList();
 
         if (signatures.Count == 0)
-            throw new NoSignaturesException();
+            throw new NoKeysException();
 
         return signatures;
     }
