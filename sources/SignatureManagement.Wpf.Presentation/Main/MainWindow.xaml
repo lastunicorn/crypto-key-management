@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:signingPanel="clr-namespace:DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel"
+    xmlns:keysPanel="clr-namespace:DustInTheWind.SignatureManagement.Wpf.Presentation.KeysPanel"
    
     mc:Ignorable="d"
     Title="Signature Management - Keys"
@@ -20,47 +21,9 @@
         </Grid.ColumnDefinitions>
 
         <!-- Left Panel - Keys Section -->
-        <Grid Grid.Column="0">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock
-                Grid.Row="0"
-                Text="Signature Keys"
-                FontSize="16"
-                FontWeight="Bold"
-                Margin="10"
-                HorizontalAlignment="Center"/>
-
-            <Button
-                Grid.Row="1"
-                Name="CreateSampleKeyButton"
-                Content="Create Sample Key"
-                Margin="10,5"
-                HorizontalAlignment="Center"
-                Width="150"/>
-
-            <ListBox Grid.Row="2"
-                Name="SignatureKeysListBox"
-                Margin="10"
-                ItemsSource="{Binding SignatureKeys}"
-                SelectedItem="{Binding SelectedSignatureKey}">
-
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical" Margin="5">
-                            <TextBlock Text="{Binding Id}" FontWeight="Bold" FontSize="12"/>
-                            <TextBlock Text="{Binding CreatedDateText}" FontSize="10" Foreground="Gray"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-
-            </ListBox>
-        </Grid>
+        <keysPanel:KeysPanelControl
+            Grid.Column="0"
+            DataContext="{Binding KeysPanelViewModel}"/>
 
         <!-- GridSplitter -->
         <GridSplitter

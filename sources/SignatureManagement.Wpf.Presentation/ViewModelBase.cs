@@ -13,7 +13,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    protected void AsInitialization(Action action)
+    protected void Initialization(Action action)
     {
         IsInitializing = true;
 
