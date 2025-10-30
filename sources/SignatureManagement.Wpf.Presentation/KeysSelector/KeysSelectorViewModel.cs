@@ -2,14 +2,13 @@ using System.Collections.ObjectModel;
 using AsyncMediator;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SelectSignatureKey;
-using DustInTheWind.SignatureManagement.Wpf.Presentation;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeysPanel;
+namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 
 /// <summary>
-/// View model for the keys panel control that handles signature key management.
+/// View model for the keys selector control that handles signature key management.
 /// </summary>
-public class KeysPanelViewModel : ViewModelBase
+public class KeysSelectorViewModel : ViewModelBase
 {
     private readonly IMediator mediator;
     private SignatureKeyViewModel selectedSignatureKey;
@@ -40,10 +39,10 @@ public class KeysPanelViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the KeysPanelViewModel class.
+    /// Initializes a new instance of the KeysSelectorViewModel class.
     /// </summary>
     /// <param name="mediator">The mediator for handling commands and queries.</param>
-    public KeysPanelViewModel(IMediator mediator)
+    public KeysSelectorViewModel(IMediator mediator)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
@@ -80,8 +79,8 @@ public class KeysPanelViewModel : ViewModelBase
         catch (Exception ex)
         {
             // Handle error appropriately - you might want to show a message to the user
-            // For now, just ensure we don't crash the application
-            System.Diagnostics.Debug.WriteLine($"Error selecting signature key: {ex.Message}");
+            // For now, we'll just suppress the exception to prevent crashes
+            // In a production app, consider logging the error or displaying a user-friendly message
         }
     }
 }

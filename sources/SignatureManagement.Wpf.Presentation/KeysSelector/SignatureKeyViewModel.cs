@@ -1,7 +1,7 @@
-namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeysPanel;
+namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 
 /// <summary>
-/// View model representing a signature key in the keys panel.
+/// View model representing a signature key in the keys selector.
 /// </summary>
 public class SignatureKeyViewModel
 {

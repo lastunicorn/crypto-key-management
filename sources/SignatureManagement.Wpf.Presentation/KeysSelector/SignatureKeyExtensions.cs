@@ -1,6 +1,6 @@
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeysPanel;
+namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 
 /// <summary>
 /// Extension methods for converting signature key DTOs to view models.

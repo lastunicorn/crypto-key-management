@@ -2,7 +2,7 @@
 using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo;
-using DustInTheWind.SignatureManagement.Wpf.Presentation.KeysPanel;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
@@ -11,16 +11,16 @@ public class MainViewModel : ViewModelBase
 {
     private readonly IMediator mediator;
 
-    public KeysPanelViewModel KeysPanelViewModel { get; }
+    public KeysSelectorViewModel KeysSelectorViewModel { get; }
 
     public KeyInfoViewModel KeyInfoViewModel { get; }
 
     public SigningPanelViewModel SigningPanelViewModel { get; }
 
-    public MainViewModel(IMediator mediator, KeysPanelViewModel keysPanelViewModel, SigningPanelViewModel signingPanelViewModel, KeyInfoViewModel keyInfoViewModel, EventBus eventBus)
+    public MainViewModel(IMediator mediator, KeysSelectorViewModel keysSelectorViewModel, SigningPanelViewModel signingPanelViewModel, KeyInfoViewModel keyInfoViewModel, EventBus eventBus)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        KeysPanelViewModel = keysPanelViewModel ?? throw new ArgumentNullException(nameof(keysPanelViewModel));
+        KeysSelectorViewModel = keysSelectorViewModel ?? throw new ArgumentNullException(nameof(keysSelectorViewModel));
         SigningPanelViewModel = signingPanelViewModel ?? throw new ArgumentNullException(nameof(signingPanelViewModel));
         KeyInfoViewModel = keyInfoViewModel ?? throw new ArgumentNullException(nameof(keyInfoViewModel));
 
@@ -34,7 +34,7 @@ public class MainViewModel : ViewModelBase
             InitializeMainRequest request = new();
             InitializeMainResponse response = await mediator.Query<InitializeMainRequest, InitializeMainResponse>(request);
 
-            KeysPanelViewModel.Initialize(response.SignatureKeys, response.SelectedSignatureKeyId);
+            KeysSelectorViewModel.Initialize(response.SignatureKeys, response.SelectedSignatureKeyId);
         });
     }
 }
