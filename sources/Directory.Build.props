@@ -10,6 +10,7 @@
         <Company>Dust in the Wind</Company>
 
         <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
 </Project>

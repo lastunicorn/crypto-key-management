@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignatureManagement.Wpf", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignatureManagement.Wpf.Application", "SignatureManagement.Wpf.Application\SignatureManagement.Wpf.Application.csproj", "{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignatureManagement.Wpf.Presentation", "SignatureManagement.Wpf.Presentation\SignatureManagement.Wpf.Presentation.csproj", "{1663EB14-0585-4888-8EE3-7F2EAC53D8DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1663EB14-0585-4888-8EE3-7F2EAC53D8DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1663EB14-0585-4888-8EE3-7F2EAC53D8DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1663EB14-0585-4888-8EE3-7F2EAC53D8DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1663EB14-0585-4888-8EE3-7F2EAC53D8DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{F9A5A09E-0E28-489A-ACE4-51610B944037} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{E5B2FB0D-2DDE-4182-BB79-B6F24FD33DA7} = {12E32685-BF78-4998-AAED-0122342D48A7}
 		{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD} = {12E32685-BF78-4998-AAED-0122342D48A7}
+		{1663EB14-0585-4888-8EE3-7F2EAC53D8DA} = {12E32685-BF78-4998-AAED-0122342D48A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64FD4C85-8520-4125-B3B5-F78EABDC1801}
