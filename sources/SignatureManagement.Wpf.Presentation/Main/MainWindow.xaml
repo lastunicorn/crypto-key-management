@@ -14,67 +14,67 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="300" MinWidth="200"/>
+            <ColumnDefinition Width="300" MinWidth="200"/>
             <ColumnDefinition Width="5"/>
-<ColumnDefinition Width="*" MinWidth="400"/>
+            <ColumnDefinition Width="*" MinWidth="400"/>
         </Grid.ColumnDefinitions>
 
-     <!-- Left Panel - Keys Section -->
+        <!-- Left Panel - Keys Section -->
         <Grid Grid.Column="0">
-   
+
             <Grid.RowDefinitions>
-             <RowDefinition Height="Auto"/>
-<RowDefinition Height="Auto"/>
-       <RowDefinition Height="*"/>
-          </Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-       <TextBlock
-           Grid.Row="0"
-            Text="Signature Keys"
-     FontSize="16"
-   FontWeight="Bold"
-    Margin="10"
-     HorizontalAlignment="Center"/>
+            <TextBlock
+                Grid.Row="0"
+                Text="Signature Keys"
+                FontSize="16"
+                FontWeight="Bold"
+                Margin="10"
+                HorizontalAlignment="Center"/>
 
-   <Button 
-           Grid.Row="1"
-       Name="CreateSampleKeyButton"
-    Content="Create Sample Key"
-      Margin="10,5"
-         HorizontalAlignment="Center"
-      Width="150"/>
+            <Button
+                Grid.Row="1"
+                Name="CreateSampleKeyButton"
+                Content="Create Sample Key"
+                Margin="10,5"
+                HorizontalAlignment="Center"
+                Width="150"/>
 
             <ListBox Grid.Row="2"
-   Name="SignatureKeysListBox"
-          Margin="10"
-         ItemsSource="{Binding SignatureKeys}"
-     SelectedItem="{Binding SelectedSignatureKey}">
+                Name="SignatureKeysListBox"
+                Margin="10"
+                ItemsSource="{Binding SignatureKeys}"
+                SelectedItem="{Binding SelectedSignatureKey}">
 
-       <ListBox.ItemTemplate>
-        <DataTemplate>
-          <StackPanel Orientation="Vertical" Margin="5">
-     <TextBlock Text="{Binding Id}" FontWeight="Bold" FontSize="12"/>
-     <TextBlock Text="{Binding CreatedDateText}" FontSize="10" Foreground="Gray"/>
-  </StackPanel>
-        </DataTemplate>
-      </ListBox.ItemTemplate>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Margin="5">
+                            <TextBlock Text="{Binding Id}" FontWeight="Bold" FontSize="12"/>
+                            <TextBlock Text="{Binding CreatedDateText}" FontSize="10" Foreground="Gray"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
 
-        </ListBox>
+            </ListBox>
         </Grid>
 
         <!-- GridSplitter -->
-   <GridSplitter
+        <GridSplitter
             Grid.Column="1"
             Width="5"
-     HorizontalAlignment="Stretch"
-      VerticalAlignment="Stretch"
-   Background="LightGray"
-        ShowsPreview="True"/>
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="LightGray"
+            ShowsPreview="True"/>
 
- <!-- Right Panel - Message and Signature Section -->
-        <signingPanel:SigningPanelControl 
-      Grid.Column="2"
-        DataContext="{Binding SigningPanelViewModel}"/>
+        <!-- Right Panel - Message and Signature Section -->
+        <signingPanel:SigningPanelControl
+            Grid.Column="2"
+            DataContext="{Binding SigningPanelViewModel}"/>
 
     </Grid>
 
