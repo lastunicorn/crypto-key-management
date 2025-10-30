@@ -2,7 +2,6 @@
 using AsyncMediator;
 using DustInTheWind.SignatureManagement.Wpf.Application.InitializeMain;
 using DustInTheWind.SignatureManagement.Wpf.Application.SelectSignatureKey;
-using DustInTheWind.SignatureManagement.Wpf.Application.SignMessage;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
@@ -64,9 +63,7 @@ public class MainViewModel : ViewModelBase
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
-        SignMessageCommand = new SignMessageCommand(
-            mediator,
-            () => SelectedSignatureKey,
+        SignMessageCommand = new SignMessageCommand(mediator,
             signature => Signature = signature);
 
         _ = InitializeAsync();

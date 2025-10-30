@@ -6,16 +6,11 @@ namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 public class SignMessageCommand : System.Windows.Input.ICommand
 {
     private readonly IMediator mediator;
-    private readonly Func<SignatureKeyViewModel> getSelectedSignatureKey;
     private readonly Action<string> setSignature;
 
-    public SignMessageCommand(
-        IMediator mediator,
-        Func<SignatureKeyViewModel> getSelectedSignatureKey,
-        Action<string> setSignature)
+    public SignMessageCommand(IMediator mediator, Action<string> setSignature)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        this.getSelectedSignatureKey = getSelectedSignatureKey ?? throw new ArgumentNullException(nameof(getSelectedSignatureKey));
         this.setSignature = setSignature ?? throw new ArgumentNullException(nameof(setSignature));
     }
 
@@ -28,9 +23,8 @@ public class SignMessageCommand : System.Windows.Input.ICommand
     public bool CanExecute(object parameter)
     {
         string message = parameter as string;
-        var selectedKey = getSelectedSignatureKey();
 
-        return !string.IsNullOrWhiteSpace(message) && selectedKey != null;
+        return !string.IsNullOrWhiteSpace(message);
     }
 
     public async void Execute(object parameter)
@@ -38,9 +32,8 @@ public class SignMessageCommand : System.Windows.Input.ICommand
         try
         {
             string message = parameter as string;
-            var selectedKey = getSelectedSignatureKey();
 
-            if (string.IsNullOrWhiteSpace(message) || selectedKey == null)
+            if (string.IsNullOrWhiteSpace(message))
                 return;
 
             SignMessageRequest command = new()
