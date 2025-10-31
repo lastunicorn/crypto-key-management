@@ -9,20 +9,20 @@ using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.CreateSignatureKey;
+namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.CreateKeyPair;
 
-internal class CreateSignatureKeyUseCase : ICommandHandler<CreateSignatureKeyRequest>
+internal class CreateKeyPairUseCase : ICommandHandler<CreateKeyPairRequest>
 {
     private readonly ISignatureKeyRepository signatureRepository;
     private readonly EventBus eventBus;
 
-    public CreateSignatureKeyUseCase(ISignatureKeyRepository signatureRepository, EventBus eventBus)
+    public CreateKeyPairUseCase(ISignatureKeyRepository signatureRepository, EventBus eventBus)
     {
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
     }
 
-    public async Task<ICommandWorkflowResult> Handle(CreateSignatureKeyRequest command)
+    public async Task<ICommandWorkflowResult> Handle(CreateKeyPairRequest command)
     {
         AsymmetricCipherKeyPair keyPair = GenerateNewKeyPair();
 
@@ -32,7 +32,7 @@ internal class CreateSignatureKeyUseCase : ICommandHandler<CreateSignatureKeyReq
         Guid signatureKeyId = signatureRepository.Add(privateKey.GetEncoded(), publicKey.GetEncoded());
         KeyPair savedSignatureKey = signatureRepository.GetById(signatureKeyId);
 
-        SignatureKeyCreatedEvent @event = new()
+        KeyPairCreatedEvent @event = new()
         {
             SignatureKey = savedSignatureKey.ToDto()
         };

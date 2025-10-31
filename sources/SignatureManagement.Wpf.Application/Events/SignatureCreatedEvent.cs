@@ -1,6 +1,6 @@
 namespace DustInTheWind.SignatureManagement.Wpf.Application.Events;
 
-public class SignatureChangedEvent
+public class SignatureCreatedEvent
 {
     public string Message { get; set; }
 

@@ -46,10 +46,10 @@ public class SigningPanelViewModel : ViewModelBase, IDisposable
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         SignMessageCommand = signMessageCommand ?? throw new ArgumentNullException(nameof(signMessageCommand));
 
-        eventBus.Subscribe<SignatureChangedEvent>(HandleSignatureChanged);
+        eventBus.Subscribe<SignatureCreatedEvent>(HandleSignatureChanged);
     }
 
-    private Task HandleSignatureChanged(SignatureChangedEvent @event, CancellationToken cancellationToken)
+    private Task HandleSignatureChanged(SignatureCreatedEvent @event, CancellationToken cancellationToken)
     {
         Signature = @event.Signature;
         return Task.CompletedTask;

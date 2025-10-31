@@ -67,7 +67,7 @@ public class KeyInfoViewModel : ViewModelBase
     /// <param name="eventBus">The event bus for handling signature key selection changes.</param>
     public KeyInfoViewModel(EventBus eventBus)
     {
-        eventBus.Subscribe<SignatureKeySelectionChangedEvent>(HandleSignatureKeySelectionChanged);
+        eventBus.Subscribe<KeyPairSelectionChangedEvent>(HandleSignatureKeySelectionChanged);
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class KeyInfoViewModel : ViewModelBase
     /// </summary>
     /// <param name="e">The event containing the selected signature key information.</param>
     /// <param name="token">Cancellation token.</param>
-    private async Task HandleSignatureKeySelectionChanged(SignatureKeySelectionChangedEvent e, CancellationToken token)
+    private async Task HandleSignatureKeySelectionChanged(KeyPairSelectionChangedEvent e, CancellationToken token)
     {
         UpdateSelectedKey(e.SignatureKey);
         await Task.CompletedTask;

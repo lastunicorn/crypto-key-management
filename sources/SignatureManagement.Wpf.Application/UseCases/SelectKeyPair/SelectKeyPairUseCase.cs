@@ -6,22 +6,22 @@ using DustInTheWind.SignatureManagement.Ports.StateAccess;
 using DustInTheWind.SignatureManagement.Wpf.Application.Events;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SelectSignatureKey;
+namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SelectKeyPair;
 
-internal class SelectSignatureKeyUseCase : ICommandHandler<SelectSignatureKeyRequest>
+internal class SelectKeyPairUseCase : ICommandHandler<SelectKeyPairRequest>
 {
     private readonly ISignatureKeyRepository signatureKeyRepository;
     private readonly IApplicationState applicationStateService;
     private readonly EventBus eventBus;
 
-    public SelectSignatureKeyUseCase(ISignatureKeyRepository signatureKeyRepository, IApplicationState applicationStateService, EventBus eventBus)
+    public SelectKeyPairUseCase(ISignatureKeyRepository signatureKeyRepository, IApplicationState applicationStateService, EventBus eventBus)
     {
         this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
         this.applicationStateService = applicationStateService ?? throw new ArgumentNullException(nameof(applicationStateService));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
     }
 
-    public async Task<ICommandWorkflowResult> Handle(SelectSignatureKeyRequest command)
+    public async Task<ICommandWorkflowResult> Handle(SelectKeyPairRequest command)
     {
         KeyPair signatureKey = RetrieveSignatureKey(command.SignatureKeyId);
         applicationStateService.CurrentSignatureKey = signatureKey;
@@ -33,7 +33,7 @@ internal class SelectSignatureKeyUseCase : ICommandHandler<SelectSignatureKeyReq
 
     private async Task RaiseSignatureKeySelectionChangedEvent(KeyPair signatureKey)
     {
-        SignatureKeySelectionChangedEvent @event = new()
+        KeyPairSelectionChangedEvent @event = new()
         {
             SignatureKey = signatureKey.ToDto()
         };

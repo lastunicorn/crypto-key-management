@@ -32,6 +32,8 @@ internal static class Setup
         serviceCollection.AddTransient<SigningPanelViewModel>();
         
         serviceCollection.AddTransient<SignMessageCommand>();
+        serviceCollection.AddTransient<CreateKeyPairCommand>();
+        serviceCollection.AddTransient<RefreshKeyPairsCommand>();
 
         // External services
 

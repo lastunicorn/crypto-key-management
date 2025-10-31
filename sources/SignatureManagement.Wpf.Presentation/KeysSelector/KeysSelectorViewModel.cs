@@ -3,16 +3,18 @@ using AsyncMediator;
 using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Wpf.Application.Events;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
-using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SelectSignatureKey;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.RefreshKeyPairs;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SelectKeyPair;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 
 /// <summary>
 /// View model for the keys selector control that handles signature key management.
 /// </summary>
-public class KeysSelectorViewModel : ViewModelBase
+public class KeysSelectorViewModel : ViewModelBase, IDisposable
 {
     private readonly IMediator mediator;
+    private readonly EventBus eventBus;
     private SignatureKeyViewModel selectedSignatureKey;
 
     /// <summary>
@@ -43,19 +45,27 @@ public class KeysSelectorViewModel : ViewModelBase
     /// <summary>
     /// Gets the command to create a new signature key.
     /// </summary>
-    public System.Windows.Input.ICommand CreateKeyCommand { get; private set; }
+    public CreateKeyPairCommand CreateKeyPairCommand { get; private set; }
+
+    /// <summary>
+    /// Gets the command to refresh the signature keys list.
+    /// </summary>
+    public RefreshKeyPairsCommand RefreshKeyPairsCommand { get; private set; }
 
     /// <summary>
     /// Initializes a new instance of the KeysSelectorViewModel class.
     /// </summary>
     /// <param name="mediator">The mediator for handling commands and queries.</param>
-    public KeysSelectorViewModel(IMediator mediator, EventBus eventBus)
+    public KeysSelectorViewModel(IMediator mediator, EventBus eventBus,
+        CreateKeyPairCommand createKeyPairCommand, RefreshKeyPairsCommand refreshKeyPairsCommand)
     {
-        ArgumentNullException.ThrowIfNull(eventBus);
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        CreateKeyCommand = new CreateSignatureKeyCommand(mediator);
+        this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+        CreateKeyPairCommand = createKeyPairCommand ?? throw new ArgumentNullException(nameof(createKeyPairCommand));
+        RefreshKeyPairsCommand = refreshKeyPairsCommand ?? throw new ArgumentNullException(nameof(refreshKeyPairsCommand));
 
-        eventBus.Subscribe<SignatureKeyCreatedEvent>(HandleSignatureKeyCreatedEvent);
+        eventBus.Subscribe<KeyPairCreatedEvent>(HandleSignatureKeyCreatedEvent);
+        eventBus.Subscribe<KeyPairsRefreshEvent>(HandleKeyPairsRefreshEvent);
     }
 
     /// <summary>
@@ -81,45 +91,42 @@ public class KeysSelectorViewModel : ViewModelBase
     /// <summary>
     /// Handles the key creation completion by refreshing the keys list.
     /// </summary>
-    private Task HandleSignatureKeyCreatedEvent(SignatureKeyCreatedEvent ev, CancellationToken cancellationToken)
+    private Task HandleSignatureKeyCreatedEvent(KeyPairCreatedEvent ev, CancellationToken cancellationToken)
     {
-        return RefreshSignatureKeysAsync();
+        RefreshKeyPairsRequest request = new();
+        return mediator.Send(request);
     }
 
     /// <summary>
-    /// Refreshes the signature keys list from the repository.
+    /// Handles the key pairs refresh event by updating the UI with the new data.
     /// </summary>
-    private async Task RefreshSignatureKeysAsync()
+    /// <param name="ev">The refresh event containing the updated signature keys.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    private Task HandleKeyPairsRefreshEvent(KeyPairsRefreshEvent ev, CancellationToken cancellationToken)
     {
         try
         {
-            InitializeMainRequest request = new();
-            InitializeMainResponse response = await mediator.Query<InitializeMainRequest, InitializeMainResponse>(request);
-
-            // Update the collection while preserving the current selection if possible
             Guid? currentSelectionId = SelectedSignatureKey?.Id;
 
             SignatureKeys.Clear();
 
-            IEnumerable<SignatureKeyViewModel> keyViewModels = response.SignatureKeys
+            IEnumerable<SignatureKeyViewModel> keyViewModels = ev.SignatureKeys
                 .OrderBy(x => x.CreatedDate)
                 .ToViewModels();
 
             foreach (SignatureKeyViewModel keyViewModel in keyViewModels)
-            {
                 SignatureKeys.Add(keyViewModel);
-            }
 
-            // Try to restore selection or select the first item if no previous selection
             SelectedSignatureKey = SignatureKeys.FirstOrDefault(x => x.Id == currentSelectionId)
                 ?? SignatureKeys.FirstOrDefault();
         }
         catch (Exception ex)
         {
-            // Handle error appropriately - you might want to show a message to the user
-            // For now, we'll just suppress the exception to prevent crashes
-            System.Diagnostics.Debug.WriteLine($"Error refreshing signature keys: {ex.Message}");
+            System.Diagnostics.Debug.WriteLine($"Error handling key pairs refresh event: {ex.Message}");
         }
+
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -130,7 +137,7 @@ public class KeysSelectorViewModel : ViewModelBase
     {
         try
         {
-            SelectSignatureKeyRequest command = new()
+            SelectKeyPairRequest command = new()
             {
                 SignatureKeyId = signatureKeyId
             };
@@ -142,5 +149,10 @@ public class KeysSelectorViewModel : ViewModelBase
             // For now, we'll just suppress the exception to prevent crashes
             // In a production app, consider logging the error or displaying a user-friendly message
         }
+    }
+
+    public void Dispose()
+    {
+        eventBus.UnsubscribeAllForMe();
     }
 }

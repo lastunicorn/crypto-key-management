@@ -1,13 +1,13 @@
 using AsyncMediator;
-using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.CreateSignatureKey;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.CreateKeyPair;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 
-public class CreateSignatureKeyCommand : System.Windows.Input.ICommand
+public class CreateKeyPairCommand : System.Windows.Input.ICommand
 {
     private readonly IMediator mediator;
 
-    public CreateSignatureKeyCommand(IMediator mediator)
+    public CreateKeyPairCommand(IMediator mediator)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
@@ -20,14 +20,14 @@ public class CreateSignatureKeyCommand : System.Windows.Input.ICommand
 
     public bool CanExecute(object parameter)
     {
-        return true; // Always allow creating a new key
+        return true;
     }
 
     public async void Execute(object parameter)
     {
         try
         {
-            CreateSignatureKeyRequest command = new();
+            CreateKeyPairRequest command = new();
             ICommandWorkflowResult result = await mediator.Send(command);
         }
         catch (Exception ex)

@@ -51,7 +51,7 @@ internal class SignMessageUseCase : ICommandHandler<SignMessageRequest>
 
     private async Task PublishSignatureChangedEvent(string message, string signature)
     {
-        SignatureChangedEvent @event = new()
+        SignatureCreatedEvent @event = new()
         {
             Message = message,
             Signature = signature

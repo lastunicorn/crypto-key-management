@@ -25,14 +25,27 @@
             Margin="10"
             HorizontalAlignment="Center"/>
 
-        <Button
+        <StackPanel
             Grid.Row="1"
-            Name="CreateKeyButton"
-            Content="Create Key"
-            Margin="10,5"
+            Orientation="Horizontal"
             HorizontalAlignment="Center"
-            Width="150"
-            Command="{Binding CreateKeyCommand}"/>
+            Margin="10,5">
+
+            <Button
+                Name="CreateKeyButton"
+                Content="Create Key"
+                Margin="0,0,5,0"
+                Width="100"
+                Command="{Binding CreateKeyPairCommand}"/>
+
+            <Button
+                Name="RefreshKeysButton"
+                Content="Refresh"
+                Margin="5,0,0,0"
+                Width="100"
+                Command="{Binding RefreshKeyPairsCommand}"/>
+
+        </StackPanel>
 
         <ListBox Grid.Row="2"
             Name="SignatureKeysListBox"

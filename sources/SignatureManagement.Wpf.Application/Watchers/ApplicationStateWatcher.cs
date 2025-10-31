@@ -31,7 +31,7 @@ public class ApplicationStateWatcher
     {
         if (e.PropertyName == nameof(IApplicationState.CurrentSignatureKey))
         {
-            SignatureKeySelectionChangedEvent @event = new()
+            KeyPairSelectionChangedEvent @event = new()
             {
                 SignatureKey = applicationState.CurrentSignatureKey?.ToDto()
             };
