@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="clr-namespace:DustInTheWind.SignatureManagement.Wpf.Presentation.Controls"
     
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -43,7 +44,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <!-- Key ID -->
@@ -55,23 +55,10 @@
                 VerticalAlignment="Top"
                 Margin="0 0 10 0"/>
 
-            <TextBox
-                x:Name="KeyIdTextBox"
+            <controls:EnhancedTextBox
                 Grid.Row="0"
                 Grid.Column="1"
                 Text="{Binding SelectedKeyId, Mode=OneWay}"
-                IsReadOnly="True"
-                Style="{StaticResource ReadOnlyTextBoxStyle}"
-                Margin="0 0 5 0"/>
-
-            <Button
-                Grid.Row="0"
-                Grid.Column="2"
-                Content="Copy"
-                Click="CopyKeyId_Click"
-                Width="50"
-                Height="23"
-                ToolTip="Copy Key ID to clipboard"
                 Margin="0 0 0 0"/>
 
             <!-- Private Key -->
@@ -83,25 +70,11 @@
                 VerticalAlignment="Top"
                 Margin="0 5 10 0"/>
 
-            <TextBox
-                x:Name="PrivateKeyTextBox"
+            <controls:EnhancedTextBox
                 Grid.Row="1"
                 Grid.Column="1"
                 Text="{Binding SelectedPrivateKey, Mode=OneWay}"
-                IsReadOnly="True"
-                Style="{StaticResource ReadOnlyTextBoxStyle}"
                 VerticalScrollBarVisibility="Auto"
-                Margin="0 5 5 0"/>
-
-            <Button
-                Grid.Row="1"
-                Grid.Column="2"
-                Content="Copy"
-                Click="CopyPrivateKey_Click"
-                Width="50"
-                Height="23"
-                ToolTip="Copy Private Key to clipboard"
-                VerticalAlignment="Top"
                 Margin="0 5 0 0"/>
 
             <!-- Public Key -->
@@ -113,25 +86,11 @@
                 VerticalAlignment="Top"
                 Margin="0 5 10 0"/>
 
-            <TextBox
-                x:Name="PublicKeyTextBox"
+            <controls:EnhancedTextBox
                 Grid.Row="2"
                 Grid.Column="1"
                 Text="{Binding SelectedPublicKey, Mode=OneWay}"
-                IsReadOnly="True"
-                Style="{StaticResource ReadOnlyTextBoxStyle}"
                 VerticalScrollBarVisibility="Auto"
-                Margin="0 5 5 0"/>
-
-            <Button
-                Grid.Row="2"
-                Grid.Column="2"
-                Content="Copy"
-                Click="CopyPublicKey_Click"
-                Width="50"
-                Height="23"
-                ToolTip="Copy Public Key to clipboard"
-                VerticalAlignment="Top"
                 Margin="0 5 0 0"/>
 
         </Grid>

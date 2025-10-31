@@ -15,37 +15,4 @@ public partial class KeyInfoControl : UserControl
     {
         InitializeComponent();
     }
-
-    /// <summary>
-    /// Handles the click event for copying the Key ID to clipboard.
-    /// </summary>
-    private void CopyKeyId_Click(object sender, RoutedEventArgs e)
-    {
-        if (!string.IsNullOrEmpty(KeyIdTextBox.Text))
-        {
-            Clipboard.SetText(KeyIdTextBox.Text);
-        }
-    }
-
-    /// <summary>
-    /// Handles the click event for copying the Private Key to clipboard.
-    /// </summary>
-    private void CopyPrivateKey_Click(object sender, RoutedEventArgs e)
-    {
-        if (!string.IsNullOrEmpty(PrivateKeyTextBox.Text))
-        {
-            Clipboard.SetText(PrivateKeyTextBox.Text);
-        }
-    }
-
-    /// <summary>
-    /// Handles the click event for copying the Public Key to clipboard.
-    /// </summary>
-    private void CopyPublicKey_Click(object sender, RoutedEventArgs e)
-    {
-        if (!string.IsNullOrEmpty(PublicKeyTextBox.Text))
-        {
-            Clipboard.SetText(PublicKeyTextBox.Text);
-        }
-    }
 }
