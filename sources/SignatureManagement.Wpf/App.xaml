@@ -10,10 +10,10 @@
             <ResourceDictionary.MergedDictionaries>
 
                 <!-- Dark Theme -->
-                <!--<ResourceDictionary Source="pack://application:,,,/DustInTheWind.SignatureManagement.Wpf.Presentation;component/Styles/DarkTheme.xaml"/>-->
+                <ResourceDictionary Source="pack://application:,,,/DustInTheWind.SignatureManagement.Wpf.Presentation;component/Styles/DarkTheme.xaml"/>
 
                 <!-- Light Theme -->
-                <ResourceDictionary Source="pack://application:,,,/DustInTheWind.SignatureManagement.Wpf.Presentation;component/Styles/LightTheme.xaml"/>
+                <!--<ResourceDictionary Source="pack://application:,,,/DustInTheWind.SignatureManagement.Wpf.Presentation;component/Styles/LightTheme.xaml"/>-->
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

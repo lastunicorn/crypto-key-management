@@ -55,14 +55,84 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <!-- Window Style -->
+    <Style TargetType="Window">
+        <Setter Property="Background" Value="{StaticResource LightBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource LightTextBrush}"/>
+    </Style>
+
+    <!-- UserControl Style -->
+    <Style TargetType="UserControl">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource LightTextBrush}"/>
+    </Style>
+
+    <!-- TextBlock Style -->
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource LightTextBrush}"/>
+    </Style>
+
     <!-- Style for read-only TextBox controls with lighter gray background -->
     <Style TargetType="TextBox">
+        <Setter Property="Background" Value="{StaticResource LightSurfaceBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource LightTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource LightBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="4"/>
         <Style.Triggers>
             <Trigger Property="IsReadOnly" Value="True">
-                <Setter Property="Background" Value="#F5F5F5"/>
+                <Setter Property="Background" Value="#E5E5E5"/>
                 <Setter Property="BorderBrush" Value="#CCCCCC"/>
+                <Setter Property="Foreground" Value="{StaticResource LightTextBrush}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
 
+    <!-- Button Style -->
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource LightSurfaceBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource LightTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource LightBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="8,4"/>
+    </Style>
+
+    <!-- ListBox Style -->
+    <Style TargetType="ListBox">
+        <Setter Property="Background" Value="{StaticResource LightSurfaceBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource LightTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource LightBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
+    <!-- ListBoxItem Style -->
+    <Style TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource LightTextBrush}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource LightSurfaceHoverBrush}"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource LightAccentBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- GridSplitter Style -->
+    <Style TargetType="GridSplitter">
+        <Setter Property="Background" Value="{StaticResource LightBorderBrush}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource LightAccentBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Border Style -->
+    <Style TargetType="Border">
+        <Setter Property="BorderBrush" Value="{StaticResource LightBorderBrush}"/>
+    </Style>
+    
 </ResourceDictionary>

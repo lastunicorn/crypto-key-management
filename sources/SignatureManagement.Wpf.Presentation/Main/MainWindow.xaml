@@ -44,7 +44,6 @@
                 Width="5"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Background="LightGray"
                 ShowsPreview="True"
                 Margin="10 0" />
 
@@ -62,6 +61,7 @@
                 DataContext="{Binding SigningPanelViewModel}" />
 
         </Grid>
+
     </Border>
 
 </Window>
