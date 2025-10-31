@@ -6,6 +6,9 @@ internal static class SignatureKeyExtensions
 {
     public static SignatureKeyDto ToDto(this SignatureKey key)
     {
+        if (key == null)
+            return null;
+
         return new SignatureKeyDto
         {
             Id = key.Id,

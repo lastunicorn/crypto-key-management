@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
 using AsyncMediator;
+using DustInTheWind.SignatureManagement.Infrastructure;
+using DustInTheWind.SignatureManagement.Wpf.Application.Events;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SelectSignatureKey;
 
@@ -39,12 +41,21 @@ public class KeysSelectorViewModel : ViewModelBase
     }
 
     /// <summary>
+    /// Gets the command to create a new signature key.
+    /// </summary>
+    public System.Windows.Input.ICommand CreateKeyCommand { get; private set; }
+
+    /// <summary>
     /// Initializes a new instance of the KeysSelectorViewModel class.
     /// </summary>
     /// <param name="mediator">The mediator for handling commands and queries.</param>
-    public KeysSelectorViewModel(IMediator mediator)
+    public KeysSelectorViewModel(IMediator mediator, EventBus eventBus)
     {
+        ArgumentNullException.ThrowIfNull(eventBus);
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        CreateKeyCommand = new CreateSignatureKeyCommand(mediator);
+
+        eventBus.Subscribe<SignatureKeyCreatedEvent>(HandleSignatureKeyCreatedEvent);
     }
 
     /// <summary>
@@ -63,6 +74,45 @@ public class KeysSelectorViewModel : ViewModelBase
     }
 
     /// <summary>
+    /// Handles the key creation completion by refreshing the keys list.
+    /// </summary>
+    private Task HandleSignatureKeyCreatedEvent(SignatureKeyCreatedEvent ev, CancellationToken cancellationToken)
+    {
+        return RefreshSignatureKeysAsync();
+    }
+
+    /// <summary>
+    /// Refreshes the signature keys list from the repository.
+    /// </summary>
+    private async Task RefreshSignatureKeysAsync()
+    {
+        try
+        {
+            InitializeMainRequest request = new();
+            InitializeMainResponse response = await mediator.Query<InitializeMainRequest, InitializeMainResponse>(request);
+
+            // Update the collection while preserving the current selection if possible
+            Guid? currentSelectionId = SelectedSignatureKey?.Id;
+
+            SignatureKeys.Clear();
+            foreach (SignatureKeyViewModel keyViewModel in response.SignatureKeys.ToViewModels())
+            {
+                SignatureKeys.Add(keyViewModel);
+            }
+
+            // Try to restore selection or select the first item if no previous selection
+            SelectedSignatureKey = SignatureKeys.FirstOrDefault(x => x.Id == currentSelectionId)
+                ?? SignatureKeys.FirstOrDefault();
+        }
+        catch (Exception ex)
+        {
+            // Handle error appropriately - you might want to show a message to the user
+            // For now, we'll just suppress the exception to prevent crashes
+            System.Diagnostics.Debug.WriteLine($"Error refreshing signature keys: {ex.Message}");
+        }
+    }
+
+    /// <summary>
     /// Sends a command to select the specified signature key.
     /// </summary>
     /// <param name="signatureKeyId">The ID of the signature key to select.</param>
@@ -76,7 +126,7 @@ public class KeysSelectorViewModel : ViewModelBase
             };
             await mediator.Send(command);
         }
-        catch (Exception ex)
+        catch
         {
             // Handle error appropriately - you might want to show a message to the user
             // For now, we'll just suppress the exception to prevent crashes
