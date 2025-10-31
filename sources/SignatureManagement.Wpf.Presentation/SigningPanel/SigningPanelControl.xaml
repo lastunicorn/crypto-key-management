@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="clr-namespace:DustInTheWind.SignatureManagement.Wpf.Presentation.Controls"
     
     mc:Ignorable="d"
     d:DesignHeight="450"
@@ -19,7 +20,7 @@
     </UserControl.Resources>
 
     <Grid>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="2*"/>
@@ -73,15 +74,11 @@
             FontWeight="Bold"
             Margin="0 10 0 5"/>
 
-        <TextBox
+        <controls:EnhancedTextBox
             Grid.Row="3"
-            Name="SignatureTextBox"
+            x:Name="SignatureTextBox"
             Text="{Binding Signature, Mode=OneWay}"
-            TextWrapping="Wrap"
-            IsReadOnly="True"
-            Style="{StaticResource ReadOnlyTextBoxStyle}"
-            VerticalScrollBarVisibility="Auto"
-            HorizontalScrollBarVisibility="Auto"/>
+            VerticalScrollBarVisibility="Auto"/>
 
     </Grid>
 

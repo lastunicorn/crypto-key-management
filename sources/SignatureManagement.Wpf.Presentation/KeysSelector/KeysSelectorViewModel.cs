@@ -67,7 +67,12 @@ public class KeysSelectorViewModel : ViewModelBase
     {
         Initialization(() =>
         {
-            SignatureKeys = new ObservableCollection<SignatureKeyViewModel>(signatureKeys.ToViewModels());
+            IEnumerable<SignatureKeyViewModel> keyViewModels = signatureKeys
+                .OrderBy(x => x.CreatedDate)
+                .ToViewModels();
+
+            SignatureKeys = new ObservableCollection<SignatureKeyViewModel>(keyViewModels);
+
             SelectedSignatureKey = SignatureKeys
                 .FirstOrDefault(x => x.Id == selectedSignatureKeyId);
         });
@@ -95,7 +100,12 @@ public class KeysSelectorViewModel : ViewModelBase
             Guid? currentSelectionId = SelectedSignatureKey?.Id;
 
             SignatureKeys.Clear();
-            foreach (SignatureKeyViewModel keyViewModel in response.SignatureKeys.ToViewModels())
+
+            IEnumerable<SignatureKeyViewModel> keyViewModels = response.SignatureKeys
+                .OrderBy(x => x.CreatedDate)
+                .ToViewModels();
+
+            foreach (SignatureKeyViewModel keyViewModel in keyViewModels)
             {
                 SignatureKeys.Add(keyViewModel);
             }
