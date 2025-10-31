@@ -8,7 +8,7 @@ public interface IApplicationState : INotifyPropertyChanged
     /// <summary>
     /// Gets or sets the currently selected signature key ID.
     /// </summary>
-    SignatureKey CurrentSignatureKey { get; set; }
+    KeyPair CurrentSignatureKey { get; set; }
 
     /// <summary>
     /// Gets or sets the current message that was signed.

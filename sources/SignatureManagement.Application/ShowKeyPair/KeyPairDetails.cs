@@ -1,6 +1,6 @@
-namespace DustInTheWind.SignatureManagement.Application.ShowSignatures;
+namespace DustInTheWind.SignatureManagement.Application.ShowKeyPair;
 
-public class SignatureDetails
+public class KeyPairDetails
 {
     public Guid Id { get; set; }
     

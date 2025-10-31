@@ -1,6 +1,6 @@
 ﻿using AsyncMediator;
-using DustInTheWind.SignatureManagement.Application.CreateSignature;
-using DustInTheWind.SignatureManagement.Application.ShowSignatures;
+using DustInTheWind.SignatureManagement.Application.CreateKeyPair;
+using DustInTheWind.SignatureManagement.Application.ShowKeyPair;
 using DustInTheWind.SignatureManagement.Application.SignData;
 
 namespace DustInTheWind.SignatureManagement;
@@ -68,11 +68,11 @@ internal class CommandLoop
             case "create":
             case "create keys":
                 {
-                    CreateSignatureCommand command = new();
+                    CreateKeyPairRequest command = new();
                     ICommandWorkflowResult result = await mediator.Send(command)
                         .ConfigureAwait(false);
 
-                    CreateSignatureResponse response = result.Result<CreateSignatureResponse>();
+                    CreateKeyPairResponse response = result.Result<CreateKeyPairResponse>();
 
                     WriteLineColor(ConsoleColor.Green, "✓ Keys created successfully!");
                     Console.WriteLine($"  Key ID: {response.KeyId}");
@@ -88,8 +88,8 @@ internal class CommandLoop
             case "show":
             case "show keys":
                 {
-                    ShowSignaturesCriteria criteria = new();
-                    ShowSignaturesResponse response = await mediator.Query<ShowSignaturesCriteria, ShowSignaturesResponse>(criteria)
+                    ShowKeyPairRequest criteria = new();
+                    ShowKeyPairResponse response = await mediator.Query<ShowKeyPairRequest, ShowKeyPairResponse>(criteria)
                         .ConfigureAwait(false);
                     
                     DisplaySignatures(response);
@@ -123,7 +123,7 @@ internal class CommandLoop
         return true;
     }
 
-    private static void DisplaySignatures(ShowSignaturesResponse response)
+    private static void DisplaySignatures(ShowKeyPairResponse response)
     {
         Console.WriteLine("Keys:");
 
@@ -133,7 +133,7 @@ internal class CommandLoop
             return;
         }
 
-        foreach (SignatureDetails signature in response.Signatures)
+        foreach (KeyPairDetails signature in response.Signatures)
         {
             Console.WriteLine($"ID: {signature.Id}");
             Console.WriteLine($"  Private Key: {signature.PrivateKeyValue}");

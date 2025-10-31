@@ -2,26 +2,26 @@
 using DustInTheWind.SignatureManagement.Domain;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
-namespace DustInTheWind.SignatureManagement.Application.ShowSignatures;
+namespace DustInTheWind.SignatureManagement.Application.ShowKeyPair;
 
-internal class ShowSignaturesUseCase : IQuery<ShowSignaturesCriteria, ShowSignaturesResponse>
+internal class ShowKeyPairUseCase : IQuery<ShowKeyPairRequest, ShowKeyPairResponse>
 {
     private readonly ISignatureKeyRepository signatureRepository;
 
-    public ShowSignaturesUseCase(ISignatureKeyRepository signatureRepository)
+    public ShowKeyPairUseCase(ISignatureKeyRepository signatureRepository)
     {
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
     }
 
-    public Task<ShowSignaturesResponse> Query(ShowSignaturesCriteria criteria)
+    public Task<ShowKeyPairResponse> Query(ShowKeyPairRequest criteria)
     {
-        List<SignatureKey> signatures = signatureRepository.GetAll()
+        List<KeyPair> signatures = signatureRepository.GetAll()
             .ToList();
 
-        IEnumerable<SignatureDetails> signatureDetails = signatures
+        IEnumerable<KeyPairDetails> signatureDetails = signatures
             .Select(x => ToSignatureDetails(x));
 
-        var response = new ShowSignaturesResponse
+        var response = new ShowKeyPairResponse
         {
             Signatures = signatureDetails
         };
@@ -29,9 +29,9 @@ internal class ShowSignaturesUseCase : IQuery<ShowSignaturesCriteria, ShowSignat
         return Task.FromResult(response);
     }
 
-    private static SignatureDetails ToSignatureDetails(SignatureKey x)
+    private static KeyPairDetails ToSignatureDetails(KeyPair x)
     {
-        return new SignatureDetails
+        return new KeyPairDetails
         {
             Id = x.Id,
             PrivateKeyValue = Convert.ToBase64String(x.PrivateKey),

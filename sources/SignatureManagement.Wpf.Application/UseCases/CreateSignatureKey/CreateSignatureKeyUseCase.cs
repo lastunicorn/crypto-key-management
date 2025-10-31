@@ -30,7 +30,7 @@ internal class CreateSignatureKeyUseCase : ICommandHandler<CreateSignatureKeyReq
         Ed25519PublicKeyParameters publicKey = (Ed25519PublicKeyParameters)keyPair.Public;
 
         Guid signatureKeyId = signatureRepository.Add(privateKey.GetEncoded(), publicKey.GetEncoded());
-        SignatureKey savedSignatureKey = signatureRepository.GetById(signatureKeyId);
+        KeyPair savedSignatureKey = signatureRepository.GetById(signatureKeyId);
 
         SignatureKeyCreatedEvent @event = new()
         {

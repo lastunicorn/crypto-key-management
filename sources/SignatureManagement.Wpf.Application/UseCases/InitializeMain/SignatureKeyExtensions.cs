@@ -4,7 +4,7 @@ namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeM
 
 internal static class SignatureKeyExtensions
 {
-    public static SignatureKeyDto ToDto(this SignatureKey key)
+    public static SignatureKeyDto ToDto(this KeyPair key)
     {
         if (key == null)
             return null;

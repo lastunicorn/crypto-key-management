@@ -6,11 +6,11 @@ public class SignatureKeyRepository : ISignatureKeyRepository
 {
     private const string SignaturesDirectory = "signature-keys";
 
-    public IEnumerable<SignatureKey> GetAll()
+    public IEnumerable<KeyPair> GetAll()
     {
         EnsureSignaturesDirectoryExists();
 
-        List<SignatureKey> signatures = [];
+        List<KeyPair> signatures = [];
 
         if (!Directory.Exists(SignaturesDirectory))
             return signatures;
@@ -28,7 +28,7 @@ public class SignatureKeyRepository : ISignatureKeyRepository
 
                 if (File.Exists(publicKeyPath))
                 {
-                    signatures.Add(new SignatureKey
+                    signatures.Add(new KeyPair
                     {
                         Id = id,
                         PrivateKeyPath = privateKeyPath,
@@ -44,7 +44,7 @@ public class SignatureKeyRepository : ISignatureKeyRepository
         return signatures;
     }
 
-    public SignatureKey GetById(Guid id)
+    public KeyPair GetById(Guid id)
     {
         EnsureSignaturesDirectoryExists();
 
@@ -54,7 +54,7 @@ public class SignatureKeyRepository : ISignatureKeyRepository
         if (!File.Exists(privateKeyPath) || !File.Exists(publicKeyPath))
             return null;
 
-        return new SignatureKey
+        return new KeyPair
         {
             Id = id,
             PrivateKeyPath = privateKeyPath,

@@ -8,11 +8,11 @@
 
     <ItemGroup>
         <PackageReference Include="AsyncMediator" Version="2.1.0" />
-        <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\SignatureManagement.Domain\SignatureManagement.Domain.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Ports.CryptographyAccess\SignatureManagement.Ports.CryptographyAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Ports.UserAccess\SignatureManagement.Ports.UserAccess.csproj" PrivateAssets="All" />
     </ItemGroup>

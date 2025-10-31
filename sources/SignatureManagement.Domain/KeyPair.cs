@@ -1,6 +1,6 @@
 ﻿namespace DustInTheWind.SignatureManagement.Domain;
 
-public class SignatureKey
+public class KeyPair
 {
     public Guid Id { get; set; }
 

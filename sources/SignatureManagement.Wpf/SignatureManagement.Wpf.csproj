@@ -7,17 +7,18 @@
         <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
         <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_").Replace("-", "_"))</RootNamespace>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <PackageReference Include="AsyncMediator" Version="2.1.0" />
         <PackageReference Include="AsyncMediator.Extensions.DependencyInjection" Version="1.2.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.10" />
-    </ItemGroup>    
+    </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SignatureManagement.Infrastructure\SignatureManagement.Infrastructure.csproj" />
+        <ProjectReference Include="..\SignatureManagement.Infrastructure\SignatureManagement.Infrastructure.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Ports.CryptographyAccess\SignatureManagement.Ports.CryptographyAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
-        <ProjectReference Include="..\SignatureManagement.Ports.StateAccess\SignatureManagement.Ports.StateAccess.csproj" />
+        <ProjectReference Include="..\SignatureManagement.Ports.StateAccess\SignatureManagement.Ports.StateAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Wpf.Application\SignatureManagement.Wpf.Application.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Wpf.Presentation\SignatureManagement.Wpf.Presentation.csproj" PrivateAssets="All" />
     </ItemGroup>

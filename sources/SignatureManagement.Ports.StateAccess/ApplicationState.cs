@@ -5,11 +5,11 @@ namespace DustInTheWind.SignatureManagement.Ports.StateAccess;
 
 public class ApplicationState : IApplicationState
 {
-    private SignatureKey currentSignatureKey;
+    private KeyPair currentSignatureKey;
     private string currentMessage = string.Empty;
     private string currentSignature = string.Empty;
 
-    public SignatureKey CurrentSignatureKey
+    public KeyPair CurrentSignatureKey
     {
         get => currentSignatureKey;
         set

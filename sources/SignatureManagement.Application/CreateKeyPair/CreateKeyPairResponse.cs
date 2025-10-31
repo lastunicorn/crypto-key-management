@@ -1,6 +1,6 @@
-﻿namespace DustInTheWind.SignatureManagement.Application.CreateSignature;
+﻿namespace DustInTheWind.SignatureManagement.Application.CreateKeyPair;
 
-public class CreateSignatureResponse
+public class CreateKeyPairResponse
 {
     public Guid KeyId { get; set; }
 

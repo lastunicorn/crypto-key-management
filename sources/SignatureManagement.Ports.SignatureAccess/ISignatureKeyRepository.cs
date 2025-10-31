@@ -4,9 +4,9 @@ namespace DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 
 public interface ISignatureKeyRepository
 {
-    IEnumerable<SignatureKey> GetAll();
+    IEnumerable<KeyPair> GetAll();
 
-    SignatureKey GetById(Guid id);
+    KeyPair GetById(Guid id);
 
     Guid Add(byte[] privateKey, byte[] publicKey);
 }

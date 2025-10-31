@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignatureManagement.Infrast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignatureManagement.Domain", "SignatureManagement.Domain\SignatureManagement.Domain.csproj", "{AE534C6C-0F6C-4128-B290-E44256DB1A59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignatureManagement.Ports.CryptographyAccess", "SignatureManagement.Ports.CryptographyAccess\SignatureManagement.Ports.CryptographyAccess.csproj", "{BAC95728-C083-439F-AE87-1229987FADF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{AE534C6C-0F6C-4128-B290-E44256DB1A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE534C6C-0F6C-4128-B290-E44256DB1A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE534C6C-0F6C-4128-B290-E44256DB1A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAC95728-C083-439F-AE87-1229987FADF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAC95728-C083-439F-AE87-1229987FADF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAC95728-C083-439F-AE87-1229987FADF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAC95728-C083-439F-AE87-1229987FADF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD} = {12E32685-BF78-4998-AAED-0122342D48A7}
 		{1663EB14-0585-4888-8EE3-7F2EAC53D8DA} = {12E32685-BF78-4998-AAED-0122342D48A7}
 		{5C39F1D6-CEB5-47D8-A4FF-5813F0709467} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{BAC95728-C083-439F-AE87-1229987FADF8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64FD4C85-8520-4125-B3B5-F78EABDC1801}

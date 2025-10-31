@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using AsyncMediator.Extensions.DependencyInjection;
-using DustInTheWind.SignatureManagement.Application.CreateSignature;
+using DustInTheWind.SignatureManagement.Application.CreateKeyPair;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using DustInTheWind.SignatureManagement.Ports.UserAccess;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +28,7 @@ internal static class Program
                 services.AddSingleton<CommandLoop>();
                 services.AddScoped<IUserConsole, UserConsole>();
 
-                services.AddAsyncMediator(typeof(CreateSignatureCommand).Assembly);
+                services.AddAsyncMediator(typeof(CreateKeyPairRequest).Assembly);
             })
             .ConfigureLogging(logging =>
             {

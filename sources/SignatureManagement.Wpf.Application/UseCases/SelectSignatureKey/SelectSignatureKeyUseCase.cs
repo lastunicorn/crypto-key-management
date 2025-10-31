@@ -23,7 +23,7 @@ internal class SelectSignatureKeyUseCase : ICommandHandler<SelectSignatureKeyReq
 
     public async Task<ICommandWorkflowResult> Handle(SelectSignatureKeyRequest command)
     {
-        SignatureKey signatureKey = RetrieveSignatureKey(command.SignatureKeyId);
+        KeyPair signatureKey = RetrieveSignatureKey(command.SignatureKeyId);
         applicationStateService.CurrentSignatureKey = signatureKey;
 
         await RaiseSignatureKeySelectionChangedEvent(signatureKey);
@@ -31,7 +31,7 @@ internal class SelectSignatureKeyUseCase : ICommandHandler<SelectSignatureKeyReq
         return CommandWorkflowResult.Ok();
     }
 
-    private async Task RaiseSignatureKeySelectionChangedEvent(SignatureKey signatureKey)
+    private async Task RaiseSignatureKeySelectionChangedEvent(KeyPair signatureKey)
     {
         SignatureKeySelectionChangedEvent @event = new()
         {
@@ -40,7 +40,7 @@ internal class SelectSignatureKeyUseCase : ICommandHandler<SelectSignatureKeyReq
         await eventBus.PublishAsync(@event);
     }
 
-    private SignatureKey RetrieveSignatureKey(Guid? signatureKeyId)
+    private KeyPair RetrieveSignatureKey(Guid? signatureKeyId)
     {
         return signatureKeyId.HasValue
             ? signatureKeyRepository.GetById(signatureKeyId.Value)

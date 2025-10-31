@@ -6,18 +6,18 @@ using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 
-namespace DustInTheWind.SignatureManagement.Application.CreateSignature;
+namespace DustInTheWind.SignatureManagement.Application.CreateKeyPair;
 
-internal class CreateSignatureUseCase : ICommandHandler<CreateSignatureCommand>
+internal class CreateKeyPairUseCase : ICommandHandler<CreateKeyPairRequest>
 {
     private readonly ISignatureKeyRepository signatureRepository;
 
-    public CreateSignatureUseCase(ISignatureKeyRepository signatureRepository)
+    public CreateKeyPairUseCase(ISignatureKeyRepository signatureRepository)
     {
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
     }
 
-    public Task<ICommandWorkflowResult> Handle(CreateSignatureCommand command)
+    public Task<ICommandWorkflowResult> Handle(CreateKeyPairRequest command)
     {
         // Generate new key pair
         AsymmetricCipherKeyPair keyPair = GenerateNewKeyPair();
@@ -26,9 +26,9 @@ internal class CreateSignatureUseCase : ICommandHandler<CreateSignatureCommand>
         Ed25519PublicKeyParameters publicKey = (Ed25519PublicKeyParameters)keyPair.Public;
 
         Guid signatureKeyId = signatureRepository.Add(privateKey.GetEncoded(), publicKey.GetEncoded());
-        SignatureKey savedSignatureKey = signatureRepository.GetById(signatureKeyId);
+        KeyPair savedSignatureKey = signatureRepository.GetById(signatureKeyId);
 
-        CreateSignatureResponse response = new()
+        CreateKeyPairResponse response = new()
         {
             KeyId = signatureKeyId,
             PrivateKeyPath = savedSignatureKey.PrivateKeyPath,
@@ -37,7 +37,7 @@ internal class CreateSignatureUseCase : ICommandHandler<CreateSignatureCommand>
             PublicKey = savedSignatureKey.PublicKey
         };
 
-        ICommandWorkflowResult result = new CommandWorkflowResult<CreateSignatureResponse>(response);
+        ICommandWorkflowResult result = new CommandWorkflowResult<CreateKeyPairResponse>(response);
         return Task.FromResult(result);
     }
 
