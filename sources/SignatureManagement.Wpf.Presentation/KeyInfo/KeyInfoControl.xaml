@@ -27,7 +27,7 @@
         <TextBlock
             Grid.Row="0"
             Text="Selected Key Information"
-            FontSize="14"
+            FontSize="16"
             FontWeight="Bold"
             Margin="0 0 0 5"/>
 
