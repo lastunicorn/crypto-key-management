@@ -24,6 +24,7 @@ internal static class Setup
         serviceCollection.AddTransient<KeysSelectorViewModel>();
         serviceCollection.AddTransient<KeyInfoViewModel>();
         serviceCollection.AddTransient<SigningPanelViewModel>();
+        serviceCollection.AddTransient<SignMessageCommand>();
         serviceCollection.AddTransient<ISignatureKeyRepository, SignatureKeyRepository>();
 
         serviceCollection.AddSingleton<IApplicationState, ApplicationState>();

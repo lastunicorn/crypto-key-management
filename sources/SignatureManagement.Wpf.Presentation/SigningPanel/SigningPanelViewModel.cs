@@ -1,4 +1,3 @@
-using AsyncMediator;
 using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Wpf.Application.Events;
 
@@ -9,15 +8,11 @@ namespace DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 /// </summary>
 public class SigningPanelViewModel : ViewModelBase, IDisposable
 {
-    private readonly IMediator mediator;
+    private bool isDisposed;
     private readonly EventBus eventBus;
     private string message = string.Empty;
     private string signature = string.Empty;
-    private Func<SignatureChangedEvent, CancellationToken, Task> signatureChangedHandler;
 
-    /// <summary>
-    /// Gets or sets the message to be signed.
-    /// </summary>
     public string Message
     {
         get => message;
@@ -31,9 +26,6 @@ public class SigningPanelViewModel : ViewModelBase, IDisposable
         }
     }
 
-    /// <summary>
-    /// Gets the generated signature in Base64 format.
-    /// </summary>
     public string Signature
     {
         get => signature;
@@ -47,33 +39,17 @@ public class SigningPanelViewModel : ViewModelBase, IDisposable
         }
     }
 
-    /// <summary>
-    /// Command to sign the current message.
-    /// </summary>
     public SignMessageCommand SignMessageCommand { get; }
 
-    /// <summary>
-    /// Initializes a new instance of the SigningPanelViewModel class.
-    /// </summary>
-    /// <param name="mediator">The mediator for handling commands and queries.</param>
-    /// <param name="eventBus">The event bus for subscribing to events.</param>
-    public SigningPanelViewModel(IMediator mediator, EventBus eventBus)
+    public SigningPanelViewModel(EventBus eventBus, SignMessageCommand signMessageCommand)
     {
-        this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+        SignMessageCommand = signMessageCommand ?? throw new ArgumentNullException(nameof(signMessageCommand));
 
-        SignMessageCommand = new SignMessageCommand(mediator);
-
-        SubscribeToEvents();
+        eventBus.Subscribe<SignatureChangedEvent>(HandleSignatureChanged);
     }
 
-    private void SubscribeToEvents()
-    {
-        signatureChangedHandler = OnSignatureChanged;
-        eventBus.Subscribe(signatureChangedHandler);
-    }
-
-    private Task OnSignatureChanged(SignatureChangedEvent @event, CancellationToken cancellationToken)
+    private Task HandleSignatureChanged(SignatureChangedEvent @event, CancellationToken cancellationToken)
     {
         Signature = @event.Signature;
         return Task.CompletedTask;
@@ -81,10 +57,22 @@ public class SigningPanelViewModel : ViewModelBase, IDisposable
 
     public void Dispose()
     {
-        if (signatureChangedHandler != null)
-        {
-            eventBus.Unsubscribe(signatureChangedHandler);
-            signatureChangedHandler = null;
-        }
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected void Dispose(bool isDisposing)
+    {
+        if (isDisposed)
+            return;
+
+        eventBus.UnsubscribeAllForMe();
+
+        isDisposed = true;
+    }
+
+    ~SigningPanelViewModel()
+    {
+        Dispose(false);
     }
 }
