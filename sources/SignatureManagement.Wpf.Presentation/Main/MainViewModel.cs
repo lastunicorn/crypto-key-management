@@ -4,12 +4,15 @@ using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
+using System.Reflection;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
 public class MainViewModel : ViewModelBase
 {
     private readonly IMediator mediator;
+
+    public string WindowTitle { get; }
 
     public KeysSelectorViewModel KeysSelectorViewModel { get; }
 
@@ -24,7 +27,16 @@ public class MainViewModel : ViewModelBase
         SigningPanelViewModel = signingPanelViewModel ?? throw new ArgumentNullException(nameof(signingPanelViewModel));
         KeyInfoViewModel = keyInfoViewModel ?? throw new ArgumentNullException(nameof(keyInfoViewModel));
 
+        WindowTitle = GetWindowTitle();
+
         _ = InitializeAsync();
+    }
+
+    private static string GetWindowTitle()
+    {
+        var assembly = Assembly.GetEntryAssembly();
+        var version = assembly?.GetName().Version?.ToString(3) ?? "Unknown";
+        return $"Signature Keys Management {version}";
     }
 
     private Task InitializeAsync()

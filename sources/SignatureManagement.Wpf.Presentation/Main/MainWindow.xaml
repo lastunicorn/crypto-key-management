@@ -1,6 +1,6 @@
 <Window
     x:Class="DustInTheWind.SignatureManagement.Wpf.Main.MainWindow"
-    
+  
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +10,7 @@
     xmlns:keyInfo="clr-namespace:DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo"
     
     mc:Ignorable="d"
-    Title="Signature Management - Keys"
+    Title="{Binding WindowTitle}"
     Height="600"
     Width="1000">
 
