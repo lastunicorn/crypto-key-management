@@ -6,6 +6,8 @@ namespace DustInTheWind.SignatureManagement.Ports.StateAccess;
 public class ApplicationState : IApplicationState
 {
     private SignatureKey currentSignatureKey;
+    private string currentMessage = string.Empty;
+    private string currentSignature = string.Empty;
 
     public SignatureKey CurrentSignatureKey
     {
@@ -16,6 +18,32 @@ public class ApplicationState : IApplicationState
             {
                 currentSignatureKey = value;
                 OnPropertyChanged(nameof(CurrentSignatureKey));
+            }
+        }
+    }
+
+    public string CurrentMessage
+    {
+        get => currentMessage;
+        set
+        {
+            if (currentMessage != value)
+            {
+                currentMessage = value;
+                OnPropertyChanged(nameof(CurrentMessage));
+            }
+        }
+    }
+
+    public string CurrentSignature
+    {
+        get => currentSignature;
+        set
+        {
+            if (currentSignature != value)
+            {
+                currentSignature = value;
+                OnPropertyChanged(nameof(CurrentSignature));
             }
         }
     }

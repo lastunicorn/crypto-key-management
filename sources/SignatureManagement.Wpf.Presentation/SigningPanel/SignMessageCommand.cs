@@ -6,12 +6,10 @@ namespace DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 public class SignMessageCommand : System.Windows.Input.ICommand
 {
     private readonly IMediator mediator;
-    private readonly Action<string> setSignature;
 
-    public SignMessageCommand(IMediator mediator, Action<string> setSignature)
+    public SignMessageCommand(IMediator mediator)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        this.setSignature = setSignature ?? throw new ArgumentNullException(nameof(setSignature));
     }
 
     public event EventHandler CanExecuteChanged
@@ -41,17 +39,13 @@ public class SignMessageCommand : System.Windows.Input.ICommand
                 Message = message
             };
 
-            ICommandWorkflowResult result = await mediator.Send(command);
-            SignMessageResponse response = result.Result<SignMessageResponse>();
-
-            setSignature(response.Signature);
+            await mediator.Send(command);
         }
         catch (Exception ex)
         {
             // Handle error appropriately - you might want to show a message to the user
             // For now, just ensure we don't crash the application
             System.Diagnostics.Debug.WriteLine($"Error signing message: {ex.Message}");
-            setSignature($"Error: {ex.Message}");
         }
     }
 }
