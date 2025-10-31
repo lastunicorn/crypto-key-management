@@ -1,0 +1,344 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Color Definitions -->
+    <Color x:Key="DarkBackground">#FF1E1E1E</Color>
+    <Color x:Key="DarkSurface">#FF2D2D30</Color>
+    <Color x:Key="DarkSurfaceHover">#FF3E3E42</Color>
+    <Color x:Key="DarkBorder">#FF3F3F46</Color>
+    <Color x:Key="DarkText">#FFFFFFFF</Color>
+    <Color x:Key="DarkTextSecondary">#FFCCCCCC</Color>
+    <Color x:Key="DarkTextDisabled">#FF999999</Color>
+    <Color x:Key="DarkAccent">#FF0078D4</Color>
+    <Color x:Key="DarkAccentHover">#FF106EBE</Color>
+    <Color x:Key="DarkAccentPressed">#FF005A9E</Color>
+
+    <!-- Brush Definitions -->
+    <SolidColorBrush x:Key="DarkBackgroundBrush" Color="{StaticResource DarkBackground}"/>
+    <SolidColorBrush x:Key="DarkSurfaceBrush" Color="{StaticResource DarkSurface}"/>
+    <SolidColorBrush x:Key="DarkSurfaceHoverBrush" Color="{StaticResource DarkSurfaceHover}"/>
+    <SolidColorBrush x:Key="DarkBorderBrush" Color="{StaticResource DarkBorder}"/>
+    <SolidColorBrush x:Key="DarkTextBrush" Color="{StaticResource DarkText}"/>
+    <SolidColorBrush x:Key="DarkTextSecondaryBrush" Color="{StaticResource DarkTextSecondary}"/>
+    <SolidColorBrush x:Key="DarkTextDisabledBrush" Color="{StaticResource DarkTextDisabled}"/>
+    <SolidColorBrush x:Key="DarkAccentBrush" Color="{StaticResource DarkAccent}"/>
+    <SolidColorBrush x:Key="DarkAccentHoverBrush" Color="{StaticResource DarkAccentHover}"/>
+    <SolidColorBrush x:Key="DarkAccentPressedBrush" Color="{StaticResource DarkAccentPressed}"/>
+
+    <!-- Window Style -->
+    <Style TargetType="Window">
+        <Setter Property="Background" Value="{StaticResource DarkBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkTextBrush}"/>
+    </Style>
+
+    <!-- UserControl Style -->
+    <Style TargetType="UserControl">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkTextBrush}"/>
+    </Style>
+
+    <!-- TextBlock Style -->
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource DarkTextBrush}"/>
+    </Style>
+
+    <!-- Button Style -->
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource DarkSurfaceBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DarkBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="8,4"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="2">
+                        <ContentPresenter 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource DarkSurfaceHoverBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource DarkAccentPressedBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource DarkTextDisabledBrush}"/>
+                            <Setter Property="Background" Value="#FF3C3C3C"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- TextBox Style -->
+    <Style TargetType="TextBox">
+        <Setter Property="Background" Value="{StaticResource DarkSurfaceBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DarkBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="CaretBrush" Value="{StaticResource DarkTextBrush}"/>
+        <Setter Property="SelectionBrush" Value="{StaticResource DarkAccentBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="2"
+                        SnapsToDevicePixels="True">
+                        <ScrollViewer 
+                            x:Name="PART_ContentHost"
+                            Focusable="false"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{StaticResource DarkTextDisabledBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" Value="{StaticResource DarkAccentBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="BorderBrush" Value="{StaticResource DarkAccentBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter Property="Background" Value="#FF3C3C3C"/>
+                <Setter Property="BorderBrush" Value="#FF666666"/>
+                <Setter Property="Foreground" Value="#FFFFFFFF"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ListBox Style -->
+    <Style TargetType="ListBox">
+        <Setter Property="Background" Value="{StaticResource DarkSurfaceBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DarkBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <Border 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="2"
+                        SnapsToDevicePixels="true">
+                        <ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ListBoxItem Style -->
+    <Style TargetType="ListBoxItem">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Padding" Value="4,1"/>
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}"
+                        SnapsToDevicePixels="true">
+                        <ContentPresenter 
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{StaticResource DarkSurfaceHoverBrush}"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                <Condition Property="IsSelected" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{StaticResource DarkAccentBrush}"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                <Condition Property="IsSelected" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{StaticResource DarkAccentBrush}"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ScrollBar Style -->
+    <Style TargetType="ScrollBar">
+        <Setter Property="Background" Value="{StaticResource DarkSurfaceBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkBorderBrush}"/>
+        <Setter Property="Width" Value="18"/>
+        <Setter Property="MinWidth" Value="18"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollBar">
+                    <Grid x:Name="Bg" SnapsToDevicePixels="true">
+                        <Border 
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}">
+                            <Track.Thumb>
+                                <Thumb>
+                                    <Thumb.Style>
+                                        <Style TargetType="Thumb">
+                                            <Setter Property="Background" Value="{StaticResource DarkBorderBrush}"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Thumb">
+                                                        <Border 
+                                                            Background="{TemplateBinding Background}"
+                                                            CornerRadius="2"
+                                                            Margin="2"/>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="true">
+                                                                <Setter Property="Background" Value="{StaticResource DarkTextSecondaryBrush}"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Thumb.Style>
+                                </Thumb>
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="MinWidth" Value="0"/>
+                <Setter Property="Height" Value="18"/>
+                <Setter Property="MinHeight" Value="18"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ScrollBar">
+                            <Grid x:Name="Bg" SnapsToDevicePixels="true">
+                                <Border 
+         Background="{TemplateBinding Background}"
+  BorderBrush="{TemplateBinding BorderBrush}"
+     BorderThickness="{TemplateBinding BorderThickness}"/>
+                                <Track x:Name="PART_Track" IsEnabled="{TemplateBinding IsMouseOver}">
+                                    <Track.Thumb>
+                                        <Thumb>
+                                            <Thumb.Style>
+                                                <Style TargetType="Thumb">
+                                                    <Setter Property="Background" Value="{StaticResource DarkBorderBrush}"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Thumb">
+                                                                <Border 
+          Background="{TemplateBinding Background}"
+      CornerRadius="2"
+              Margin="2"/>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="true">
+                                                                        <Setter Property="Background" Value="{StaticResource DarkTextSecondaryBrush}"/>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Thumb.Style>
+                                        </Thumb>
+                                    </Track.Thumb>
+                                </Track>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- GridSplitter Style -->
+    <Style TargetType="GridSplitter">
+        <Setter Property="Background" Value="{StaticResource DarkBorderBrush}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource DarkAccentBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Border Style -->
+    <Style TargetType="Border">
+        <Setter Property="BorderBrush" Value="{StaticResource DarkBorderBrush}"/>
+    </Style>
+
+    <!-- Copy icon -->
+    <DrawingImage x:Key="CopyIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!-- Background document -->
+                <GeometryDrawing Brush="Transparent">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#666666" Thickness="1.2"/>
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,8,10" RadiusX="0.5" RadiusY="0.5"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!-- Foreground document (copy) -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#666666" Thickness="1.2"/>
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="6,4,8,10" RadiusX="0.5" RadiusY="0.5"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

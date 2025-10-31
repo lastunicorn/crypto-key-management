@@ -11,14 +11,6 @@
     d:DesignHeight="450"
     d:DesignWidth="800">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Styles/PresentationStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Grid>
 
         <Grid.RowDefinitions>
@@ -83,3 +75,4 @@
     </Grid>
 
 </UserControl>
+    

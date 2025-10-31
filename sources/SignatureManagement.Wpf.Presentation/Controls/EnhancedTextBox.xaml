@@ -10,16 +10,8 @@
     d:DesignHeight="23"
     d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Styles/PresentationStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Grid>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
@@ -30,7 +22,6 @@
             Grid.Column="0"
             Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Text, Mode=OneWay}"
             IsReadOnly="True"
-            Style="{StaticResource ReadOnlyTextBoxStyle}"
             VerticalScrollBarVisibility="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=VerticalScrollBarVisibility}"
             Margin="0 0 5 0"/>
 
@@ -38,11 +29,13 @@
             x:Name="CopyButton"
             Grid.Column="1"
             Click="CopyButton_Click"
-            Width="26"
-            Height="23"
+            Width="24"
+            Height="24"
             ToolTip="Copy to clipboard"
-            VerticalAlignment="Top">
-            <ContentPresenter Content="{StaticResource CopyIcon}"/>
+            VerticalAlignment="Top"
+            Padding="4">
+
+            <Image Source="{StaticResource CopyIcon}" />
         </Button>
 
     </Grid>
