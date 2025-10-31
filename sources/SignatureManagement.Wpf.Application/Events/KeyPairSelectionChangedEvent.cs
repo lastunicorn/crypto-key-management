@@ -4,5 +4,5 @@ namespace DustInTheWind.SignatureManagement.Wpf.Application.Events;
 
 public class KeyPairSelectionChangedEvent
 {
-    public SignatureKeyDto SignatureKey { get; set; }
+    public KeyPairDto SignatureKey { get; set; }
 }

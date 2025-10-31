@@ -4,12 +4,12 @@ namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeM
 
 internal static class SignatureKeyExtensions
 {
-    public static SignatureKeyDto ToDto(this KeyPair key)
+    public static KeyPairDto ToDto(this KeyPair key)
     {
         if (key == null)
             return null;
 
-        return new SignatureKeyDto
+        return new KeyPairDto
         {
             Id = key.Id,
             CreatedDate = key.CreatedDate,

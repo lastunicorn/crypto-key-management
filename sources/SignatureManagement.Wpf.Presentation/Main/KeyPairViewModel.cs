@@ -1,6 +1,6 @@
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
-public class SignatureKeyViewModel
+public class KeyPairViewModel
 {
     public Guid Id { get; set; }
     

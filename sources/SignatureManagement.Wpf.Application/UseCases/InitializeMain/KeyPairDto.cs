@@ -1,6 +1,6 @@
 ﻿namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 
-public class SignatureKeyDto
+public class KeyPairDto
 {
     public Guid Id { get; set; }
     

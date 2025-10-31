@@ -22,21 +22,21 @@ internal class RefreshKeyPairsUseCase : ICommandHandler<RefreshKeyPairsRequest>
 
     public async Task<ICommandWorkflowResult> Handle(RefreshKeyPairsRequest command)
     {
-        List<SignatureKeyDto> signatureKeys = LoadSignatureKeys();
+        List<KeyPairDto> signatureKeys = LoadSignatureKeys();
 
         await PublishKeyPairsRefreshEvent(signatureKeys);
 
         return CommandWorkflowResult.Ok();
     }
 
-    private List<SignatureKeyDto> LoadSignatureKeys()
+    private List<KeyPairDto> LoadSignatureKeys()
     {
         return signatureKeyRepository.GetAll()
             .Select(SignatureKeyExtensions.ToDto)
             .ToList();
     }
 
-    private async Task PublishKeyPairsRefreshEvent(List<SignatureKeyDto> signatureKeys)
+    private async Task PublishKeyPairsRefreshEvent(List<KeyPairDto> signatureKeys)
     {
         KeyPairsRefreshEvent @event = new()
         {

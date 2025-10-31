@@ -12,7 +12,7 @@ internal static class SignatureKeyExtensions
     /// </summary>
     /// <param name="signatureKeyDtos">The collection of signature key DTOs to convert.</param>
     /// <returns>A collection of signature key view models.</returns>
-    public static IEnumerable<SignatureKeyViewModel> ToViewModels(this IEnumerable<SignatureKeyDto> signatureKeyDtos)
+    public static IEnumerable<SignatureKeyViewModel> ToViewModels(this IEnumerable<KeyPairDto> signatureKeyDtos)
     {
         foreach (var dto in signatureKeyDtos)
         {

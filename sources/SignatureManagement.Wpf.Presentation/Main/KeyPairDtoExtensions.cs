@@ -2,13 +2,13 @@
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
-internal static class SignatureKeyExtensions
+internal static class KeyPairDtoExtensions
 {
-    public static IEnumerable<SignatureKeyViewModel> ToViewModels(this IEnumerable<SignatureKeyDto> signatureKeyDtos)
+    public static IEnumerable<KeyPairViewModel> ToViewModels(this IEnumerable<KeyPairDto> signatureKeyDtos)
     {
         foreach (var dto in signatureKeyDtos)
         {
-            yield return new SignatureKeyViewModel
+            yield return new KeyPairViewModel
             {
                 Id = dto.Id,
                 CreatedDateText = $"Created: {dto.CreatedDate:yyyy-MM-dd HH:mm:ss}",

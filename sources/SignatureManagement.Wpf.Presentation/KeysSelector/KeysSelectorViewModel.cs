@@ -73,7 +73,7 @@ public class KeysSelectorViewModel : ViewModelBase, IDisposable
     /// </summary>
     /// <param name="signatureKeys">The collection of signature keys to display.</param>
     /// <param name="selectedSignatureKeyId">The ID of the currently selected signature key.</param>
-    public void Initialize(IEnumerable<SignatureKeyDto> signatureKeys, Guid? selectedSignatureKeyId)
+    public void Initialize(IEnumerable<KeyPairDto> signatureKeys, Guid? selectedSignatureKeyId)
     {
         Initialization(() =>
         {
@@ -118,8 +118,9 @@ public class KeysSelectorViewModel : ViewModelBase, IDisposable
             foreach (SignatureKeyViewModel keyViewModel in keyViewModels)
                 SignatureKeys.Add(keyViewModel);
 
-            SelectedSignatureKey = SignatureKeys.FirstOrDefault(x => x.Id == currentSelectionId)
-                ?? SignatureKeys.FirstOrDefault();
+            SelectedSignatureKey = currentSelectionId == null
+                ? null
+                : SignatureKeys.FirstOrDefault(x => x.Id == currentSelectionId);
         }
         catch (Exception ex)
         {

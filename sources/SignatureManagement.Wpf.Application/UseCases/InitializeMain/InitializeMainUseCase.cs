@@ -28,7 +28,7 @@ internal class InitializeMainUseCase : IQuery<InitializeMainRequest, InitializeM
         return Task.FromResult(response);
     }
 
-    private List<SignatureKeyDto> LoadSignatureKeys()
+    private List<KeyPairDto> LoadSignatureKeys()
     {
         return signatureKeyRepository.GetAll()
             .Select(SignatureKeyExtensions.ToDto)

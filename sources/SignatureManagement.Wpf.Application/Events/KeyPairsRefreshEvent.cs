@@ -10,5 +10,5 @@ public class KeyPairsRefreshEvent
     /// <summary>
     /// Gets or sets the refreshed list of signature keys.
     /// </summary>
-    public List<SignatureKeyDto> SignatureKeys { get; set; } = new();
+    public List<KeyPairDto> SignatureKeys { get; set; } = new();
 }

@@ -85,7 +85,7 @@ public class KeyInfoViewModel : ViewModelBase
     /// Updates the selected key information to display in the control.
     /// </summary>
     /// <param name="keyDto">The selected key DTO, or null if no key is selected.</param>
-    public void UpdateSelectedKey(SignatureKeyDto keyDto)
+    public void UpdateSelectedKey(KeyPairDto keyDto)
     {
         if (keyDto == null)
         {
