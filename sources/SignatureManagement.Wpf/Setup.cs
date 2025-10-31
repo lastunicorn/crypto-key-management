@@ -8,6 +8,7 @@ using DustInTheWind.SignatureManagement.Wpf.Main;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.Services;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,6 +25,8 @@ internal static class Setup
 
         // GUI
 
+        serviceCollection.AddSingleton<ThemeSelector>();
+
         serviceCollection.AddTransient<MainWindow>();
         
         serviceCollection.AddTransient<MainViewModel>();
@@ -34,6 +37,7 @@ internal static class Setup
         serviceCollection.AddTransient<SignMessageCommand>();
         serviceCollection.AddTransient<CreateKeyPairCommand>();
         serviceCollection.AddTransient<RefreshKeyPairsCommand>();
+        serviceCollection.AddTransient<ToggleThemeCommand>();
 
         // External services
 

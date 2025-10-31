@@ -5,12 +5,14 @@ using DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 using System.Reflection;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.Services;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
 public class MainViewModel : ViewModelBase
 {
     private readonly IMediator mediator;
+    private readonly ThemeSelector themeSelector;
 
     public string WindowTitle { get; }
 
@@ -20,14 +22,30 @@ public class MainViewModel : ViewModelBase
 
     public SigningPanelViewModel SigningPanelViewModel { get; }
 
-    public MainViewModel(IMediator mediator, KeysSelectorViewModel keysSelectorViewModel, SigningPanelViewModel signingPanelViewModel, KeyInfoViewModel keyInfoViewModel, EventBus eventBus)
+
+    public string ThemeToggleText => themeSelector.IsDarkTheme
+        ? "Switch to Light Theme"
+        : "Switch to Dark Theme";
+
+    public ToggleThemeCommand ToggleThemeCommand { get; }
+
+    public MainViewModel(IMediator mediator, EventBus eventBus,
+        KeysSelectorViewModel keysSelectorViewModel, SigningPanelViewModel signingPanelViewModel,
+        KeyInfoViewModel keyInfoViewModel, ThemeSelector themeSelector, ToggleThemeCommand toggleThemeCommand)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         KeysSelectorViewModel = keysSelectorViewModel ?? throw new ArgumentNullException(nameof(keysSelectorViewModel));
         SigningPanelViewModel = signingPanelViewModel ?? throw new ArgumentNullException(nameof(signingPanelViewModel));
         KeyInfoViewModel = keyInfoViewModel ?? throw new ArgumentNullException(nameof(keyInfoViewModel));
+        this.themeSelector = themeSelector ?? throw new ArgumentNullException(nameof(themeSelector));
+        ToggleThemeCommand = toggleThemeCommand ?? throw new ArgumentNullException(nameof(toggleThemeCommand));
 
         WindowTitle = GetWindowTitle();
+
+        themeSelector.ThemeChanged += (s, e) =>
+        {
+            OnPropertyChanged(nameof(ThemeToggleText));
+        };
 
         _ = InitializeAsync();
     }
