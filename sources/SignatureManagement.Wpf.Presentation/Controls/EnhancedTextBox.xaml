@@ -19,6 +19,7 @@
     </UserControl.Resources>
 
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
@@ -36,12 +37,13 @@
         <Button
             x:Name="CopyButton"
             Grid.Column="1"
-            Content="Copy"
             Click="CopyButton_Click"
-            Width="50"
+            Width="26"
             Height="23"
             ToolTip="Copy to clipboard"
-            VerticalAlignment="Top"/>
+            VerticalAlignment="Top">
+            <ContentPresenter Content="{StaticResource CopyIcon}"/>
+        </Button>
 
     </Grid>
 
