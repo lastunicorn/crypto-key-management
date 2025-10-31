@@ -14,7 +14,11 @@
     Height="600"
     Width="1000">
 
-    <Border Margin="10">
+    <Window.Style>
+        <StaticResource ResourceKey="{x:Type Window}" />
+    </Window.Style>
+
+    <Border Margin="10" Background="Transparent">
 
         <Grid>
 
@@ -61,7 +65,6 @@
                 DataContext="{Binding SigningPanelViewModel}" />
 
         </Grid>
-
     </Border>
 
 </Window>

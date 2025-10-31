@@ -53,12 +53,12 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border 
+                    <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="2">
-                        <ContentPresenter 
+                        <ContentPresenter
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Margin="{TemplateBinding Padding}"/>
@@ -92,13 +92,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
-                    <Border 
+                    <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="2"
                         SnapsToDevicePixels="True">
-                        <ScrollViewer 
+                        <ScrollViewer
                             x:Name="PART_ContentHost"
                             Focusable="false"
                             HorizontalScrollBarVisibility="Hidden"
@@ -120,9 +120,10 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsReadOnly" Value="True">
-                <Setter Property="Background" Value="#FF3C3C3C"/>
-                <Setter Property="BorderBrush" Value="#FF666666"/>
-                <Setter Property="Foreground" Value="#FFFFFFFF"/>
+                <!--<Setter Property="Background" Value="#FF3C3C3C"/>-->
+                <Setter Property="Background" Value="#FF1a1a1a"/>
+                <Setter Property="BorderBrush" Value="#FF464646"/>
+                <Setter Property="Foreground" Value="#FFAFAFAF"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -141,7 +142,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBox">
-                    <Border 
+                    <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
@@ -167,16 +168,16 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
-                    <Border 
+                    <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Padding="{TemplateBinding Padding}"
                         SnapsToDevicePixels="true">
-                        <ContentPresenter 
+                        <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -215,7 +216,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ScrollBar">
                     <Grid x:Name="Bg" SnapsToDevicePixels="true">
-                        <Border 
+                        <Border
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"/>
@@ -228,7 +229,7 @@
                                             <Setter Property="Template">
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="Thumb">
-                                                        <Border 
+                                                        <Border
                                                             Background="{TemplateBinding Background}"
                                                             CornerRadius="2"
                                                             Margin="2"/>
@@ -259,10 +260,10 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="ScrollBar">
                             <Grid x:Name="Bg" SnapsToDevicePixels="true">
-                                <Border 
-         Background="{TemplateBinding Background}"
-  BorderBrush="{TemplateBinding BorderBrush}"
-     BorderThickness="{TemplateBinding BorderThickness}"/>
+                                <Border
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"/>
                                 <Track x:Name="PART_Track" IsEnabled="{TemplateBinding IsMouseOver}">
                                     <Track.Thumb>
                                         <Thumb>
@@ -272,10 +273,10 @@
                                                     <Setter Property="Template">
                                                         <Setter.Value>
                                                             <ControlTemplate TargetType="Thumb">
-                                                                <Border 
-          Background="{TemplateBinding Background}"
-      CornerRadius="2"
-              Margin="2"/>
+                                                                <Border
+                                                                    Background="{TemplateBinding Background}"
+                                                                    CornerRadius="2"
+                                                                    Margin="2"/>
                                                                 <ControlTemplate.Triggers>
                                                                     <Trigger Property="IsMouseOver" Value="true">
                                                                         <Setter Property="Background" Value="{StaticResource DarkTextSecondaryBrush}"/>
@@ -310,6 +311,7 @@
     <!-- Border Style -->
     <Style TargetType="Border">
         <Setter Property="BorderBrush" Value="{StaticResource DarkBorderBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
     </Style>
 
     <!-- Copy icon -->

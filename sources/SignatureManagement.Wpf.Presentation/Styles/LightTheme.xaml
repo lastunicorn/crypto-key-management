@@ -133,6 +133,7 @@
     <!-- Border Style -->
     <Style TargetType="Border">
         <Setter Property="BorderBrush" Value="{StaticResource LightBorderBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
     </Style>
     
 </ResourceDictionary>
