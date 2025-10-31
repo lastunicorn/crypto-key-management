@@ -31,7 +31,7 @@
         <TextBlock
             Grid.Row="0"
             Text="Message to Sign"
-            FontSize="14"
+            FontSize="16"
             FontWeight="Bold"
             Margin="0 0 0 5"/>
 
@@ -69,7 +69,7 @@
         <TextBlock
             Grid.Row="2"
             Text="Generated Signature (Base64)"
-            FontSize="14"
+            FontSize="16"
             FontWeight="Bold"
             Margin="0 10 0 5"/>
 
