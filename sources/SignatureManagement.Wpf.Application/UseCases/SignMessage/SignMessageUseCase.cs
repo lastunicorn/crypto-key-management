@@ -1,6 +1,5 @@
 using AsyncMediator;
 using DustInTheWind.SignatureManagement.Domain;
-using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using DustInTheWind.SignatureManagement.Ports.StateAccess;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Crypto.Signers;

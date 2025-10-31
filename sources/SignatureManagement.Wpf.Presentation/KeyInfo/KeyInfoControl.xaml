@@ -29,11 +29,9 @@
             Text="Selected Key Information"
             FontSize="14"
             FontWeight="Bold"
-            Margin="10,10,10,5"/>
+            Margin="0 0 0 5"/>
 
-        <Grid
-            Grid.Row="1"
-            Margin="10,0,10,10">
+        <Grid Grid.Row="1">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -53,7 +51,7 @@
                 Text="Key ID:"
                 FontWeight="Bold"
                 VerticalAlignment="Top"
-                Margin="0,0,10,5"/>
+                Margin="0 0 10 0"/>
 
             <TextBox
                 Grid.Row="0"
@@ -61,7 +59,7 @@
                 Text="{Binding SelectedKeyId, Mode=OneWay}"
                 IsReadOnly="True"
                 Style="{StaticResource ReadOnlyTextBoxStyle}"
-                Margin="0,0,0,5"/>
+                Margin="0 0 0 0"/>
 
             <!-- Private Key -->
             <TextBlock
@@ -70,7 +68,7 @@
                 Text="Private Key:"
                 FontWeight="Bold"
                 VerticalAlignment="Top"
-                Margin="0,0,10,5"/>
+                Margin="0 5 10 0"/>
 
             <TextBox
                 Grid.Row="1"
@@ -81,7 +79,7 @@
                 TextWrapping="Wrap"
                 Height="60"
                 VerticalScrollBarVisibility="Auto"
-                Margin="0,0,0,5"/>
+                Margin="0 5 0 0"/>
 
             <!-- Public Key -->
             <TextBlock
@@ -90,7 +88,7 @@
                 Text="Public Key:"
                 FontWeight="Bold"
                 VerticalAlignment="Top"
-                Margin="0,0,10,5"/>
+                Margin="0 5 10 0"/>
 
             <TextBox
                 Grid.Row="2"
@@ -101,7 +99,7 @@
                 TextWrapping="Wrap"
                 Height="60"
                 VerticalScrollBarVisibility="Auto"
-                Margin="0,0,0,5"/>
+                Margin="0 5 0 0"/>
 
         </Grid>
 
