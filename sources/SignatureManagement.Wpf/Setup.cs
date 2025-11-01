@@ -12,6 +12,7 @@ using DustInTheWind.SignatureManagement.Wpf.Presentation.Services;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.Sidebar;
 using Microsoft.Extensions.DependencyInjection;
+using DustInTheWind.SignatureManagement.Ports.SettingsAccess;
 
 namespace DustInTheWind.SignatureManagement.Wpf;
 
@@ -26,6 +27,7 @@ internal static class Setup
 
         // GUI
 
+        serviceCollection.AddSingleton<ISettingsService, SettingsService>();
         serviceCollection.AddSingleton<ThemeSelector>();
 
         serviceCollection.AddTransient<MainWindow>();

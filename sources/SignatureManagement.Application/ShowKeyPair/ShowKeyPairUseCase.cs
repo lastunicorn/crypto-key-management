@@ -21,7 +21,7 @@ internal class ShowKeyPairUseCase : IQuery<ShowKeyPairRequest, ShowKeyPairRespon
         IEnumerable<KeyPairDetails> signatureDetails = signatures
             .Select(x => ToSignatureDetails(x));
 
-        var response = new ShowKeyPairResponse
+        ShowKeyPairResponse response = new()
         {
             Signatures = signatureDetails
         };

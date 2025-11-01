@@ -2,6 +2,7 @@
 using System.Windows.Threading;
 using DustInTheWind.SignatureManagement.Wpf.Application.Watchers;
 using DustInTheWind.SignatureManagement.Wpf.Main;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DustInTheWind.SignatureManagement.Wpf;
@@ -20,6 +21,9 @@ public partial class App : System.Windows.Application
         ServiceCollection serviceCollection = new();
         Setup.ConfigureServices(serviceCollection);
         IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+
+        // Initialize theme before showing the main window
+        ThemeSelector themeSelector = serviceProvider.GetService<ThemeSelector>();
 
         Initialize(serviceProvider);
 
@@ -68,15 +72,15 @@ public partial class App : System.Windows.Application
         try
         {
             string message = $"An unexpected error occurred:\n\n" +
-               $"Type: {exception.GetType().Name}\n" +
-             $"Message: {exception.Message}\n\n" +
-             $"Stack Trace:\n{exception.StackTrace}";
+                $"Type: {exception.GetType().Name}\n" +
+                $"Message: {exception.Message}\n\n" +
+                $"Stack Trace:\n{exception.StackTrace}";
 
             // Use Dispatcher.Invoke to ensure the message box is shown on the UI thread
             Dispatcher.Invoke(() =>
-             {
-                 MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
-             });
+            {
+                MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+            });
         }
         catch
         {

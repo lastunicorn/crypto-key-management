@@ -1,20 +1,29 @@
 ﻿using System.Windows;
+using DustInTheWind.SignatureManagement.Ports.SettingsAccess;
 using WpfApp = System.Windows.Application;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Services;
 
 public class ThemeSelector
 {
-    private bool isDarkTheme = true;
+    private readonly ISettingsService settingsService;
+
+    public ThemeSelector(ISettingsService settingsService)
+    {
+        this.settingsService = settingsService ?? throw new ArgumentNullException(nameof(settingsService));
+
+        ApplyTheme();
+    }
 
     public bool IsDarkTheme
     {
-        get => isDarkTheme;
+        get => settingsService.IsDarkTheme;
         set
         {
-            if (isDarkTheme != value)
+            if (settingsService.IsDarkTheme != value)
             {
-                isDarkTheme = value;
+                settingsService.IsDarkTheme = value;
+                ApplyTheme();
                 OnThemeChanged();
             }
         }
@@ -25,7 +34,6 @@ public class ThemeSelector
     public void ToggleTheme()
     {
         IsDarkTheme = !IsDarkTheme;
-        ApplyTheme();
     }
 
     private void ApplyTheme()

@@ -40,8 +40,8 @@ public class MainViewModel : ViewModelBase
 
     private static string GetWindowTitle()
     {
-        var assembly = Assembly.GetEntryAssembly();
-        var version = assembly?.GetName().Version?.ToString(3) ?? "Unknown";
+        Assembly assembly = Assembly.GetEntryAssembly();
+        string version = assembly?.GetName().Version?.ToString(3) ?? "Unknown";
         return $"Signature Keys Management {version}";
     }
 
