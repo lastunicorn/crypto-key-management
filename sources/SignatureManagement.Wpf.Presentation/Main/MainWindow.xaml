@@ -8,6 +8,7 @@
     xmlns:signingPanel="clr-namespace:DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel"
     xmlns:keysSelector="clr-namespace:DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector"
     xmlns:keyInfo="clr-namespace:DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo"
+    xmlns:sidebar="clr-namespace:DustInTheWind.SignatureManagement.Wpf.Presentation.Sidebar"
   
     mc:Ignorable="d"
     Title="{Binding WindowTitle, Mode=OneWay}"
@@ -18,72 +19,72 @@
         <DynamicResource ResourceKey="{x:Type Window}" />
     </Window.Style>
 
-    <Border Margin="10" Background="Transparent">
+    <DockPanel>
 
-        <Grid>
+        <!-- Sidebar -->
+        <sidebar:SidebarControl
+            DockPanel.Dock="Left"
+            DataContext="{Binding SidebarViewModel}" />
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" MinWidth="200" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" MinWidth="400" />
-            </Grid.ColumnDefinitions>
+        <!-- Main Content -->
+        <Border
+            Margin="10"
+            Background="Transparent">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+            <Grid>
 
-            <!-- Header with Theme Toggle Button -->
-            <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="300" MinWidth="200" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" MinWidth="400" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Empty space for future header content -->
-                <Border Grid.Column="0" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-                <!-- Theme Toggle Button -->
-                <Button Grid.Column="1"
-                    Content="{Binding ThemeToggleText}"
-                    Command="{Binding ToggleThemeCommand}"
-                    Padding="12,6"
-                    ToolTip="Toggle between light and dark theme" />
+                <!-- Left Panel - Keys Section -->
+                <keysSelector:KeysSelectorControl
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    DataContext="{Binding KeysSelectorViewModel}" />
+
+                <!-- GridSplitter (Vertical) -->
+                <GridSplitter
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Width="5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    ShowsPreview="True"
+                    Margin="10 0" />
+
+                <!-- Right Panel Container -->
+                <Grid
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    Margin="0 0 10 0">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Top Right Panel - Key Information Section -->
+                    <keyInfo:KeyInfoControl
+                        Grid.Row="0"
+                        DataContext="{Binding KeyInfoViewModel}" />
+
+                    <!-- Bottom Right Panel - Message and Signature Section -->
+                    <signingPanel:SigningPanelControl
+                        Grid.Row="1"
+                        Margin="0 10 0 0"
+                        DataContext="{Binding SigningPanelViewModel}" />
+                </Grid>
+
             </Grid>
+        </Border>
 
-            <!-- Left Panel - Keys Section -->
-            <keysSelector:KeysSelectorControl
-                Grid.Column="0"
-                Grid.Row="1"
-                Grid.RowSpan="2"
-                DataContext="{Binding KeysSelectorViewModel}" />
-
-            <!-- GridSplitter (Vertical) -->
-            <GridSplitter
-                Grid.Column="1"
-                Grid.Row="1"
-                Grid.RowSpan="2"
-                Width="5"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                ShowsPreview="True"
-                Margin="10 0" />
-
-            <!-- Top Right Panel - Key Information Section -->
-            <keyInfo:KeyInfoControl
-                Grid.Column="2"
-                Grid.Row="1"
-                DataContext="{Binding KeyInfoViewModel}" />
-
-            <!-- Bottom Right Panel - Message and Signature Section -->
-            <signingPanel:SigningPanelControl
-                Grid.Column="2"
-                Grid.Row="2"
-                Margin="0 10 0 0"
-                DataContext="{Binding SigningPanelViewModel}" />
-
-        </Grid>
-    </Border>
+    </DockPanel>
 
 </Window>
