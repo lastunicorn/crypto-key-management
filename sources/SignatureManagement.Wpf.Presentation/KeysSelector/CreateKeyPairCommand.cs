@@ -25,17 +25,7 @@ public class CreateKeyPairCommand : System.Windows.Input.ICommand
 
     public async void Execute(object parameter)
     {
-        try
-        {
-            CreateKeyPairRequest command = new();
-            ICommandWorkflowResult result = await mediator.Send(command);
-        }
-        catch (Exception ex)
-        {
-            // Handle error appropriately - you might want to show a message to the user
-            // For now, just ensure we don't crash the application
-            System.Diagnostics.Debug.WriteLine($"Error creating signature key: {ex.Message}");
-            // TODO: Consider showing a user-friendly error message
-        }
+        CreateKeyPairRequest command = new();
+        await mediator.Send(command);
     }
 }

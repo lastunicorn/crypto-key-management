@@ -105,27 +105,20 @@ public class KeysSelectorViewModel : ViewModelBase, IDisposable
     /// <returns>A task representing the asynchronous operation.</returns>
     private Task HandleKeyPairsRefreshEvent(KeyPairsRefreshEvent ev, CancellationToken cancellationToken)
     {
-        try
-        {
-            Guid? currentSelectionId = SelectedSignatureKey?.Id;
+        Guid? currentSelectionId = SelectedSignatureKey?.Id;
 
-            SignatureKeys.Clear();
+        SignatureKeys.Clear();
 
-            IEnumerable<SignatureKeyViewModel> keyViewModels = ev.SignatureKeys
-                .OrderBy(x => x.CreatedDate)
-                .ToViewModels();
+        IEnumerable<SignatureKeyViewModel> keyViewModels = ev.SignatureKeys
+            .OrderBy(x => x.CreatedDate)
+            .ToViewModels();
 
-            foreach (SignatureKeyViewModel keyViewModel in keyViewModels)
-                SignatureKeys.Add(keyViewModel);
+        foreach (SignatureKeyViewModel keyViewModel in keyViewModels)
+            SignatureKeys.Add(keyViewModel);
 
-            SelectedSignatureKey = currentSelectionId == null
-                ? null
-                : SignatureKeys.FirstOrDefault(x => x.Id == currentSelectionId);
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error handling key pairs refresh event: {ex.Message}");
-        }
+        SelectedSignatureKey = currentSelectionId == null
+            ? null
+            : SignatureKeys.FirstOrDefault(x => x.Id == currentSelectionId);
 
         return Task.CompletedTask;
     }
@@ -136,20 +129,11 @@ public class KeysSelectorViewModel : ViewModelBase, IDisposable
     /// <param name="signatureKeyId">The ID of the signature key to select.</param>
     private async Task SelectSignatureKeyAsync(Guid? signatureKeyId)
     {
-        try
+        SelectKeyPairRequest command = new()
         {
-            SelectKeyPairRequest command = new()
-            {
-                SignatureKeyId = signatureKeyId
-            };
-            await mediator.Send(command);
-        }
-        catch
-        {
-            // Handle error appropriately - you might want to show a message to the user
-            // For now, we'll just suppress the exception to prevent crashes
-            // In a production app, consider logging the error or displaying a user-friendly message
-        }
+            SignatureKeyId = signatureKeyId
+        };
+        await mediator.Send(command);
     }
 
     public void Dispose()

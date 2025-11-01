@@ -27,25 +27,16 @@ public class SignMessageCommand : System.Windows.Input.ICommand
 
     public async void Execute(object parameter)
     {
-        try
+        string message = parameter as string;
+
+        if (string.IsNullOrWhiteSpace(message))
+            return;
+
+        SignMessageRequest command = new()
         {
-            string message = parameter as string;
+            Message = message
+        };
 
-            if (string.IsNullOrWhiteSpace(message))
-                return;
-
-            SignMessageRequest command = new()
-            {
-                Message = message
-            };
-
-            await mediator.Send(command);
-        }
-        catch (Exception ex)
-        {
-            // Handle error appropriately - you might want to show a message to the user
-            // For now, just ensure we don't crash the application
-            System.Diagnostics.Debug.WriteLine($"Error signing message: {ex.Message}");
-        }
+        await mediator.Send(command);
     }
 }

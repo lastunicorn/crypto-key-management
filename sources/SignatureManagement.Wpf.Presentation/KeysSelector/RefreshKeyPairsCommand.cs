@@ -40,13 +40,6 @@ public class RefreshKeyPairsCommand : System.Windows.Input.ICommand
             _ = await mediator.Send(request);
 
         }
-        catch (Exception ex)
-        {
-            // Handle error appropriately - you might want to show a message to the user
-            // For now, just ensure we don't crash the application
-            System.Diagnostics.Debug.WriteLine($"Error refreshing signature keys: {ex.Message}");
-            // TODO: Consider showing a user-friendly error message
-        }
         finally
         {
             isExecuting = false;
