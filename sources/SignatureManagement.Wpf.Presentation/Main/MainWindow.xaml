@@ -49,7 +49,6 @@
                     Content="{Binding ThemeToggleText}"
                     Command="{Binding ToggleThemeCommand}"
                     Padding="12,6"
-                    MinWidth="150"
                     ToolTip="Toggle between light and dark theme" />
             </Grid>
 

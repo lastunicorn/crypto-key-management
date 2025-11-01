@@ -24,8 +24,8 @@ public class MainViewModel : ViewModelBase
 
 
     public string ThemeToggleText => themeSelector.IsDarkTheme
-        ? "Switch to Light Theme"
-        : "Switch to Dark Theme";
+        ? "Dark"
+        : "Light";
 
     public ToggleThemeCommand ToggleThemeCommand { get; }
 

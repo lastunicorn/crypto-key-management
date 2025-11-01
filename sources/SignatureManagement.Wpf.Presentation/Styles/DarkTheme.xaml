@@ -313,6 +313,15 @@
         <Setter Property="BorderBrush" Value="{StaticResource DarkBorderBrush}"/>
         <Setter Property="Background" Value="Transparent"/>
     </Style>
+    
+    <!-- ToolTip Style -->
+    <Style TargetType="ToolTip">
+        <Setter Property="Background" Value="{StaticResource DarkSurfaceBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DarkBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="6,4"/>
+    </Style>
 
     <!-- Copy icon -->
     <DrawingImage x:Key="CopyIcon">

@@ -196,4 +196,13 @@
         <Setter Property="Background" Value="Transparent"/>
     </Style>
 
+    <!-- ToolTip Style -->
+    <Style TargetType="ToolTip">
+        <Setter Property="Background" Value="{StaticResource LightSurfaceBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource LightTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource LightBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="6,4"/>
+    </Style>
+
 </ResourceDictionary>
