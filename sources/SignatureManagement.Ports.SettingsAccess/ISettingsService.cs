@@ -1,6 +1,8 @@
-﻿namespace DustInTheWind.SignatureManagement.Ports.SettingsAccess;
+﻿using DustInTheWind.SignatureManagement.Domain;
+
+namespace DustInTheWind.SignatureManagement.Ports.SettingsAccess;
 
 public interface ISettingsService
 {
-    bool IsDarkTheme { get; set; }
+    ThemeType ThemeType { get; set; }
 }

@@ -1,18 +1,20 @@
 ﻿using AsyncMediator.Extensions.DependencyInjection;
+using DustInTheWind.SignatureManagement.Adapter.WpfUserAccess;
 using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Ports.CryptographyAccess;
+using DustInTheWind.SignatureManagement.Ports.SettingsAccess;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using DustInTheWind.SignatureManagement.Ports.StateAccess;
-using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
+using DustInTheWind.SignatureManagement.Ports.WpfUserAccess;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeApp;
+using DustInTheWind.SignatureManagement.Wpf.Application.Watchers;
 using DustInTheWind.SignatureManagement.Wpf.Main;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
-using DustInTheWind.SignatureManagement.Wpf.Presentation.Services;
-using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.Sidebar;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 using Microsoft.Extensions.DependencyInjection;
-using DustInTheWind.SignatureManagement.Ports.SettingsAccess;
 
 namespace DustInTheWind.SignatureManagement.Wpf;
 
@@ -22,16 +24,16 @@ internal static class Setup
     {
         // Infrastructure
 
-        serviceCollection.AddAsyncMediator(typeof(InitializeMainRequest).Assembly);
+        serviceCollection.AddAsyncMediator(typeof(InitializeAppRequest).Assembly);
         serviceCollection.AddSingleton<EventBus>();
 
         // GUI
 
         serviceCollection.AddSingleton<ISettingsService, SettingsService>();
-        serviceCollection.AddSingleton<ThemeSelector>();
+        serviceCollection.AddSingleton<IThemeSelector, ThemeSelector>();
 
         serviceCollection.AddTransient<MainWindow>();
-        
+
         serviceCollection.AddTransient<MainViewModel>();
         serviceCollection.AddTransient<KeysSelectorViewModel>();
         serviceCollection.AddTransient<KeyInfoViewModel>();
@@ -42,6 +44,10 @@ internal static class Setup
         serviceCollection.AddTransient<CreateKeyPairCommand>();
         serviceCollection.AddTransient<RefreshKeyPairsCommand>();
         serviceCollection.AddTransient<ToggleThemeCommand>();
+
+        // Miscellanneous
+
+        serviceCollection.AddSingleton<ApplicationStateWatcher>();
 
         // External services
 

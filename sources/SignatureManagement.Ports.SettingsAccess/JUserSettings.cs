@@ -3,10 +3,10 @@ namespace DustInTheWind.SignatureManagement.Ports.SettingsAccess;
 /// <summary>
 /// Represents user settings that are persisted to disk.
 /// </summary>
-public class UserSettings
+public class JUserSettings
 {
     /// <summary>
     /// Gets or sets whether the dark theme is enabled. Default is true.
     /// </summary>
-    public bool IsDarkTheme { get; set; } = true;
+    public JThemeType ThemeType { get; set; }
 }

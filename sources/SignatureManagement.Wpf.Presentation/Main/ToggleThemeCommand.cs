@@ -1,17 +1,16 @@
-﻿
-using System.Windows.Input;
-using DustInTheWind.SignatureManagement.Wpf.Presentation.Services;
+﻿using System.Windows.Input;
+using AsyncMediator;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.ToggleTheme;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
-// Simple RelayCommand implementation
-public class ToggleThemeCommand : ICommand
+public class ToggleThemeCommand : System.Windows.Input.ICommand
 {
-    private readonly ThemeSelector themeSelector;
+    private readonly IMediator mediator;
 
-    public ToggleThemeCommand(ThemeSelector themeSelector)
+    public ToggleThemeCommand(IMediator mediator)
     {
-        this.themeSelector = themeSelector ?? throw new ArgumentNullException(nameof(themeSelector));
+        this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
     public event EventHandler CanExecuteChanged
@@ -25,8 +24,9 @@ public class ToggleThemeCommand : ICommand
         return true;
     }
 
-    public void Execute(object parameter)
+    public async void Execute(object parameter)
     {
-        themeSelector.ToggleTheme();
+        var request = new ToggleThemeRequest();
+        await mediator.Send(request);
     }
 }

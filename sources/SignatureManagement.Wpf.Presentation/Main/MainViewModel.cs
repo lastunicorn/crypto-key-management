@@ -1,11 +1,11 @@
 ﻿using AsyncMediator;
 using DustInTheWind.SignatureManagement.Infrastructure;
-using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.Sidebar;
 using System.Reflection;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentMain;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
 
@@ -49,8 +49,8 @@ public class MainViewModel : ViewModelBase
     {
         return AsInitializationAsync(async () =>
         {
-            InitializeMainRequest request = new();
-            InitializeMainResponse response = await mediator.Query<InitializeMainRequest, InitializeMainResponse>(request);
+            PresentMainRequest request = new();
+            PresentMainResponse response = await mediator.Query<PresentMainRequest, PresentMainResponse>(request);
 
             KeysSelectorViewModel.Initialize(response.SignatureKeys, response.SelectedSignatureKeyId);
         });

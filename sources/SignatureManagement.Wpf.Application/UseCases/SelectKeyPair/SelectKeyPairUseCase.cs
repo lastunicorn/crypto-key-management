@@ -4,7 +4,7 @@ using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using DustInTheWind.SignatureManagement.Ports.StateAccess;
 using DustInTheWind.SignatureManagement.Wpf.Application.Events;
-using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentMain;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SelectKeyPair;
 

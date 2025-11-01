@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
-using DustInTheWind.SignatureManagement.Wpf.Application.Watchers;
+using AsyncMediator;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeApp;
 using DustInTheWind.SignatureManagement.Wpf.Main;
-using DustInTheWind.SignatureManagement.Wpf.Presentation.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DustInTheWind.SignatureManagement.Wpf;
@@ -22,19 +22,18 @@ public partial class App : System.Windows.Application
         Setup.ConfigureServices(serviceCollection);
         IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
-        // Initialize theme before showing the main window
-        ThemeSelector themeSelector = serviceProvider.GetService<ThemeSelector>();
-
-        Initialize(serviceProvider);
+        _ = Initialize(serviceProvider);
 
         MainWindow = serviceProvider.GetService<MainWindow>();
         MainWindow.Show();
     }
 
-    private void Initialize(IServiceProvider serviceProvider)
+    private async Task Initialize(IServiceProvider serviceProvider)
     {
-        ApplicationStateWatcher applicationStateWatcher = serviceProvider.GetService<ApplicationStateWatcher>();
-        applicationStateWatcher?.Start();
+        IMediator mediator = serviceProvider.GetService<IMediator>();
+
+        InitializeAppRequest command = new();
+        await mediator.Send(command);
     }
 
     private void SetupExceptionHandling()

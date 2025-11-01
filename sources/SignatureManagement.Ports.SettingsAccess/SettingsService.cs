@@ -1,4 +1,5 @@
 using System.Text.Json;
+using DustInTheWind.SignatureManagement.Domain;
 
 namespace DustInTheWind.SignatureManagement.Ports.SettingsAccess;
 
@@ -9,7 +10,7 @@ namespace DustInTheWind.SignatureManagement.Ports.SettingsAccess;
 public class SettingsService : ISettingsService
 {
     private readonly string settingsFilePath;
-    private UserSettings settings;
+    private JUserSettings userSettings;
 
     /// <summary>
     /// Initializes a new instance of the SettingsService and loads existing settings.
@@ -28,17 +29,40 @@ public class SettingsService : ISettingsService
     /// Gets or sets whether the dark theme is enabled. 
     /// Changes are automatically persisted to the settings file.
     /// </summary>
-    public bool IsDarkTheme
+    public ThemeType ThemeType
     {
-        get => settings.IsDarkTheme;
+        get => ToEntity(userSettings.ThemeType);
         set
         {
-            if (settings.IsDarkTheme != value)
+            JThemeType newValue = ToJEntity(value);
+
+            if (userSettings.ThemeType != newValue)
             {
-                settings.IsDarkTheme = value;
+                userSettings.ThemeType = newValue;
                 SaveSettings();
             }
         }
+    }
+
+    private static JThemeType ToJEntity(ThemeType value)
+    {
+        return value switch
+        {
+            ThemeType.Dark => JThemeType.Dark,
+            ThemeType.Light => JThemeType.Light,
+            _ => JThemeType.Light,
+        };
+    }
+
+    private ThemeType ToEntity(JThemeType jThemeType)
+    {
+        return jThemeType switch
+        {
+            JThemeType.None => ThemeType.Light,
+            JThemeType.Dark => ThemeType.Dark,
+            JThemeType.Light => ThemeType.Light,
+            _ => ThemeType.Light,
+        };
     }
 
     private void LoadSettings()
@@ -48,25 +72,27 @@ public class SettingsService : ISettingsService
             if (File.Exists(settingsFilePath))
             {
                 string json = File.ReadAllText(settingsFilePath);
-                settings = JsonSerializer.Deserialize<UserSettings>(json) ?? new UserSettings();
+                userSettings = JsonSerializer.Deserialize<JUserSettings>(json) ?? new JUserSettings();
             }
             else
-                settings = new UserSettings();
+            {
+                userSettings = new JUserSettings();
+            }
         }
         catch
         {
             // If there's any error loading settings, use defaults
-            settings = new UserSettings();
+            userSettings = new JUserSettings();
             // You might want to log this exception in a real application
         }
     }
 
     private void SaveSettings()
     {
-            string json = JsonSerializer.Serialize(settings, new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
-            File.WriteAllText(settingsFilePath, json);
+        string json = JsonSerializer.Serialize(userSettings, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+        File.WriteAllText(settingsFilePath, json);
     }
 }

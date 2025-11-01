@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using AsyncMediator;
 using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Wpf.Application.Events;
-using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentMain;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.RefreshKeyPairs;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SelectKeyPair;
 

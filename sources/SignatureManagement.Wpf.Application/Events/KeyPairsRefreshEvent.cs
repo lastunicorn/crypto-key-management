@@ -1,4 +1,4 @@
-using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentMain;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Application.Events;
 

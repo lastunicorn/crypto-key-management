@@ -1,6 +1,6 @@
 ﻿using DustInTheWind.SignatureManagement.Domain;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
+namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentMain;
 
 internal static class SignatureKeyExtensions
 {

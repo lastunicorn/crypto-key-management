@@ -1,25 +1,24 @@
 ﻿using AsyncMediator;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using DustInTheWind.SignatureManagement.Ports.StateAccess;
-using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentMain;
 
-namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
+namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentMain;
 
-internal class InitializeMainUseCase : IQuery<InitializeMainRequest, InitializeMainResponse>
+internal class PresentMainUseCase : IQuery<PresentMainRequest, PresentMainResponse>
 {
     private readonly ISignatureKeyRepository signatureKeyRepository;
     private readonly IApplicationState applicationState;
 
-    public InitializeMainUseCase(ISignatureKeyRepository signatureKeyRepository, IApplicationState applicationState)
+    public PresentMainUseCase(ISignatureKeyRepository signatureKeyRepository, IApplicationState applicationState)
     {
         this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
         this.applicationState = applicationState ?? throw new ArgumentNullException(nameof(applicationState));
     }
 
-    public Task<InitializeMainResponse> Query(InitializeMainRequest criteria)
+    public Task<PresentMainResponse> Query(PresentMainRequest criteria)
     {
-
-        InitializeMainResponse response = new()
+        PresentMainResponse response = new()
         {
             SignatureKeys = LoadSignatureKeys(),
             SelectedSignatureKeyId = applicationState.CurrentSignatureKey?.Id

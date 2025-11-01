@@ -1,4 +1,4 @@
-﻿namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
+﻿namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentMain;
 
 public class KeyPairDto
 {

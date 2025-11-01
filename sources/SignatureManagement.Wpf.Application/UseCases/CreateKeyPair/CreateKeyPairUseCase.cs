@@ -3,7 +3,7 @@ using DustInTheWind.SignatureManagement.Domain;
 using DustInTheWind.SignatureManagement.Infrastructure;
 using DustInTheWind.SignatureManagement.Ports.SignatureAccess;
 using DustInTheWind.SignatureManagement.Wpf.Application.Events;
-using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeMain;
+using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentMain;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Parameters;
