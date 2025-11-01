@@ -1,6 +1,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:DustInTheWind.SignatureManagement.Wpf.Presentation.Controls">
 
     <!-- Light Theme Colors -->
     <Color x:Key="LightBackground">#FFFFFFFF</Color>
@@ -210,7 +211,7 @@
     <SolidColorBrush x:Key="SidebarButtonHoverBrush" Color="{StaticResource LightSurfaceHover}"/>
     <SolidColorBrush x:Key="SidebarButtonPressedBrush" Color="{StaticResource LightAccent}"/>
 
-    <Style x:Key="SidebarButtonStyle" TargetType="Button">
+    <Style TargetType="{x:Type controls:SidebarButton}">
 
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="1"/>
@@ -219,7 +220,6 @@
         <Setter Property="Width" Value="40"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="FontSize" Value="18"/>
-        <Setter Property="Cursor" Value="Hand"/>
 
         <Setter Property="Template">
             <Setter.Value>

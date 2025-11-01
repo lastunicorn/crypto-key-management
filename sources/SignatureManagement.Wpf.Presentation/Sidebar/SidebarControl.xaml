@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    
+    xmlns:controls="clr-namespace:DustInTheWind.SignatureManagement.Wpf.Presentation.Controls"
+  
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="60">
@@ -21,11 +22,10 @@
             Orientation="Vertical"
             HorizontalAlignment="Center">
 
-            <!-- Theme Toggle Button -->
-            <Button 
+            <!-- Theme Toggle Button using custom SidebarButton -->
+            <controls:SidebarButton 
                 Content="{Binding ThemeToggleText}"
                 Command="{Binding ToggleThemeCommand}"
-                Style="{StaticResource SidebarButtonStyle}"
                 ToolTip="Toggle between light and dark theme" />
 
             <!-- Future sidebar items can be added here -->
@@ -33,4 +33,4 @@
         </StackPanel>
     </Border>
 
-</UserControl>
+</UserControl>          
