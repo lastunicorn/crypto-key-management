@@ -16,21 +16,26 @@
         Background="{DynamicResource SidebarBackgroundBrush}"
         BorderBrush="{DynamicResource SidebarBorderBrush}"
         BorderThickness="0 0 1 0"
-        Padding="5">
+        Padding="5 5 5 10">
 
-        <StackPanel
-            Orientation="Vertical"
+        <DockPanel
             HorizontalAlignment="Center">
 
-            <!-- Theme Toggle Button using custom SidebarButton -->
+            <!-- Theme Toggle Button docked to bottom -->
             <controls:SidebarButton 
+                DockPanel.Dock="Bottom"
                 Content="{Binding ThemeToggleText}"
                 Command="{Binding ToggleThemeCommand}"
                 ToolTip="Toggle between light and dark theme" />
 
-            <!-- Future sidebar items can be added here -->
+            <!-- Future sidebar items can be added here at the top -->
+            <StackPanel
+                Orientation="Vertical"
+                HorizontalAlignment="Center">
+                <!-- Additional buttons or controls can be added here -->
+            </StackPanel>
 
-        </StackPanel>
+        </DockPanel>
     </Border>
 
-</UserControl>          
+</UserControl>
