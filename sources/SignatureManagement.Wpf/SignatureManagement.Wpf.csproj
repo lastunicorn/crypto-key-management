@@ -15,12 +15,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SignatureManagement.Adapter.WpfUserAccess\SignatureManagement.Adapter.WpfUserAccess.csproj" />
+        <ProjectReference Include="..\SignatureManagement.Adapter.WpfUserAccess\SignatureManagement.Adapter.WpfUserAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Infrastructure\SignatureManagement.Infrastructure.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Ports.CryptographyAccess\SignatureManagement.Ports.CryptographyAccess.csproj" PrivateAssets="All" />
-        <ProjectReference Include="..\SignatureManagement.Ports.SettingsAccess\SignatureManagement.Ports.SettingsAccess.csproj" />
+        <ProjectReference Include="..\SignatureManagement.Ports.SettingsAccess\SignatureManagement.Ports.SettingsAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Ports.StateAccess\SignatureManagement.Ports.StateAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.SignatureFormatting\SignatureManagement.SignatureFormatting.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Wpf.Application\SignatureManagement.Wpf.Application.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Wpf.Presentation\SignatureManagement.Wpf.Presentation.csproj" PrivateAssets="All" />
     </ItemGroup>

@@ -1,4 +1,5 @@
 using DustInTheWind.SignatureManagement.Infrastructure;
+using DustInTheWind.SignatureManagement.SignatureFormatting;
 using DustInTheWind.SignatureManagement.Wpf.Application.Events;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.SigningPanel;
@@ -10,6 +11,7 @@ public class SigningPanelViewModel : ViewModelBase, IDisposable
 {
     private bool isDisposed;
     private readonly EventBus eventBus;
+    private readonly ISignatureFormatter signatureFormatter;
     private string message = string.Empty;
     private string signature = string.Empty;
 
@@ -41,20 +43,19 @@ public class SigningPanelViewModel : ViewModelBase, IDisposable
 
     public SignMessageCommand SignMessageCommand { get; }
 
-    public SigningPanelViewModel(EventBus eventBus, SignMessageCommand signMessageCommand)
+    public SigningPanelViewModel(EventBus eventBus, SignMessageCommand signMessageCommand, ISignatureFormatter signatureFormatter)
     {
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         SignMessageCommand = signMessageCommand ?? throw new ArgumentNullException(nameof(signMessageCommand));
+        this.signatureFormatter = signatureFormatter ?? throw new ArgumentNullException(nameof(signatureFormatter));
 
         eventBus.Subscribe<SignatureCreatedEvent>(HandleSignatureChanged);
     }
 
     private Task HandleSignatureChanged(SignatureCreatedEvent @event, CancellationToken cancellationToken)
     {
-        // Convert byte[] signature to base64 string for display
-        Signature = @event.Signature != null && @event.Signature.Length > 0
-            ? Convert.ToBase64String(@event.Signature)
-            : string.Empty;
+        // Use the formatter to convert byte[] signature to string for display
+        Signature = signatureFormatter.FormatSignature(@event.Signature);
         return Task.CompletedTask;
     }
 

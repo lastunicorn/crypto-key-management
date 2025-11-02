@@ -44,6 +44,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignatureManagement.Adapter
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{8C2F8CD3-66A0-4A44-A448-31F52DD47E16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignatureManagement.Tests", "SignatureManagement.Tests\SignatureManagement.Tests.csproj", "{4AFA362B-71BC-46ED-B605-690301769335}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignatureManagement.SignatureFormatting", "SignatureManagement.SignatureFormatting\SignatureManagement.SignatureFormatting.csproj", "{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +110,14 @@ Global
 		{BB709307-0BF4-4D7E-9C1E-731D85ED4763}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB709307-0BF4-4D7E-9C1E-731D85ED4763}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB709307-0BF4-4D7E-9C1E-731D85ED4763}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AFA362B-71BC-46ED-B605-690301769335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AFA362B-71BC-46ED-B605-690301769335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AFA362B-71BC-46ED-B605-690301769335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AFA362B-71BC-46ED-B605-690301769335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
