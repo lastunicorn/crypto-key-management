@@ -9,7 +9,12 @@
     Height="160"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
-    WindowStyle="SingleBorderWindow">
+    WindowStyle="SingleBorderWindow"
+    SizeToContent="Height">
+
+    <Window.Style>
+        <DynamicResource ResourceKey="{x:Type Window}" />
+    </Window.Style>
 
     <Window.Resources>
         
