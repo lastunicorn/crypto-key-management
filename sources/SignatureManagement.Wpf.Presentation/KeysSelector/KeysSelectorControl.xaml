@@ -51,34 +51,49 @@
             Grid.Row="2"
             Name="SignatureKeysListBox"
             ItemsSource="{Binding SignatureKeys}"
-            SelectedItem="{Binding SelectedSignatureKey}">
+            SelectedItem="{Binding SelectedSignatureKey}"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto">
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                    <Border Background="Transparent">
+                        <Grid>
+                            <!-- Content area with right margin to avoid overlap with delete button -->
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10 5 80 5">
 
-                        <StackPanel Grid.Column="0" Orientation="Vertical">
-                            <TextBlock Text="{Binding Id}" FontWeight="Bold" FontSize="12"/>
-                            <TextBlock Text="{Binding CreatedDateText}" FontSize="10" Foreground="Gray"/>
-                        </StackPanel>
+                                <TextBlock
+                                    Text="{Binding Id}"
+                                    FontWeight="Bold"
+                                    FontSize="12"/>
 
-                        <Button
-                            Grid.Column="1"
-                            Content="Delete"
-                            Width="60"
-                            Height="25"
-                            Margin="10 0 0 0"
-                            Command="{Binding DataContext.DeleteKeyPairCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                            CommandParameter="{Binding}"
-                            VerticalAlignment="Center"
-                            Background="LightCoral"
-                            Foreground="White"
-                            FontSize="10"/>
-                    </Grid>
+                                <TextBlock
+                                    Text="{Binding CreatedDateText}"
+                                    FontSize="10"
+                                    Foreground="Gray"/>
+
+                            </StackPanel>
+
+                            <!-- Delete button positioned absolutely to the right -->
+                            <Button
+                                Content="Delete"
+                                Width="60"
+                                Height="25"
+                                Command="{Binding DataContext.DeleteKeyPairCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                CommandParameter="{Binding}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0 0 10 0"
+                                Background="LightCoral"
+                                Foreground="White"
+                                FontSize="10"/>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
 
