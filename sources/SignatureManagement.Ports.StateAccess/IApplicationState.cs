@@ -18,5 +18,5 @@ public interface IApplicationState : INotifyPropertyChanged
     /// <summary>
     /// Gets or sets the current signature generated for the message.
     /// </summary>
-    string CurrentSignature { get; set; }
+    byte[] CurrentSignature { get; set; }
 }

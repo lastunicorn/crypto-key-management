@@ -7,7 +7,7 @@ public class ApplicationState : IApplicationState
 {
     private KeyPair currentSignatureKey;
     private string currentMessage = string.Empty;
-    private string currentSignature = string.Empty;
+    private byte[] currentSignature = Array.Empty<byte>();
 
     public KeyPair CurrentSignatureKey
     {
@@ -35,14 +35,14 @@ public class ApplicationState : IApplicationState
         }
     }
 
-    public string CurrentSignature
+    public byte[] CurrentSignature
     {
         get => currentSignature;
         set
         {
-            if (currentSignature != value)
+            if (!ReferenceEquals(currentSignature, value) && !currentSignature.SequenceEqual(value ?? Array.Empty<byte>()))
             {
-                currentSignature = value;
+                currentSignature = value ?? Array.Empty<byte>();
                 OnPropertyChanged(nameof(CurrentSignature));
             }
         }

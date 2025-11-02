@@ -31,25 +31,24 @@ internal class SignMessageUseCase : ICommandHandler<SignMessageRequest>
             throw new InvalidOperationException("No signature key selected");
 
         byte[] signatureBytes = cryptographyService.Sign(signatureKey, command.Message);
-        string signature = Convert.ToBase64String(signatureBytes);
 
         // Store the signature and message in application state
         applicationState.CurrentMessage = command.Message;
-        applicationState.CurrentSignature = signature;
+        applicationState.CurrentSignature = signatureBytes;
 
         // Publish event to notify interested parties
-        await PublishSignatureChangedEvent(command.Message, signature);
+        await PublishSignatureChangedEvent(command.Message, signatureBytes);
 
         SignMessageResponse response = new()
         {
             Message = command.Message,
-            Signature = signature
+            Signature = signatureBytes
         };
 
         return new CommandWorkflowResult<SignMessageResponse>(response);
     }
 
-    private async Task PublishSignatureChangedEvent(string message, string signature)
+    private async Task PublishSignatureChangedEvent(string message, byte[] signature)
     {
         SignatureCreatedEvent @event = new()
         {

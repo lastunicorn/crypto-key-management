@@ -51,7 +51,10 @@ public class SigningPanelViewModel : ViewModelBase, IDisposable
 
     private Task HandleSignatureChanged(SignatureCreatedEvent @event, CancellationToken cancellationToken)
     {
-        Signature = @event.Signature;
+        // Convert byte[] signature to base64 string for display
+        Signature = @event.Signature != null && @event.Signature.Length > 0
+            ? Convert.ToBase64String(@event.Signature)
+            : string.Empty;
         return Task.CompletedTask;
     }
 

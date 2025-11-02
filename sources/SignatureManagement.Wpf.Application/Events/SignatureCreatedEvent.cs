@@ -4,5 +4,5 @@ public class SignatureCreatedEvent
 {
     public string Message { get; set; }
 
-    public string Signature { get; set; }
+    public byte[] Signature { get; set; }
 }
