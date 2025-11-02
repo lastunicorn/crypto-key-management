@@ -65,7 +65,7 @@
                     <Border Background="Transparent">
                         <Grid>
                             <!-- Content area with right margin to avoid overlap with delete button -->
-                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10 5 80 5">
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10 5 35 5">
 
                                 <TextBlock
                                     Text="{Binding Id}"
@@ -81,17 +81,19 @@
 
                             <!-- Delete button positioned absolutely to the right -->
                             <Button
-                                Content="Delete"
-                                Width="60"
-                                Height="25"
                                 Command="{Binding DataContext.DeleteKeyPairCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                 CommandParameter="{Binding}"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Right"
-                                Margin="0 0 10 0"
-                                Background="LightCoral"
-                                Foreground="White"
-                                FontSize="10"/>
+                                Background="Transparent"
+                                BorderThickness="0"
+                                ToolTip="Delete Key">
+                                
+                                <Image
+                                    Source="{StaticResource DeleteIcon}"
+                                    Width="16"
+                                    Height="16"/>
+                            </Button>
                         </Grid>
                     </Border>
                 </DataTemplate>
