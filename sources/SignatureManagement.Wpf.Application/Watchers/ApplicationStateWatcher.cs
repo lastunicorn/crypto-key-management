@@ -9,9 +9,9 @@ namespace DustInTheWind.SignatureManagement.Wpf.Application.Watchers;
 public class ApplicationStateWatcher
 {
     private readonly IApplicationState applicationState;
-    private readonly EventBus eventBus;
+    private readonly IEventBus eventBus;
 
-    public ApplicationStateWatcher(IApplicationState applicationState, EventBus eventBus)
+    public ApplicationStateWatcher(IApplicationState applicationState, IEventBus eventBus)
     {
         this.applicationState = applicationState ?? throw new ArgumentNullException(nameof(applicationState));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));

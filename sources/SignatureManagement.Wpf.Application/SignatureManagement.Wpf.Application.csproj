@@ -20,4 +20,8 @@
         <ProjectReference Include="..\SignatureManagement.Ports.WpfUserAccess\SignatureManagement.Ports.WpfUserAccess.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="DustInTheWind.SignatureManagement.Tests" />
+    </ItemGroup>
+
 </Project>

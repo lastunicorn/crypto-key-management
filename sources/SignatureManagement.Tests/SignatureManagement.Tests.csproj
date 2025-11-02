@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
@@ -13,12 +13,19 @@
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+        <PackageReference Include="Moq" Version="4.20.69" />
         <PackageReference Include="xunit" Version="2.5.3" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\SignatureManagement.Ports.StateAccess\SignatureManagement.Ports.StateAccess.csproj" />
         <ProjectReference Include="..\SignatureManagement.SignatureFormatting\SignatureManagement.SignatureFormatting.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Wpf.Application\SignatureManagement.Wpf.Application.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Domain\SignatureManagement.Domain.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Infrastructure\SignatureManagement.Infrastructure.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Ports.SettingsAccess\SignatureManagement.Ports.SettingsAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\SignatureManagement.Ports.WpfUserAccess\SignatureManagement.Ports.WpfUserAccess.csproj" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>

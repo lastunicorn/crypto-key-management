@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace DustInTheWind.SignatureManagement.Infrastructure;
 
-public class EventBus
+public class EventBus : IEventBus
 {
     private readonly SubscriptionCollection subscriptionsByEvent = new();
 

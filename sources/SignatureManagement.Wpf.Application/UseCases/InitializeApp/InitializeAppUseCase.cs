@@ -13,11 +13,11 @@ internal class InitializeAppUseCase : ICommandHandler<InitializeAppRequest>
     private readonly ApplicationStateWatcher applicationStateWatcher;
     private readonly IThemeSelector themeSelector;
     private readonly ISettingsService settingsService;
-    private readonly EventBus eventBus;
+    private readonly IEventBus eventBus;
 
     public InitializeAppUseCase(ApplicationStateWatcher applicationStateWatcher,
         IThemeSelector themeSelector, ISettingsService settingsService,
-        EventBus eventBus)
+        IEventBus eventBus)
     {
         this.applicationStateWatcher = applicationStateWatcher ?? throw new ArgumentNullException(nameof(applicationStateWatcher));
         this.themeSelector = themeSelector ?? throw new ArgumentNullException(nameof(themeSelector));
