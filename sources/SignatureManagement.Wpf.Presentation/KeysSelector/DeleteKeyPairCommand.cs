@@ -1,18 +1,25 @@
 using AsyncMediator;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.DeleteKeyPair;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.Dialogs;
 
 namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 
 public class DeleteKeyPairCommand : System.Windows.Input.ICommand
 {
     private readonly IMediator mediator;
+    private readonly IDialogService dialogService;
 
-    public DeleteKeyPairCommand(IMediator mediator)
+    public DeleteKeyPairCommand(IMediator mediator, IDialogService dialogService)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
     }
 
-    public event EventHandler CanExecuteChanged;
+    public event EventHandler CanExecuteChanged
+    {
+        add => System.Windows.Input.CommandManager.RequerySuggested += value;
+        remove => System.Windows.Input.CommandManager.RequerySuggested -= value;
+    }
 
     public bool CanExecute(object parameter)
     {
@@ -21,21 +28,51 @@ public class DeleteKeyPairCommand : System.Windows.Input.ICommand
 
     public async void Execute(object parameter)
     {
-        if (parameter is not Guid keyPairId)
-            throw new ArgumentException("Parameter must be a Guid or SignatureKeyViewModel", nameof(parameter));
-
-        //Guid keyPairId = parameter switch
-        //{
-        //    Guid guid => guid,
-        //    SignatureKeyViewModel x => x.Id,
-        //    _ => throw new ArgumentException("Parameter must be a Guid or SignatureKeyViewModel", nameof(parameter))
-        //};
-
-        DeleteKeyPairRequest request = new()
+        try
         {
-            KeyPairId = keyPairId
-        };
+            Guid keyPairId;
+            string displayInfo;
 
-        await mediator.Send(request);
+            switch (parameter)
+            {
+                case Guid guid:
+                    keyPairId = guid;
+                    displayInfo = $"ID: {guid}";
+                    break;
+
+                case SignatureKeyViewModel vm:
+                    keyPairId = vm.Id;
+                    displayInfo = $"ID: {vm.Id}\nCreated: {vm.CreatedDateText}";
+                    break;
+                
+                default:
+                    throw new ArgumentException("Parameter must be a Guid or SignatureKeyViewModel", nameof(parameter));
+            }
+
+            bool confirmed = dialogService.ShowConfirmationDialog(
+                "Confirm Delete Key",
+                "Are you sure you want to delete this signature key?",
+                displayInfo);
+
+            if (!confirmed)
+                return;
+
+            DeleteKeyPairRequest request = new()
+            {
+                KeyPairId = keyPairId
+            };
+
+            await mediator.Send(request);
+
+            dialogService.ShowSuccessDialog(
+                "Delete Successful",
+                "Signature key has been successfully deleted.");
+        }
+        catch (Exception ex)
+        {
+            dialogService.ShowErrorDialog(
+                "Delete Error",
+                $"Error deleting key pair: {ex.Message}");
+        }
     }
 }

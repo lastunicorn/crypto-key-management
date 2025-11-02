@@ -9,6 +9,7 @@ using DustInTheWind.SignatureManagement.Ports.WpfUserAccess;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeApp;
 using DustInTheWind.SignatureManagement.Wpf.Application.Watchers;
 using DustInTheWind.SignatureManagement.Wpf.Main;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.Dialogs;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeyInfo;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 using DustInTheWind.SignatureManagement.Wpf.Presentation.Main;
@@ -45,6 +46,9 @@ internal static class Setup
         serviceCollection.AddTransient<RefreshKeyPairsCommand>();
         serviceCollection.AddTransient<DeleteKeyPairCommand>();
         serviceCollection.AddTransient<ToggleThemeCommand>();
+
+        // Dialog services
+        serviceCollection.AddTransient<IDialogService, DialogService>();
 
         // Miscellanneous
 

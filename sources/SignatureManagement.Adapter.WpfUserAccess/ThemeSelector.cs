@@ -23,6 +23,20 @@ public class ThemeSelector : IThemeSelector
         app.Resources.MergedDictionaries.Add(resourceDictionary);
     }
 
+    public void ApplyTheme(ThemeType themeType, object target)
+    {
+        if (target is not FrameworkElement frameworkElement)
+            throw new ArgumentException("Target must be a Window.", nameof(target));
+
+        ResourceDictionary resourceDictionary = new()
+        {
+            Source = GenerateThemeUri(themeType)
+        };
+
+        frameworkElement.Resources.MergedDictionaries.Clear();
+        frameworkElement.Resources.MergedDictionaries.Add(resourceDictionary);
+    }
+
     private static Uri GenerateThemeUri(ThemeType themeType)
     {
         switch (themeType)
