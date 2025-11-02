@@ -80,6 +80,18 @@ public class SignatureKeyRepository : ISignatureKeyRepository
         return signatureId;
     }
 
+    public void Delete(Guid id)
+    {
+        string privateKeyPath = Path.Combine(SignaturesDirectory, $"{id}_private.key");
+        string publicKeyPath = Path.Combine(SignaturesDirectory, $"{id}_public.key");
+
+        if (File.Exists(privateKeyPath))
+            File.Delete(privateKeyPath);
+
+        if (File.Exists(publicKeyPath))
+            File.Delete(publicKeyPath);
+    }
+
     private static void EnsureSignaturesDirectoryExists()
     {
         if (!Directory.Exists(SignaturesDirectory))

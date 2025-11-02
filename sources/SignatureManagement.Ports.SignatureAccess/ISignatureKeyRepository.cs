@@ -9,4 +9,6 @@ public interface ISignatureKeyRepository
     KeyPair GetById(Guid id);
 
     Guid Add(byte[] privateKey, byte[] publicKey);
+
+    void Delete(Guid id);
 }

@@ -43,6 +43,7 @@ internal static class Setup
         serviceCollection.AddTransient<SignMessageCommand>();
         serviceCollection.AddTransient<CreateKeyPairCommand>();
         serviceCollection.AddTransient<RefreshKeyPairsCommand>();
+        serviceCollection.AddTransient<DeleteKeyPairCommand>();
         serviceCollection.AddTransient<ToggleThemeCommand>();
 
         // Miscellanneous

@@ -53,19 +53,27 @@ public class KeysSelectorViewModel : ViewModelBase, IDisposable
     public RefreshKeyPairsCommand RefreshKeyPairsCommand { get; private set; }
 
     /// <summary>
+    /// Gets the command to delete a signature key.
+    /// </summary>
+    public DeleteKeyPairCommand DeleteKeyPairCommand { get; private set; }
+
+    /// <summary>
     /// Initializes a new instance of the KeysSelectorViewModel class.
     /// </summary>
     /// <param name="mediator">The mediator for handling commands and queries.</param>
     public KeysSelectorViewModel(IMediator mediator, EventBus eventBus,
-        CreateKeyPairCommand createKeyPairCommand, RefreshKeyPairsCommand refreshKeyPairsCommand)
+        CreateKeyPairCommand createKeyPairCommand, RefreshKeyPairsCommand refreshKeyPairsCommand,
+        DeleteKeyPairCommand deleteKeyPairCommand)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         CreateKeyPairCommand = createKeyPairCommand ?? throw new ArgumentNullException(nameof(createKeyPairCommand));
         RefreshKeyPairsCommand = refreshKeyPairsCommand ?? throw new ArgumentNullException(nameof(refreshKeyPairsCommand));
+        DeleteKeyPairCommand = deleteKeyPairCommand ?? throw new ArgumentNullException(nameof(deleteKeyPairCommand));
 
         eventBus.Subscribe<KeyPairCreatedEvent>(HandleSignatureKeyCreatedEvent);
         eventBus.Subscribe<KeyPairsRefreshEvent>(HandleKeyPairsRefreshEvent);
+        eventBus.Subscribe<KeyPairDeletedEvent>(HandleKeyPairDeletedEvent);
     }
 
     /// <summary>
@@ -119,6 +127,22 @@ public class KeysSelectorViewModel : ViewModelBase, IDisposable
         SelectedSignatureKey = currentSelectionId == null
             ? null
             : SignatureKeys.FirstOrDefault(x => x.Id == currentSelectionId);
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Handles the key pair deleted event by removing the key from the UI.
+    /// </summary>
+    /// <param name="ev">The delete event containing the deleted key pair ID.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    private Task HandleKeyPairDeletedEvent(KeyPairDeletedEvent ev, CancellationToken cancellationToken)
+    {
+        SignatureKeyViewModel keyToRemove = SignatureKeys.FirstOrDefault(x => x.Id == ev.KeyPairId);
+       
+        if (keyToRemove != null)
+            SignatureKeys.Remove(keyToRemove);
 
         return Task.CompletedTask;
     }

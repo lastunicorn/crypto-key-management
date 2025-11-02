@@ -49,7 +49,7 @@
                 Grid.Column="1"
                 Name="SignMessageButton"
                 Content="Sign Message"
-                Margin="10,0,0,0"
+                Margin="10 0 0 0"
                 Width="100"
                 Height="30"
                 VerticalAlignment="Top"
