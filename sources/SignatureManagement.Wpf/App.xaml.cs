@@ -3,6 +3,7 @@ using System.Windows.Threading;
 using AsyncMediator;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeApp;
 using DustInTheWind.SignatureManagement.Wpf.Main;
+using DustInTheWind.SignatureManagement.Wpf.Presentation.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DustInTheWind.SignatureManagement.Wpf;
@@ -12,6 +13,8 @@ namespace DustInTheWind.SignatureManagement.Wpf;
 /// </summary>
 public partial class App : System.Windows.Application
 {
+    private IServiceProvider? serviceProvider;
+
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
@@ -20,7 +23,7 @@ public partial class App : System.Windows.Application
 
         ServiceCollection serviceCollection = new();
         Setup.ConfigureServices(serviceCollection);
-        IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+        serviceProvider = serviceCollection.BuildServiceProvider();
 
         _ = Initialize(serviceProvider);
 
@@ -75,15 +78,33 @@ public partial class App : System.Windows.Application
                 $"Message: {exception.Message}\n\n" +
                 $"Stack Trace:\n{exception.StackTrace}";
 
-            // Use Dispatcher.Invoke to ensure the message box is shown on the UI thread
+            // Use Dispatcher.Invoke to ensure the dialog is shown on the UI thread
             Dispatcher.Invoke(() =>
             {
-                MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    // Try to use DialogService if available
+                    var dialogService = serviceProvider?.GetService<IDialogService>();
+                    if (dialogService != null)
+                    {
+                        dialogService.ShowErrorDialog(title, message);
+                    }
+                    else
+                    {
+                        // Fallback to MessageBox if DialogService is not available
+                        MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                catch
+                {
+                    // If DialogService fails, fallback to MessageBox
+                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             });
         }
         catch
         {
-            // If we can't show the message box for any reason, fail silently
+            // If we can't show the message at all for any reason, fail silently
             // to prevent recursive exceptions
         }
     }
