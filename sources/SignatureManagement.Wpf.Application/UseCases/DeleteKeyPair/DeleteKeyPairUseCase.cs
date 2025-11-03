@@ -10,12 +10,12 @@ internal class DeleteKeyPairUseCase : ICommandHandler<DeleteKeyPairRequest>
 {
     private readonly ISignatureKeyRepository signatureKeyRepository;
     private readonly IApplicationState applicationState;
-    private readonly EventBus eventBus;
+    private readonly IEventBus eventBus;
 
     public DeleteKeyPairUseCase(
         ISignatureKeyRepository signatureKeyRepository,
         IApplicationState applicationState,
-        EventBus eventBus)
+        IEventBus eventBus)
     {
         this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
         this.applicationState = applicationState ?? throw new ArgumentNullException(nameof(applicationState));
