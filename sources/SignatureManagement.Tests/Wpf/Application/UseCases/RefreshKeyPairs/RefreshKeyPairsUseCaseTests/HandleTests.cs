@@ -7,60 +7,20 @@ using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentMain;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.RefreshKeyPairs;
 using Moq;
 
-namespace DustInTheWind.SignatureManagement.Tests.Wpf.Application.UseCases.RefreshKeyPairs;
+namespace DustInTheWind.SignatureManagement.Tests.Wpf.Application.UseCases.RefreshKeyPairs.RefreshKeyPairsUseCaseTests;
 
-public class RefreshKeyPairsUseCaseTests
+public class HandleTests
 {
     private readonly Mock<ISignatureKeyRepository> signatureKeyRepository;
     private readonly Mock<IEventBus> eventBus;
     private readonly RefreshKeyPairsUseCase useCase;
 
-    public RefreshKeyPairsUseCaseTests()
+    public HandleTests()
     {
         signatureKeyRepository = new Mock<ISignatureKeyRepository>();
         eventBus = new Mock<IEventBus>();
         useCase = new RefreshKeyPairsUseCase(signatureKeyRepository.Object, eventBus.Object);
     }
-
-    #region Constructor Tests
-
-    [Fact]
-    public void Constructor_WithNullSignatureKeyRepository_ShouldThrowArgumentNullException()
-    {
-        // Act & Assert
-        ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-        {
-            new RefreshKeyPairsUseCase(null, eventBus.Object);
-        });
-
-        Assert.Equal("signatureKeyRepository", exception.ParamName);
-    }
-
-    [Fact]
-    public void Constructor_WithNullEventBus_ShouldThrowArgumentNullException()
-    {
-        // Act & Assert
-        ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-        {
-            new RefreshKeyPairsUseCase(signatureKeyRepository.Object, null);
-        });
-
-        Assert.Equal("eventBus", exception.ParamName);
-    }
-
-    [Fact]
-    public void Constructor_WithValidParameters_ShouldCreateInstance()
-    {
-        // Act
-        RefreshKeyPairsUseCase instance = new(signatureKeyRepository.Object, eventBus.Object);
-
-        // Assert
-        Assert.NotNull(instance);
-    }
-
-    #endregion
-
-    #region Handle Method Tests
 
     [Fact]
     public async Task Handle_WithNullRequest_ShouldNotThrow()
@@ -115,7 +75,7 @@ public class RefreshKeyPairsUseCaseTests
     {
         // Arrange
         RefreshKeyPairsRequest request = new();
-        List<KeyPair> emptyKeyPairs = new();
+        List<KeyPair> emptyKeyPairs = [];
         KeyPairsRefreshEvent capturedEvent = null;
 
         signatureKeyRepository
@@ -153,7 +113,7 @@ public class RefreshKeyPairsUseCaseTests
             PublicKey = publicKey
         };
 
-        List<KeyPair> keyPairs = new() { keyPair };
+        List<KeyPair> keyPairs = [keyPair];
         KeyPairsRefreshEvent capturedEvent = null;
 
         signatureKeyRepository
@@ -294,6 +254,4 @@ public class RefreshKeyPairsUseCaseTests
         Assert.Equal(expectedException.Message, exception.Message);
         signatureKeyRepository.Verify(x => x.GetAll(), Times.Once);
     }
-
-    #endregion
 }

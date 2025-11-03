@@ -6,15 +6,15 @@ using DustInTheWind.SignatureManagement.Wpf.Application.Events;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.CreateKeyPair;
 using Moq;
 
-namespace DustInTheWind.SignatureManagement.Tests.Wpf.Application.UseCases.CreateKeyPair;
+namespace DustInTheWind.SignatureManagement.Tests.Wpf.Application.UseCases.CreateKeyPair.CreateKeyPairUseCaseTests;
 
-public class CreateKeyPairUseCaseTests
+public class HandleTests
 {
     private readonly Mock<ISignatureKeyRepository> signatureRepository;
     private readonly Mock<IEventBus> eventBus;
     private readonly CreateKeyPairUseCase useCase;
 
-    public CreateKeyPairUseCaseTests()
+    public HandleTests()
     {
         signatureRepository = new Mock<ISignatureKeyRepository>();
         eventBus = new Mock<IEventBus>();
@@ -233,26 +233,6 @@ public class CreateKeyPairUseCaseTests
         // Keys should be different between calls
         Assert.False(privateKey1.SequenceEqual(privateKey2));
         Assert.False(publicKey1.SequenceEqual(publicKey2));
-    }
-
-    [Fact]
-    public void Constructor_WithNullRepository_ShouldThrowArgumentNullException()
-    {
-        // Act & Assert
-        Assert.Throws<ArgumentNullException>(() =>
-        {
-            return new CreateKeyPairUseCase(null, eventBus.Object);
-        });
-    }
-
-    [Fact]
-    public void Constructor_WithNullEventBus_ShouldThrowArgumentNullException()
-    {
-        // Act & Assert
-        Assert.Throws<ArgumentNullException>(() =>
-        {
-            return new CreateKeyPairUseCase(signatureRepository.Object, null);
-        });
     }
 
     [Fact]

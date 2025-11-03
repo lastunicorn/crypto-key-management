@@ -9,9 +9,9 @@ using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.InitializeApp;
 using DustInTheWind.SignatureManagement.Wpf.Application.Watchers;
 using Moq;
 
-namespace DustInTheWind.SignatureManagement.Tests.Wpf.Application.UseCases.InitializeApp;
+namespace DustInTheWind.SignatureManagement.Tests.Wpf.Application.UseCases.InitializeApp.InitializeAppUseCaseTests;
 
-public class InitializeAppUseCaseTests
+public class HandleTests
 {
     private readonly Mock<IApplicationState> applicationState;
     private readonly ApplicationStateWatcher applicationStateWatcher;
@@ -20,7 +20,7 @@ public class InitializeAppUseCaseTests
     private readonly Mock<IEventBus> eventBus;
     private readonly InitializeAppUseCase useCase;
 
-    public InitializeAppUseCaseTests()
+    public HandleTests()
     {
         themeSelector = new Mock<IThemeSelector>();
         settingsService = new Mock<ISettingsService>();
@@ -58,7 +58,9 @@ public class InitializeAppUseCaseTests
         // Arrange
         InitializeAppRequest request = new();
         ThemeType expectedThemeType = ThemeType.Dark;
-        settingsService.Setup(x => x.ThemeType).Returns(expectedThemeType);
+        settingsService
+            .Setup(x => x.ThemeType)
+            .Returns(expectedThemeType);
 
         // Act
         await useCase.Handle(request);
@@ -99,8 +101,10 @@ public class InitializeAppUseCaseTests
 
         // Assert
         themeSelector.Verify(x => x.ApplyTheme(themeType), Times.Once);
-        eventBus.Verify(x => x.PublishAsync(It.Is<ThemeChangedEvent>(
-            x => x.ThemeType == themeType), CancellationToken.None), Times.Once);
+        eventBus.Verify(x => x.PublishAsync(
+            It.Is<ThemeChangedEvent>(x => x.ThemeType == themeType),
+            CancellationToken.None),
+            Times.Once);
     }
 
     [Fact]
@@ -145,59 +149,5 @@ public class InitializeAppUseCaseTests
 
         // Assert
         Assert.Equal(new[] { "GetThemeType", "ApplyTheme", "PublishEvent" }, callSequence);
-    }
-
-    [Fact]
-    public void Constructor_WithNullApplicationStateWatcher_ShouldThrowArgumentNullException()
-    {
-        // Act & Assert
-        ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-            new InitializeAppUseCase(null, themeSelector.Object, settingsService.Object, eventBus.Object));
-
-        Assert.Equal("applicationStateWatcher", exception.ParamName);
-    }
-
-    [Fact]
-    public void Constructor_WithNullThemeSelector_ShouldThrowArgumentNullException()
-    {
-        // Act & Assert
-        ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-            new InitializeAppUseCase(applicationStateWatcher, null, settingsService.Object, eventBus.Object));
-
-        Assert.Equal("themeSelector", exception.ParamName);
-    }
-
-    [Fact]
-    public void Constructor_WithNullSettingsService_ShouldThrowArgumentNullException()
-    {
-        // Act & Assert
-        ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-            new InitializeAppUseCase(applicationStateWatcher, themeSelector.Object, null, eventBus.Object));
-
-        Assert.Equal("settingsService", exception.ParamName);
-    }
-
-    [Fact]
-    public void Constructor_WithNullEventBus_ShouldThrowArgumentNullException()
-    {
-        // Act & Assert
-        ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-          new InitializeAppUseCase(applicationStateWatcher, themeSelector.Object, settingsService.Object, null));
-
-        Assert.Equal("eventBus", exception.ParamName);
-    }
-
-    [Fact]
-    public void Constructor_WithValidParameters_ShouldCreateInstance()
-    {
-        // Act
-        InitializeAppUseCase instance = new(
-            applicationStateWatcher,
-            themeSelector.Object,
-            settingsService.Object,
-            eventBus.Object);
-
-        // Assert
-        Assert.NotNull(instance);
     }
 }

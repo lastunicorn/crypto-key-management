@@ -4,15 +4,15 @@ using DustInTheWind.SignatureManagement.Ports.StateAccess;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentMain;
 using Moq;
 
-namespace DustInTheWind.SignatureManagement.Tests.Wpf.Application.UseCases.PresentMain;
+namespace DustInTheWind.SignatureManagement.Tests.Wpf.Application.UseCases.PresentMain.PresentMainUseCaseTests;
 
-public class PresentMainUseCaseTests
+public class QueryTests
 {
     private readonly Mock<ISignatureKeyRepository> signatureKeyRepository;
     private readonly Mock<IApplicationState> applicationState;
     private readonly PresentMainUseCase useCase;
 
-    public PresentMainUseCaseTests()
+    public QueryTests()
     {
         signatureKeyRepository = new Mock<ISignatureKeyRepository>();
         applicationState = new Mock<IApplicationState>();
@@ -21,42 +21,6 @@ public class PresentMainUseCaseTests
             signatureKeyRepository.Object,
             applicationState.Object);
     }
-
-    #region Constructor Tests
-
-    [Fact]
-    public void Constructor_WithNullSignatureKeyRepository_ShouldThrowArgumentNullException()
-    {
-        // Act & Assert
-        ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-           new PresentMainUseCase(null, applicationState.Object));
-
-        Assert.Equal("signatureKeyRepository", exception.ParamName);
-    }
-
-    [Fact]
-    public void Constructor_WithNullApplicationState_ShouldThrowArgumentNullException()
-    {
-        // Act & Assert
-        ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-            new PresentMainUseCase(signatureKeyRepository.Object, null));
-
-        Assert.Equal("applicationState", exception.ParamName);
-    }
-
-    [Fact]
-    public void Constructor_WithValidParameters_ShouldCreateInstance()
-    {
-        // Act
-        PresentMainUseCase instance = new(signatureKeyRepository.Object, applicationState.Object);
-
-        // Assert
-        Assert.NotNull(instance);
-    }
-
-    #endregion
-
-    #region Query Method Tests
 
     [Fact]
     public async Task Query_ShouldRetrieveSignatureKeysFromRepository()
@@ -373,10 +337,6 @@ public class PresentMainUseCaseTests
         Assert.Same(expectedException, actualException);
     }
 
-    #endregion
-
-    #region Integration Tests
-
     [Fact]
     public async Task Query_WithRealScenario_ShouldWorkCorrectly()
     {
@@ -411,10 +371,6 @@ public class PresentMainUseCaseTests
         Assert.Equal(currentKey.PublicKey, currentKeyDto.PublicKey);
     }
 
-    #endregion
-
-    #region Helper Methods
-
     private static IEnumerable<KeyPair> CreateMockKeyPairs(int count)
     {
         List<KeyPair> keys = [];
@@ -445,6 +401,4 @@ public class PresentMainUseCaseTests
         random.NextBytes(bytes);
         return bytes;
     }
-
-    #endregion
 }

@@ -3,46 +3,18 @@ using DustInTheWind.SignatureManagement.Ports.SettingsAccess;
 using DustInTheWind.SignatureManagement.Wpf.Application.UseCases.PresentSidebar;
 using Moq;
 
-namespace DustInTheWind.SignatureManagement.Tests.Wpf.Application.UseCases.PresentSidebar;
+namespace DustInTheWind.SignatureManagement.Tests.Wpf.Application.UseCases.PresentSidebar.PresentSidebarUseCaseTests;
 
-public class PresentSidebarUseCaseTests
+public class QueryTests
 {
     private readonly Mock<ISettingsService> settingsService;
     private readonly PresentSidebarUseCase useCase;
 
-    public PresentSidebarUseCaseTests()
+    public QueryTests()
     {
         settingsService = new Mock<ISettingsService>();
         useCase = new PresentSidebarUseCase(settingsService.Object);
     }
-
-    #region Constructor Tests
-
-    [Fact]
-    public void Constructor_WithNullSettingsService_ShouldThrowArgumentNullException()
-    {
-        // Act & Assert
-        ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-        {
-            new PresentSidebarUseCase(null);
-        });
-
-        Assert.Equal("settingsService", exception.ParamName);
-    }
-
-    [Fact]
-    public void Constructor_WithValidSettingsService_ShouldCreateInstance()
-    {
-        // Act
-        PresentSidebarUseCase instance = new(settingsService.Object);
-
-        // Assert
-        Assert.NotNull(instance);
-    }
-
-    #endregion
-
-    #region Query Method Tests
 
     [Fact]
     public async Task Query_WithNullRequest_ShouldNotThrow()
@@ -187,6 +159,4 @@ public class PresentSidebarUseCaseTests
         Assert.Equal(ThemeType.Light, response1.ThemeType);
         Assert.Equal(ThemeType.Dark, response2.ThemeType);
     }
-
-    #endregion
 }
