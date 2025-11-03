@@ -33,6 +33,17 @@
                 Orientation="Vertical"
                 HorizontalAlignment="Center">
                 <!-- Additional buttons or controls can be added here -->
+
+                <controls:SidebarButton 
+                DockPanel.Dock="Bottom"
+                Content="H"
+                ToolTip="Home page" />
+
+                <controls:SidebarButton 
+                DockPanel.Dock="Bottom"
+                Content="P"
+                ToolTip="Plug-ins page" />
+                
             </StackPanel>
 
         </DockPanel>
