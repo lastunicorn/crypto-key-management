@@ -17,6 +17,7 @@ using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Sidebar;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.SigningPanel;
 using DustInTheWind.CryptoKeyManagement.Wpf.Main;
 using Microsoft.Extensions.DependencyInjection;
+using DustInTheWind.CryptoKeyManagement.SignatureFormatting.DependencyInjection;
 
 namespace DustInTheWind.CryptoKeyManagement.Wpf;
 
@@ -49,12 +50,9 @@ internal static class Setup
         serviceCollection.AddTransient<ToggleThemeCommand>();
 
         // Presentation services
-        serviceCollection.AddTransient<Base64SignatureFormatter>();
-        serviceCollection.AddSingleton(provider =>
+        serviceCollection.AddSignatureFormattingPlugins(options =>
         {
-            return new SignatureFormatterPoolBuilder(provider)
-                .AddFromCurrentApplicationDomain()
-                .Build();
+            _ = options.AddFromCurrentApplicationDomain();
         });
 
         // Dialog services

@@ -1,24 +1,21 @@
 using System.Reflection;
 
-namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting;
+namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting.DependencyInjection;
 
 /// <summary>
 /// Builder responsible for discovering all <see cref="ISignatureFormatter"/> implementations
 /// across the currently loaded assemblies and constructing a configured <see cref="SignatureFormatterPool"/>.
 /// </summary>
-public class SignatureFormatterPoolBuilder
+public class SignatureFormatterPluginsOptions
 {
     private readonly HashSet<Assembly> assemblies = [];
-    private IServiceProvider provider;
 
-    public SignatureFormatterPoolBuilder(IServiceProvider provider)
+    public SignatureFormatterPluginsOptions()
     {
-        this.provider = provider ?? throw new ArgumentNullException(nameof(provider));
-
-        assemblies.Add(Assembly.GetExecutingAssembly());
+        //assemblies.Add(Assembly.GetExecutingAssembly());
     }
 
-    public SignatureFormatterPoolBuilder AddFromCurrentApplicationDomain()
+    public SignatureFormatterPluginsOptions AddFromCurrentApplicationDomain()
     {
         Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
@@ -28,7 +25,7 @@ public class SignatureFormatterPoolBuilder
         return this;
     }
 
-    public SignatureFormatterPoolBuilder AddFromAssemblies(params Assembly[] assemblies)
+    public SignatureFormatterPluginsOptions AddFromAssemblies(params Assembly[] assemblies)
     {
         foreach (Assembly assembly in assemblies)
             _ = this.assemblies.Add(assembly);
@@ -40,17 +37,13 @@ public class SignatureFormatterPoolBuilder
     /// Builds the <see cref="SignatureFormatterPool"/> by instantiating all discovered formatter types.
     /// </summary>
     /// <returns>A configured <see cref="SignatureFormatterPool"/> instance.</returns>
-    public SignatureFormatterPool Build()
+    internal IEnumerable<Type> GetSignatureFormatterTypes()
     {
-        IEnumerable<ISignatureFormatter> instances = assemblies
+        return assemblies
             .SelectMany(GetAssemblyTypesSafely)
             .Where(x => x != null)
             .Where(x => typeof(ISignatureFormatter).IsAssignableFrom(x))
-            .Where(x => !x.IsInterface && !x.IsAbstract)
-            .Select(x => (ISignatureFormatter)provider.GetService(x))
-            .Where(x => x != null);
-
-        return new SignatureFormatterPool(instances);
+            .Where(x => !x.IsInterface && !x.IsAbstract);
     }
 
     private static Type[] GetAssemblyTypesSafely(Assembly assembly)
