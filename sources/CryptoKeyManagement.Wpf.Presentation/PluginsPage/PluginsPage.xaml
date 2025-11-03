@@ -5,31 +5,193 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DustInTheWind.CryptoKeyManagement.Wpf.Presentation.PluginsPage"
     
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800">
 
-    <Grid>
-        <StackPanel
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
+    <UserControl.Resources>
+        <local:BoolToActiveStatusConverter x:Key="BoolToActiveStatusConverter"/>
+        <local:BoolToStatusBrushConverter x:Key="BoolToStatusBrushConverter"/>
+    </UserControl.Resources>
 
-            <TextBlock
-                Text="Plugins Page"
-                FontSize="24"
-                FontWeight="Bold"
-                HorizontalAlignment="Center"
-                Margin="0,0,0,20"/>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock
-                Text="Here you can manage and configure plugins for the application."
-                FontSize="16"
-                HorizontalAlignment="Center"
-                TextWrapping="Wrap"
-                MaxWidth="600"
-                TextAlignment="Center"/>
+        <TextBlock
+            Grid.Row="0"
+            Text="Plugins Page"
+            FontSize="24"
+            FontWeight="Bold"
+            HorizontalAlignment="Left"
+            Margin="0,0,0,10"/>
 
-        </StackPanel>
+        <TextBlock
+            Grid.Row="1"
+            Text="These plugins are used to format the signature when it is displayed."
+            FontSize="14"
+            HorizontalAlignment="Left"
+            Margin="0,0,0,20"
+            TextWrapping="Wrap"/>
+
+        <ScrollViewer
+            Grid.Row="2"
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Disabled">
+
+            <ItemsControl ItemsSource="{Binding Plugins}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            Margin="0 0 0 10"
+                            Padding="15">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Plugin Name and Status -->
+                                <DockPanel
+                                    Grid.Row="0"
+                                    Grid.Column="0">
+
+                                    <Border
+                                        DockPanel.Dock="Right"
+                                        Background="{Binding IsDefault, Converter={StaticResource BoolToStatusBrushConverter}}"
+                                        CornerRadius="2"
+                                        Padding="10 2"
+                                        Width="100">
+
+                                        <TextBlock
+                                            Text="{Binding IsDefault, Converter={StaticResource BoolToActiveStatusConverter}}"
+                                            FontSize="12"
+                                            Foreground="DarkGreen"
+                                            FontWeight="SemiBold"
+                                            HorizontalAlignment="Center"/>
+                                    </Border>
+
+                                    <TextBlock
+                                        Text="{Binding Name}"
+                                        FontSize="16"
+                                        FontWeight="Bold"
+                                        Margin="0 0 10 0"/>
+                                </DockPanel>
+
+                                <!-- Assembly and Version Info -->
+                                <Grid
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Margin="0,8,0,0">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Text="Assembly:"
+                                        FontWeight="SemiBold"
+                                        Margin="0 0 5 0"/>
+
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Text="{Binding AssemblyName}"
+                                        Margin="0 0 20 0"/>
+
+                                    <TextBlock
+                                        Grid.Column="2"
+                                        Text="Version:"
+                                        FontWeight="SemiBold"
+                                        Margin="0 0 5 0"/>
+
+                                    <TextBlock
+                                        Grid.Column="3"
+                                        Text="{Binding Version}"/>
+                                </Grid>
+
+                                <!-- Plugin ID -->
+                                <StackPanel
+                                    Grid.Row="2"
+                                    Grid.ColumnSpan="2"
+                                    Orientation="Horizontal"
+                                    Margin="0 8 0 0">
+
+                                    <TextBlock
+                                        Text="ID:"
+                                        FontWeight="SemiBold"
+                                        Margin="0 0 5 0"/>
+
+                                    <TextBlock
+                                        Text="{Binding Id}"
+                                        FontFamily="Consolas"
+                                        FontSize="11"
+                                        Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
+                                        VerticalAlignment="Center"
+                                        Margin="0 0 5 0"/>
+
+                                    <Button
+                                        Command="{Binding DataContext.CopyToClipboardCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding Id}"
+                                        Background="Transparent"
+                                        Width="16"
+                                        Height="16"
+                                        VerticalAlignment="Center"
+                                        ToolTip="Copy ID to clipboard"
+                                        Cursor="Hand">
+
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+
+                                                <Border
+                                                    Background="{TemplateBinding Background}"
+                                                    CornerRadius="2"
+                                                    Padding="2">
+
+                                                    <Image
+                                                        Source="{DynamicResource CopyIcon}"
+                                                        Stretch="Uniform"/>
+                                                </Border>
+
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="{DynamicResource SurfaceHoverBrush}"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -4,6 +4,7 @@ using DustInTheWind.CryptoKeyManagement.Domain;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSidebar;
+using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.PluginsPage;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Sidebar;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.SigningPage;
 
@@ -32,15 +33,19 @@ public class MainViewModel : ViewModelBase
 
     public SigningPageViewModel SigningPageViewModel { get; }
 
+    public PluginsPageViewModel PluginsPageViewModel { get; }
+
     public MainViewModel(IMediator mediator, IEventBus eventBus, SidebarViewModel sidebarViewModel,
-        SigningPageViewModel signingPageViewModel, ToggleThemeCommand toggleThemeCommand)
+        SigningPageViewModel signingPageViewModel, ToggleThemeCommand toggleThemeCommand,
+        PluginsPageViewModel pluginsPageViewModel)
     {
         ArgumentNullException.ThrowIfNull(eventBus);
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         SidebarViewModel = sidebarViewModel ?? throw new ArgumentNullException(nameof(sidebarViewModel));
         SigningPageViewModel = signingPageViewModel ?? throw new ArgumentNullException(nameof(signingPageViewModel));
         ToggleThemeCommand = toggleThemeCommand ?? throw new ArgumentNullException(nameof(toggleThemeCommand));
-
+        PluginsPageViewModel = pluginsPageViewModel ?? throw new ArgumentNullException(nameof(pluginsPageViewModel));
+        
         WindowTitle = GetWindowTitle();
 
         eventBus.Subscribe<ThemeChangedEvent>(HandleThemeChanged);

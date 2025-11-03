@@ -22,11 +22,6 @@
 
     <DockPanel>
 
-        <!-- Sidebar -->
-        <!--<sidebar:SidebarControl
-            DockPanel.Dock="Left"
-            DataContext="{Binding SidebarViewModel}" />-->
-
         <sidebar:SideNavigator>
             
             <TabItem>
@@ -43,7 +38,8 @@
                     P
                 </TabItem.Header>
 
-                <pluginsPage:PluginsPage />
+                <pluginsPage:PluginsPage
+                    DataContext="{Binding PluginsPageViewModel}" />
             </TabItem>
 
             <sidebar:SideNavigator.Buttons>
@@ -56,16 +52,6 @@
 
         </sidebar:SideNavigator>
         
-        <!-- Main Content -->
-        <!--<Border
-            Margin="10"
-            Background="Transparent">
-
-            <signingPage:SigningPage
-                DataContext="{Binding SigningPageViewModel}" />
-
-        </Border>-->
-
     </DockPanel>
 
 </Window>

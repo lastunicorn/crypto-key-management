@@ -15,6 +15,7 @@ using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Dialogs;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.KeyInfo;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.KeysSelector;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Main;
+using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.PluginsPage;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Sidebar;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.SigningPage;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.SigningPanel;
@@ -45,6 +46,8 @@ internal static class Setup
         serviceCollection.AddTransient<KeysSelectorViewModel>();
         serviceCollection.AddTransient<KeyInfoViewModel>();
         serviceCollection.AddTransient<SigningPanelViewModel>();
+
+        serviceCollection.AddTransient<PluginsPageViewModel>();
 
         serviceCollection.AddTransient<SignMessageCommand>();
         serviceCollection.AddTransient<CreateKeyPairCommand>();
