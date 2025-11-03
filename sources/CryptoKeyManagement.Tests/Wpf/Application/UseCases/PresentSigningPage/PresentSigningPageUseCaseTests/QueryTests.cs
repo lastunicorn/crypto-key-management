@@ -1,23 +1,23 @@
 using DustInTheWind.CryptoKeyManagement.Domain;
 using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
-using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentMain;
+using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 using Moq;
 
-namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.PresentMain.PresentMainUseCaseTests;
+namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.PresentSigningPage.PresentSigningPageUseCaseTests;
 
 public class QueryTests
 {
     private readonly Mock<ISignatureKeyRepository> signatureKeyRepository;
     private readonly Mock<IApplicationState> applicationState;
-    private readonly PresentMainUseCase useCase;
+    private readonly PresentSigningPageUseCase useCase;
 
     public QueryTests()
     {
         signatureKeyRepository = new Mock<ISignatureKeyRepository>();
         applicationState = new Mock<IApplicationState>();
 
-        useCase = new PresentMainUseCase(
+        useCase = new PresentSigningPageUseCase(
             signatureKeyRepository.Object,
             applicationState.Object);
     }
@@ -26,7 +26,7 @@ public class QueryTests
     public async Task Query_ShouldRetrieveSignatureKeysFromRepository()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(2);
 
         signatureKeyRepository
@@ -48,7 +48,7 @@ public class QueryTests
     public async Task Query_ShouldReturnCorrectNumberOfSignatureKeys()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(3);
 
         signatureKeyRepository
@@ -60,18 +60,18 @@ public class QueryTests
             .Returns((KeyPair)null);
 
         // Act
-        PresentMainResponse response = await useCase.Query(request);
+        PresentSigningPageResponse response = await useCase.Query(request);
 
         // Assert
-        Assert.NotNull(response.SignatureKeys);
-        Assert.Equal(3, response.SignatureKeys.Count);
+        Assert.NotNull(response.KeyPairs);
+        Assert.Equal(3, response.KeyPairs.Count);
     }
 
     [Fact]
     public async Task Query_WithEmptyRepository_ShouldReturnEmptyList()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
 
         signatureKeyRepository
             .Setup(x => x.GetAll())
@@ -82,18 +82,18 @@ public class QueryTests
             .Returns((KeyPair)null);
 
         // Act
-        PresentMainResponse response = await useCase.Query(request);
+        PresentSigningPageResponse response = await useCase.Query(request);
 
         // Assert
-        Assert.NotNull(response.SignatureKeys);
-        Assert.Empty(response.SignatureKeys);
+        Assert.NotNull(response.KeyPairs);
+        Assert.Empty(response.KeyPairs);
     }
 
     [Fact]
     public async Task Query_ShouldConvertKeyPairsToDto()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(1);
         KeyPair expectedKey = mockKeys.First();
 
@@ -106,11 +106,11 @@ public class QueryTests
             .Returns((KeyPair)null);
 
         // Act
-        PresentMainResponse response = await useCase.Query(request);
+        PresentSigningPageResponse response = await useCase.Query(request);
 
         // Assert
-        Assert.Single(response.SignatureKeys);
-        KeyPairDto resultDto = response.SignatureKeys.First();
+        Assert.Single(response.KeyPairs);
+        KeyPairDto resultDto = response.KeyPairs.First();
 
         Assert.Equal(expectedKey.Id, resultDto.Id);
         Assert.Equal(expectedKey.CreatedDate, resultDto.CreatedDate);
@@ -122,7 +122,7 @@ public class QueryTests
     public async Task Query_WithCurrentSignatureKey_ShouldReturnCorrectSelectedId()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(2);
         KeyPair currentKey = mockKeys.First();
 
@@ -135,17 +135,17 @@ public class QueryTests
             .Returns(currentKey);
 
         // Act
-        PresentMainResponse response = await useCase.Query(request);
+        PresentSigningPageResponse response = await useCase.Query(request);
 
         // Assert
-        Assert.Equal(currentKey.Id, response.SelectedSignatureKeyId);
+        Assert.Equal(currentKey.Id, response.SelectedKeyPairId);
     }
 
     [Fact]
     public async Task Query_WithNullCurrentSignatureKey_ShouldReturnNullSelectedId()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(2);
 
         signatureKeyRepository
@@ -157,17 +157,17 @@ public class QueryTests
             .Returns((KeyPair)null);
 
         // Act
-        PresentMainResponse response = await useCase.Query(request);
+        PresentSigningPageResponse response = await useCase.Query(request);
 
         // Assert
-        Assert.Null(response.SelectedSignatureKeyId);
+        Assert.Null(response.SelectedKeyPairId);
     }
 
     [Fact]
     public async Task Query_ShouldAccessCurrentSignatureKeyFromApplicationState()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(1);
 
         signatureKeyRepository
@@ -193,7 +193,7 @@ public class QueryTests
     public async Task Query_WithVariousNumberOfKeys_ShouldReturnCorrectCount(int keyCount)
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(keyCount);
 
         signatureKeyRepository
@@ -205,17 +205,17 @@ public class QueryTests
             .Returns((KeyPair)null);
 
         // Act
-        PresentMainResponse response = await useCase.Query(request);
+        PresentSigningPageResponse response = await useCase.Query(request);
 
         // Assert
-        Assert.Equal(keyCount, response.SignatureKeys.Count);
+        Assert.Equal(keyCount, response.KeyPairs.Count);
     }
 
     [Fact]
     public async Task Query_WithDuplicateKeyIds_ShouldPreserveAllKeys()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
         Guid duplicateId = Guid.NewGuid();
         IEnumerable<KeyPair> mockKeys = new List<KeyPair>
         {
@@ -232,18 +232,18 @@ public class QueryTests
             .Returns((KeyPair)null);
 
         // Act
-        PresentMainResponse response = await useCase.Query(request);
+        PresentSigningPageResponse response = await useCase.Query(request);
 
         // Assert
-        Assert.Equal(2, response.SignatureKeys.Count);
-        Assert.All(response.SignatureKeys, dto => Assert.Equal(duplicateId, dto.Id));
+        Assert.Equal(2, response.KeyPairs.Count);
+        Assert.All(response.KeyPairs, dto => Assert.Equal(duplicateId, dto.Id));
     }
 
     [Fact]
     public async Task Query_WithKeysHavingNullProperties_ShouldHandleGracefully()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = new List<KeyPair>
         {
             new KeyPair
@@ -263,11 +263,11 @@ public class QueryTests
             .Returns((KeyPair)null);
 
         // Act
-        PresentMainResponse response = await useCase.Query(request);
+        PresentSigningPageResponse response = await useCase.Query(request);
 
         // Assert
-        Assert.Single(response.SignatureKeys);
-        KeyPairDto resultDto = response.SignatureKeys.First();
+        Assert.Single(response.KeyPairs);
+        KeyPairDto resultDto = response.KeyPairs.First();
         Assert.Null(resultDto.PrivateKey);
         Assert.Null(resultDto.PublicKey);
     }
@@ -276,7 +276,7 @@ public class QueryTests
     public async Task Query_ShouldReturnTaskWithValidResponse()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
 
         signatureKeyRepository
             .Setup(x => x.GetAll())
@@ -287,13 +287,13 @@ public class QueryTests
             .Returns((KeyPair)null);
 
         // Act
-        Task<PresentMainResponse> responseTask = useCase.Query(request);
+        Task<PresentSigningPageResponse> responseTask = useCase.Query(request);
 
         // Assert
         Assert.NotNull(responseTask);
         Assert.True(responseTask.IsCompletedSuccessfully);
 
-        PresentMainResponse response = await responseTask;
+        PresentSigningPageResponse response = await responseTask;
         Assert.NotNull(response);
     }
 
@@ -301,7 +301,7 @@ public class QueryTests
     public async Task Query_WithRepositoryException_ShouldPropagateException()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
         Exception expectedException = new InvalidOperationException("Repository error");
 
         signatureKeyRepository
@@ -319,7 +319,7 @@ public class QueryTests
     public async Task Query_WithApplicationStateException_ShouldPropagateException()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
 
         signatureKeyRepository
             .Setup(x => x.GetAll())
@@ -341,7 +341,7 @@ public class QueryTests
     public async Task Query_WithRealScenario_ShouldWorkCorrectly()
     {
         // Arrange
-        PresentMainRequest request = new();
+        PresentSigningPageRequest request = new();
         KeyPair currentKey = CreateKeyPair(Guid.NewGuid(), DateTime.Now);
         IEnumerable<KeyPair> allKeys = new List<KeyPair>
         { 
@@ -358,14 +358,14 @@ public class QueryTests
             .Returns(currentKey);
 
         // Act
-        PresentMainResponse response = await useCase.Query(request);
+        PresentSigningPageResponse response = await useCase.Query(request);
 
         // Assert
-        Assert.Equal(2, response.SignatureKeys.Count);
-        Assert.Equal(currentKey.Id, response.SelectedSignatureKeyId);
+        Assert.Equal(2, response.KeyPairs.Count);
+        Assert.Equal(currentKey.Id, response.SelectedKeyPairId);
 
         // Verify that the DTOs contain the correct data
-        KeyPairDto currentKeyDto = response.SignatureKeys.First(dto => dto.Id == currentKey.Id);
+        KeyPairDto currentKeyDto = response.KeyPairs.First(dto => dto.Id == currentKey.Id);
         Assert.Equal(currentKey.CreatedDate, currentKeyDto.CreatedDate);
         Assert.Equal(currentKey.PrivateKey, currentKeyDto.PrivateKey);
         Assert.Equal(currentKey.PublicKey, currentKeyDto.PublicKey);

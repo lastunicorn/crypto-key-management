@@ -1,4 +1,4 @@
-﻿namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentMain;
+﻿namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 
 public class KeyPairDto
 {

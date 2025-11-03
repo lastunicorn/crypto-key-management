@@ -1,8 +1,8 @@
 ﻿using DustInTheWind.CryptoKeyManagement.Domain;
 
-namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentMain;
+namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 
-internal static class SignatureKeyExtensions
+internal static class KeyPairExtensions
 {
     public static KeyPairDto ToDto(this KeyPair key)
     {

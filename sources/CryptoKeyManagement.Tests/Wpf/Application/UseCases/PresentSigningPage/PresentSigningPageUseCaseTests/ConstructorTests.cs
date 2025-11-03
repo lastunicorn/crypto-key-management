@@ -1,22 +1,22 @@
 using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
-using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentMain;
+using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 using Moq;
 
-namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.PresentMain.PresentMainUseCaseTests;
+namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.PresentSigningPage.PresentSigningPageUseCaseTests;
 
 public class ConstructorTests
 {
     private readonly Mock<ISignatureKeyRepository> signatureKeyRepository;
     private readonly Mock<IApplicationState> applicationState;
-    private readonly PresentMainUseCase useCase;
+    private readonly PresentSigningPageUseCase useCase;
 
     public ConstructorTests()
     {
         signatureKeyRepository = new Mock<ISignatureKeyRepository>();
         applicationState = new Mock<IApplicationState>();
 
-        useCase = new PresentMainUseCase(
+        useCase = new PresentSigningPageUseCase(
             signatureKeyRepository.Object,
             applicationState.Object);
     }
@@ -26,7 +26,7 @@ public class ConstructorTests
     {
         // Act & Assert
         ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-           new PresentMainUseCase(null, applicationState.Object));
+           new PresentSigningPageUseCase(null, applicationState.Object));
 
         Assert.Equal("signatureKeyRepository", exception.ParamName);
     }
@@ -36,7 +36,7 @@ public class ConstructorTests
     {
         // Act & Assert
         ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-            new PresentMainUseCase(signatureKeyRepository.Object, null));
+            new PresentSigningPageUseCase(signatureKeyRepository.Object, null));
 
         Assert.Equal("applicationState", exception.ParamName);
     }
@@ -45,7 +45,7 @@ public class ConstructorTests
     public void Constructor_WithValidParameters_ShouldCreateInstance()
     {
         // Act
-        PresentMainUseCase instance = new(signatureKeyRepository.Object, applicationState.Object);
+        PresentSigningPageUseCase instance = new(signatureKeyRepository.Object, applicationState.Object);
 
         // Assert
         Assert.NotNull(instance);

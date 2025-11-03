@@ -1,27 +1,27 @@
 ﻿using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
-using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentMain;
+using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 
-namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentMain;
+namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 
-internal class PresentMainUseCase : IQuery<PresentMainRequest, PresentMainResponse>
+internal class PresentSigningPageUseCase : IQuery<PresentSigningPageRequest, PresentSigningPageResponse>
 {
     private readonly ISignatureKeyRepository signatureKeyRepository;
     private readonly IApplicationState applicationState;
 
-    public PresentMainUseCase(ISignatureKeyRepository signatureKeyRepository, IApplicationState applicationState)
+    public PresentSigningPageUseCase(ISignatureKeyRepository signatureKeyRepository, IApplicationState applicationState)
     {
         this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
         this.applicationState = applicationState ?? throw new ArgumentNullException(nameof(applicationState));
     }
 
-    public Task<PresentMainResponse> Query(PresentMainRequest criteria)
+    public Task<PresentSigningPageResponse> Query(PresentSigningPageRequest criteria)
     {
-        PresentMainResponse response = new()
+        PresentSigningPageResponse response = new()
         {
-            SignatureKeys = LoadSignatureKeys(),
-            SelectedSignatureKeyId = applicationState.CurrentSignatureKey?.Id
+            KeyPairs = LoadSignatureKeys(),
+            SelectedKeyPairId = applicationState.CurrentSignatureKey?.Id
         };
 
         return Task.FromResult(response);
@@ -30,7 +30,7 @@ internal class PresentMainUseCase : IQuery<PresentMainRequest, PresentMainRespon
     private List<KeyPairDto> LoadSignatureKeys()
     {
         return signatureKeyRepository.GetAll()
-            .Select(SignatureKeyExtensions.ToDto)
+            .Select(KeyPairExtensions.ToDto)
             .ToList();
     }
 }

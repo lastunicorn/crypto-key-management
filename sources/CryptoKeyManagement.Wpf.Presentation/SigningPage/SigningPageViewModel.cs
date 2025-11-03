@@ -1,5 +1,5 @@
 using AsyncMediator;
-using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentMain;
+using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.KeyInfo;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.KeysSelector;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.SigningPanel;
@@ -30,10 +30,10 @@ public class SigningPageViewModel : ViewModelBase
     {
         return AsInitializationAsync(async () =>
         {
-            PresentMainRequest request = new();
-            PresentMainResponse response = await mediator.Query<PresentMainRequest, PresentMainResponse>(request);
+            PresentSigningPageRequest request = new();
+            PresentSigningPageResponse response = await mediator.Query<PresentSigningPageRequest, PresentSigningPageResponse>(request);
 
-            KeysSelectorViewModel.Initialize(response.SignatureKeys, response.SelectedSignatureKeyId);
+            KeysSelectorViewModel.Initialize(response.KeyPairs, response.SelectedKeyPairId);
         });
     }
 }

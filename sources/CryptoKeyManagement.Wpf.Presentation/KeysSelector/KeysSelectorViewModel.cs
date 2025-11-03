@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
-using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentMain;
+using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.RefreshKeyPairs;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.SelectKeyPair;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation;

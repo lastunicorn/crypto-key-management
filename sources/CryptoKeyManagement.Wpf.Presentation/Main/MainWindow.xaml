@@ -23,9 +23,9 @@
     <DockPanel>
 
         <!-- Sidebar -->
-        <sidebar:SidebarControl
+        <!--<sidebar:SidebarControl
             DockPanel.Dock="Left"
-            DataContext="{Binding SidebarViewModel}" />
+            DataContext="{Binding SidebarViewModel}" />-->
 
         <sidebar:SideNavigator>
             
