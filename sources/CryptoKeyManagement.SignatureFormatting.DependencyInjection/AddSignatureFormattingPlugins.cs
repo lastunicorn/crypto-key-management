@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting.DependencyInjection;
 

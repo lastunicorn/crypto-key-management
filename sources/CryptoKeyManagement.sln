@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Signatu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.SignatureFormatting.DependencyInjection", "CryptoKeyManagement.SignatureFormatting.DependencyInjection\CryptoKeyManagement.SignatureFormatting.DependencyInjection.csproj", "{FC3C0E17-4D7D-41C3-8FDC-E26279E4B82B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.SignatureFormatting.Contracts", "CryptoKeyManagement.SignatureFormatting.Contracts\CryptoKeyManagement.SignatureFormatting.Contracts.csproj", "{C7554493-8020-43BB-90DD-C1F5D54B5B13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +126,10 @@ Global
 		{FC3C0E17-4D7D-41C3-8FDC-E26279E4B82B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC3C0E17-4D7D-41C3-8FDC-E26279E4B82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC3C0E17-4D7D-41C3-8FDC-E26279E4B82B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7554493-8020-43BB-90DD-C1F5D54B5B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7554493-8020-43BB-90DD-C1F5D54B5B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7554493-8020-43BB-90DD-C1F5D54B5B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7554493-8020-43BB-90DD-C1F5D54B5B13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

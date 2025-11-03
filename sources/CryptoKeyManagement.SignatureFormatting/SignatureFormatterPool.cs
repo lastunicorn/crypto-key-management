@@ -1,3 +1,5 @@
+using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
+
 namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting;
 
 /// <summary>
@@ -15,7 +17,7 @@ public class SignatureFormatterPool
     /// <summary>
     /// Gets the default formatter (the first registered one) or null if none exist.
     /// </summary>
-    public ISignatureFormatter DefaultFormatter { get; }
+    public ISignatureFormatter DefaultFormatter { get; private set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SignatureFormatterPool"/> class.

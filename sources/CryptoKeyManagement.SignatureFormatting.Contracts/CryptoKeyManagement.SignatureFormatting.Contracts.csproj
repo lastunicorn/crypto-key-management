@@ -4,10 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
         <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_").Replace("-", "_"))</RootNamespace>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     </PropertyGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\CryptoKeyManagement.SignatureFormatting.Contracts\CryptoKeyManagement.SignatureFormatting.Contracts.csproj" PrivateAssets="All" />
-    </ItemGroup>
 
 </Project>

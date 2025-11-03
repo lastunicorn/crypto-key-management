@@ -1,4 +1,4 @@
-namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting;
+namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
 
 /// <summary>
 /// Interface for formatting signatures for display purposes.

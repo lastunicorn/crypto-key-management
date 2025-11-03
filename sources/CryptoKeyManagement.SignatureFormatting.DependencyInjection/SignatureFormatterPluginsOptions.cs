@@ -1,4 +1,5 @@
 using System.Reflection;
+using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
 
 namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting.DependencyInjection;
 
@@ -12,7 +13,7 @@ public class SignatureFormatterPluginsOptions
 
     public SignatureFormatterPluginsOptions()
     {
-        //assemblies.Add(Assembly.GetExecutingAssembly());
+        assemblies.Add(Assembly.GetExecutingAssembly());
     }
 
     public SignatureFormatterPluginsOptions AddFromCurrentApplicationDomain()
@@ -29,6 +30,47 @@ public class SignatureFormatterPluginsOptions
     {
         foreach (Assembly assembly in assemblies)
             _ = this.assemblies.Add(assembly);
+
+        return this;
+    }
+
+    /// <summary>
+    /// Loads all .dll assemblies from the specified directory (optionally including subdirectories) and registers them for plugin discovery.
+    /// Non-.NET binaries or load failures are silently ignored.
+    /// </summary>
+    /// <param name="directoryPath">The absolute path of the directory containing plugin assemblies.</param>
+    /// <param name="includeSubdirectories">Indicates whether to search through all subdirectories recursively.</param>
+    /// <returns>The current <see cref="SignatureFormatterPluginsOptions"/> instance for fluent configuration.</returns>
+    public SignatureFormatterPluginsOptions AddFromDirectory(string directoryPath, bool includeSubdirectories = false)
+    {
+        if (string.IsNullOrWhiteSpace(directoryPath))
+            return this;
+
+        if (!Directory.Exists(directoryPath))
+            return this;
+
+        SearchOption searchOption = includeSubdirectories
+            ? SearchOption.AllDirectories
+            : SearchOption.TopDirectoryOnly;
+
+        string[] dllFiles = Directory.GetFiles(directoryPath, "*.dll", searchOption);
+
+        foreach (string dllFile in dllFiles)
+        {
+            try
+            {
+                Assembly assembly = Assembly.LoadFrom(dllFile);
+                _ = assemblies.Add(assembly);
+            }
+            catch (BadImageFormatException)
+            {
+                // Not a valid .NET assembly; ignore.
+            }
+            catch (FileLoadException)
+            {
+                // Assembly could not be loaded (already loaded or locked); ignore.
+            }
+        }
 
         return this;
     }

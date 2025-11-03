@@ -18,7 +18,7 @@ public class SettingsService : ISettingsService
     public SettingsService()
     {
         string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        string appFolder = Path.Combine(appDataFolder, "CryptoKeyManagement");
+        string appFolder = Path.Combine(appDataFolder, "Crypto Key Management");
         Directory.CreateDirectory(appFolder);
         settingsFilePath = Path.Combine(appFolder, "settings.json");
 
