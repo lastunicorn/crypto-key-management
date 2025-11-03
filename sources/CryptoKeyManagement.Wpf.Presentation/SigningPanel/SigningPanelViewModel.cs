@@ -1,7 +1,6 @@
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
 using DustInTheWind.CryptoKeyManagement.SignatureFormatting;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
-using DustInTheWind.CryptoKeyManagement.Wpf.Presentation;
 
 namespace DustInTheWind.CryptoKeyManagement.Wpf.Presentation.SigningPanel;
 
@@ -55,7 +54,7 @@ public class SigningPanelViewModel : ViewModelBase, IDisposable
 
     private Task HandleSignatureChanged(SignatureCreatedEvent @event, CancellationToken cancellationToken)
     {
-        ISignatureFormatter signatureFormatter = signatureFormatterPool.GetDefaultFormatter();
+        ISignatureFormatter signatureFormatter = signatureFormatterPool.DefaultFormatter;
 
         Signature = signatureFormatter?.FormatSignature(@event.Signature)
             ?? "Please select a signature display formatter.";

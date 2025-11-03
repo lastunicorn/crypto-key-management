@@ -5,7 +5,17 @@ namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting;
 /// </summary>
 public class SignatureFormatterPool
 {
-    private readonly List<ISignatureFormatter> allFormatters;
+    private readonly List<ISignatureFormatter> formatters;
+
+    /// <summary>
+    /// Returns all registered formatters in registration order.
+    /// </summary>
+    public IReadOnlyCollection<ISignatureFormatter> Formatters => formatters;
+
+    /// <summary>
+    /// Gets the default formatter (the first registered one) or null if none exist.
+    /// </summary>
+    public ISignatureFormatter DefaultFormatter { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SignatureFormatterPool"/> class.
@@ -14,28 +24,10 @@ public class SignatureFormatterPool
     /// <param name="formatters">All registered <see cref="ISignatureFormatter"/> implementations.</param>
     public SignatureFormatterPool(IEnumerable<ISignatureFormatter> formatters)
     {
-        allFormatters = formatters != null 
+        this.formatters = formatters != null 
             ? formatters.ToList()
             : [];
 
-        DefaultFormatter = allFormatters.FirstOrDefault();
-    }
-
-    /// <summary>
-    /// Gets the default formatter (the first registered one) or null if none exist.
-    /// </summary>
-    public ISignatureFormatter DefaultFormatter { get; }
-
-    /// <summary>
-    /// Returns all registered formatters in registration order.
-    /// </summary>
-    public IReadOnlyCollection<ISignatureFormatter> AllFormatters => allFormatters;
-
-    /// <summary>
-    /// Returns the default formatter. Convenience wrapper around <see cref="DefaultFormatter"/>.
-    /// </summary>
-    public ISignatureFormatter GetDefaultFormatter()
-    {
-        return DefaultFormatter;
+        DefaultFormatter = this.formatters.FirstOrDefault();
     }
 }

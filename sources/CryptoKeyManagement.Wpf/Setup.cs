@@ -49,8 +49,13 @@ internal static class Setup
         serviceCollection.AddTransient<ToggleThemeCommand>();
 
         // Presentation services
-        serviceCollection.AddTransient<ISignatureFormatter, Base64SignatureFormatter>();
-        serviceCollection.AddSingleton<SignatureFormatterPool>();
+        serviceCollection.AddTransient<Base64SignatureFormatter>();
+        serviceCollection.AddSingleton(provider =>
+        {
+            return new SignatureFormatterPoolBuilder(provider)
+                .AddFromCurrentApplicationDomain()
+                .Build();
+        });
 
         // Dialog services
         serviceCollection.AddTransient<IDialogService, DialogService>();
