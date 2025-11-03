@@ -61,7 +61,7 @@
                         Width="16"
                         Height="16"
                         Margin="0 0 8 0"/>
-                    
+
                     <TextBlock
                         Text="Sign Message"
                         VerticalAlignment="Center"/>
@@ -83,6 +83,7 @@
             Grid.Row="3"
             x:Name="SignatureTextBox"
             Text="{Binding Signature, Mode=OneWay}"
+            TextWrapping="Wrap"
             VerticalScrollBarVisibility="Auto"/>
 
     </Grid>

@@ -29,6 +29,16 @@ public partial class EnhancedTextBox : UserControl
         new PropertyMetadata(ScrollBarVisibility.Disabled));
 
     /// <summary>
+    /// Dependency property for the TextWrapping of the internal TextBox.
+    /// </summary>
+    public static readonly DependencyProperty TextWrappingProperty =
+        DependencyProperty.Register(
+        nameof(TextWrapping),
+        typeof(TextWrapping),
+        typeof(EnhancedTextBox),
+        new PropertyMetadata(TextWrapping.NoWrap));
+
+    /// <summary>
     /// Gets or sets the text content of the control.
     /// </summary>
     public string Text
@@ -44,6 +54,15 @@ public partial class EnhancedTextBox : UserControl
     {
         get => (ScrollBarVisibility)GetValue(VerticalScrollBarVisibilityProperty);
         set => SetValue(VerticalScrollBarVisibilityProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the text wrapping behavior for the internal TextBox.
+    /// </summary>
+    public TextWrapping TextWrapping
+    {
+        get => (TextWrapping)GetValue(TextWrappingProperty);
+        set => SetValue(TextWrappingProperty, value);
     }
 
     /// <summary>
