@@ -263,6 +263,42 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <!-- Sun Icon for Light Theme -->
+    <DrawingImage x:Key="SunIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="{DynamicResource IconStrokeBrush}">
+                <GeometryDrawing.Geometry>
+                    <PathGeometry>M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8M12,2L14.39,5.42C13.65,5.15 12.84,5 12,5C11.16,5 10.35,5.15 9.61,5.42L12,2M12,22L9.61,18.58C10.35,18.85 11.16,19 12,19C12.84,19 13.65,18.85 14.39,18.58L12,22M22,12L18.58,9.61C18.85,10.35 19,11.16 19,12C19,12.84 18.85,13.65 18.58,14.39L22,12M2,12L5.42,14.39C5.15,13.65 5,12.84 5,12C5,11.16 5.15,10.35 5.42,9.61L2,12M20.07,2.93L16.24,6.76C15.69,6.24 15.09,5.8 14.42,5.46L17.64,2.24L20.07,2.93M3.93,21.07L7.76,17.24C8.31,17.76 8.91,18.2 9.58,18.54L6.36,21.76L3.93,21.07M3.93,2.93L6.36,2.24L9.58,5.46C8.91,5.8 8.31,6.24 7.76,6.76L3.93,2.93M20.07,21.07L17.64,21.76L14.42,18.54C15.09,18.2 15.69,17.76 16.24,17.24L20.07,21.07Z</PathGeometry>
+                </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Moon Icon for Dark Theme -->
+    <DrawingImage x:Key="MoonIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="{DynamicResource IconStrokeBrush}">
+                <GeometryDrawing.Geometry>
+                    <PathGeometry>M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95Z</PathGeometry>
+                </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Key Icon for Signing -->
+    <DrawingImage x:Key="KeyIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="Transparent">
+                <GeometryDrawing.Pen>
+                    <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                    <PathGeometry>M7,14A2,2 0 0,0 5,16A2,2 0 0,0 7,18A2,2 0 0,0 9,16A2,2 0 0,0 7,14M12.65,10C11.83,7.67 9.61,6 7,6A6,6 0 0,0 1,12A6,6 0 0,0 7,18C9.61,18 11.83,16.33 12.65,14H17V18H21V14H23V10H12.65Z</PathGeometry>
+                </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <!-- Window Style -->
     <Style TargetType="Window">
         <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>

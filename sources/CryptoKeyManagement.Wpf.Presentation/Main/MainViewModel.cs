@@ -13,17 +13,17 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Main;
 public class MainViewModel : ViewModelBase
 {
     private readonly IMediator mediator;
-    private string themeToggleText;
+    private ThemeType themeType;
 
     public string WindowTitle { get; }
 
-    public string ThemeToggleText
+    public ThemeType ThemeType
     {
-        get => themeToggleText;
-        private set
+        get => themeType;
+        set
         {
-            themeToggleText = value;
-            OnPropertyChanged(nameof(ThemeToggleText));
+            themeType = value;
+            OnPropertyChanged(nameof(ThemeType));
         }
     }
 
@@ -45,7 +45,7 @@ public class MainViewModel : ViewModelBase
         SigningPageViewModel = signingPageViewModel ?? throw new ArgumentNullException(nameof(signingPageViewModel));
         ToggleThemeCommand = toggleThemeCommand ?? throw new ArgumentNullException(nameof(toggleThemeCommand));
         PluginsPageViewModel = pluginsPageViewModel ?? throw new ArgumentNullException(nameof(pluginsPageViewModel));
-        
+
         WindowTitle = GetWindowTitle();
 
         eventBus.Subscribe<ThemeChangedEvent>(HandleThemeChanged);
@@ -56,7 +56,7 @@ public class MainViewModel : ViewModelBase
     private static string GetWindowTitle()
     {
         Assembly assembly = Assembly.GetEntryAssembly();
-        string version = assembly?.GetName().Version?.ToString(3) ?? "Unknown";
+        string version = assembly?.GetName().Version?.ToString(3);
         return $"Crypto Key Management {version}";
     }
 
@@ -67,23 +67,13 @@ public class MainViewModel : ViewModelBase
             PresentSidebarRequest request = new();
             PresentSidebarResponse response = await mediator.Query<PresentSidebarRequest, PresentSidebarResponse>(request);
 
-            UpdateThemeToggleText(response.ThemeType);
+            ThemeType = response.ThemeType;
         });
     }
 
     private Task HandleThemeChanged(ThemeChangedEvent @event, CancellationToken token)
     {
-        UpdateThemeToggleText(@event.ThemeType);
+        ThemeType = @event.ThemeType;
         return Task.CompletedTask;
-    }
-
-    private void UpdateThemeToggleText(ThemeType themeType)
-    {
-        ThemeToggleText = themeType switch
-        {
-            ThemeType.Light => "🌞",
-            ThemeType.Dark => "🌜",
-            _ => string.Empty
-        };
     }
 }

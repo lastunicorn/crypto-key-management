@@ -23,7 +23,7 @@
     <DockPanel>
 
         <sidebar:SideNavigator>
-            
+
             <TabItem>
                 <TabItem.Header>
                     <Image
@@ -33,11 +33,11 @@
                         Margin="0"
                         HorizontalAlignment="Center"/>
                 </TabItem.Header>
-                
+
                 <signingPage:SigningPage
                     DataContext="{Binding SigningPageViewModel}" />
             </TabItem>
-            
+
             <TabItem>
                 <TabItem.Header>
                     <Image
@@ -55,13 +55,28 @@
             <sidebar:SideNavigator.Buttons>
                 <controls:SidebarButton
                     DockPanel.Dock="Bottom"
-                    Content="{Binding ThemeToggleText}"
                     Command="{Binding ToggleThemeCommand}"
-                    ToolTip="Toggle between light and dark theme" />
+                    ToolTip="Toggle between light and dark theme">
+
+                    <controls:SidebarButton.Content>
+                        <Image Width="24" Height="24">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Source" Value="{DynamicResource SunIcon}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ThemeType}" Value="Dark">
+                                            <Setter Property="Source" Value="{DynamicResource MoonIcon}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </controls:SidebarButton.Content>
+                </controls:SidebarButton>
             </sidebar:SideNavigator.Buttons>
 
         </sidebar:SideNavigator>
-        
+
     </DockPanel>
 
 </Window>
