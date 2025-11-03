@@ -12,9 +12,9 @@ internal class SelectKeyPairUseCase : ICommandHandler<SelectKeyPairRequest>
 {
     private readonly ISignatureKeyRepository signatureKeyRepository;
     private readonly IApplicationState applicationStateService;
-    private readonly EventBus eventBus;
+    private readonly IEventBus eventBus;
 
-    public SelectKeyPairUseCase(ISignatureKeyRepository signatureKeyRepository, IApplicationState applicationStateService, EventBus eventBus)
+    public SelectKeyPairUseCase(ISignatureKeyRepository signatureKeyRepository, IApplicationState applicationStateService, IEventBus eventBus)
     {
         this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
         this.applicationStateService = applicationStateService ?? throw new ArgumentNullException(nameof(applicationStateService));
