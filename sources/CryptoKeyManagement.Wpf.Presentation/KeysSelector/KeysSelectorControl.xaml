@@ -50,15 +50,37 @@
                         Text="Create Key"
                         VerticalAlignment="Center"/>
                 </StackPanel>
-                
+
             </Button>
 
             <Button
                 Name="RefreshKeysButton"
+                Margin="5 0 0 0"
+                MinWidth="100"
+                MinHeight="30"
+                Command="{Binding RefreshKeyPairsCommand}"
+                Padding="10 5">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image
+                        Source="{StaticResource RefreshIcon}"
+                        Width="16"
+                        Height="16" 
+                        Margin="0 0 8 0"/>
+
+                    <TextBlock 
+                        Text="Refresh"
+                        VerticalAlignment="Center"/>
+                </StackPanel>
+
+            </Button>
+
+            <!--<Button
+                Name="RefreshKeysButton"
                 Content="Refresh"
                 Margin="5 0 0 0"
                 Width="100"
-                Command="{Binding RefreshKeyPairsCommand}"/>
+                Command="{Binding RefreshKeyPairsCommand}"/>-->
 
         </StackPanel>
 
