@@ -14,6 +14,7 @@
     <Color x:Key="LightAccent">#FF0078D4</Color>
     <Color x:Key="LightAccentHover">#FF106EBE</Color>
     <Color x:Key="LightAccentPressed">#FF005A9E</Color>
+    <Color x:Key="IconStrokeColor">#FF666666</Color>
 
     <!-- Light Theme Brushes -->
     <SolidColorBrush x:Key="LightBackgroundBrush" Color="{StaticResource LightBackground}"/>
@@ -26,6 +27,8 @@
     <SolidColorBrush x:Key="LightAccentBrush" Color="{StaticResource LightAccent}"/>
     <SolidColorBrush x:Key="LightAccentHoverBrush" Color="{StaticResource LightAccentHover}"/>
     <SolidColorBrush x:Key="LightAccentPressedBrush" Color="{StaticResource LightAccentPressed}"/>
+    <!-- Added icon stroke brush -->
+    <SolidColorBrush x:Key="IconStrokeBrush" Color="{StaticResource IconStrokeColor}"/>
 
     <!-- Copy icon -->
     <DrawingImage x:Key="CopyIcon">
@@ -35,7 +38,7 @@
                 <!-- Background document -->
                 <GeometryDrawing Brush="Transparent">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1.2"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <RectangleGeometry Rect="2,2,8,10" RadiusX="0.5" RadiusY="0.5"/>
@@ -45,7 +48,7 @@
                 <!-- Foreground document (copy) -->
                 <GeometryDrawing Brush="White">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1.2"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <RectangleGeometry Rect="6,4,8,10" RadiusX="0.5" RadiusY="0.5"/>
@@ -63,7 +66,7 @@
                 <!-- Key head (circle) -->
                 <GeometryDrawing Brush="Transparent">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1.2"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <EllipseGeometry Center="5,8" RadiusX="3" RadiusY="3"/>
@@ -72,7 +75,7 @@
                 <!-- Plus sign inside head -->
                 <GeometryDrawing>
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1.2"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <GeometryGroup>
@@ -84,7 +87,7 @@
                 <!-- Key shaft -->
                 <GeometryDrawing Brush="Transparent">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1.2"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <RectangleGeometry Rect="8,7,5,2" RadiusX="0.5" RadiusY="0.5"/>
@@ -93,7 +96,7 @@
                 <!-- Key tooth -->
                 <GeometryDrawing Brush="Transparent">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1.2"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <RectangleGeometry Rect="13,7,1.5,2" RadiusX="0.3" RadiusY="0.3"/>
@@ -110,7 +113,7 @@
                 <!-- Trash can body -->
                 <GeometryDrawing Brush="Transparent">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1.2"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <RectangleGeometry Rect="4,6,8,8" RadiusX="0.5" RadiusY="0.5"/>
@@ -120,7 +123,7 @@
                 <!-- Trash can lid -->
                 <GeometryDrawing>
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1.2"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <LineGeometry StartPoint="3,6" EndPoint="13,6"/>
@@ -130,7 +133,7 @@
                 <!-- Trash can handle -->
                 <GeometryDrawing Brush="Transparent">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1.2"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <RectangleGeometry Rect="6,4,4,2" RadiusX="1" RadiusY="1"/>
@@ -140,7 +143,7 @@
                 <!-- Vertical lines inside trash can -->
                 <GeometryDrawing>
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <LineGeometry StartPoint="6,8" EndPoint="6,12"/>
@@ -149,7 +152,7 @@
 
                 <GeometryDrawing>
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <LineGeometry StartPoint="8,8" EndPoint="8,12"/>
@@ -158,10 +161,39 @@
 
                 <GeometryDrawing>
                     <GeometryDrawing.Pen>
-                        <Pen Brush="#666666" Thickness="1"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
                         <LineGeometry StartPoint="10,8" EndPoint="10,12"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Create key icon -->
+    <DrawingImage x:Key="CreateKeyIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <!-- Outer rounded square -->
+                <GeometryDrawing Brush="Transparent">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="2,2,12,12" RadiusX="2" RadiusY="2"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <!-- Plus sign -->
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2" StartLineCap="Square" EndLineCap="Square"/>
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <LineGeometry StartPoint="8,5" EndPoint="8,11"/>
+                            <LineGeometry StartPoint="5,8" EndPoint="11,8"/>
+                        </GeometryGroup>
                     </GeometryDrawing.Geometry>
                 </GeometryDrawing>
             </DrawingGroup>

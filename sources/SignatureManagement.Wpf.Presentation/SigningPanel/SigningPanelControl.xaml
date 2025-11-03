@@ -61,6 +61,7 @@
                         Width="16"
                         Height="16"
                         Margin="0 0 8 0"/>
+                    
                     <TextBlock
                         Text="Sign Message"
                         VerticalAlignment="Center"/>
