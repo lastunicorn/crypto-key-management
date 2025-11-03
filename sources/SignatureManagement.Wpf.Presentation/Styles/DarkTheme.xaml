@@ -353,6 +353,53 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <!-- Sign message icon -->
+    <DrawingImage x:Key="SignMessageIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <!-- Key head (circle) -->
+                <GeometryDrawing Brush="Transparent">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#666666" Thickness="1.2"/>
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry Center="5,8" RadiusX="3" RadiusY="3"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <!-- Plus sign inside head -->
+                <GeometryDrawing>
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#666666" Thickness="1.2"/>
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <LineGeometry StartPoint="5,7" EndPoint="5,9"/>
+                            <LineGeometry StartPoint="4,8" EndPoint="6,8"/>
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <!-- Key shaft -->
+                <GeometryDrawing Brush="Transparent">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#666666" Thickness="1.2"/>
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="8,7,5,2" RadiusX="0.5" RadiusY="0.5"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <!-- Key tooth -->
+                <GeometryDrawing Brush="Transparent">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#666666" Thickness="1.2"/>
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="13,7,1.5,2" RadiusX="0.3" RadiusY="0.3"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <!-- Delete icon -->
     <DrawingImage x:Key="DeleteIcon">
         <DrawingImage.Drawing>
