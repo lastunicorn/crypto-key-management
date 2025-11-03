@@ -497,17 +497,35 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
-    <!-- Create key icon -->
+    <!-- Refresh icon -->
     <DrawingImage x:Key="RefreshIcon">
         <DrawingImage.Drawing>
             <DrawingGroup>
-                <!-- Outer rounded square -->
                 <GeometryDrawing Brush="Transparent">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round"/>
                     </GeometryDrawing.Pen>
                     <GeometryDrawing.Geometry>
-                        <RectangleGeometry Rect="2,2,12,12" RadiusX="2" RadiusY="2"/>
+                        <GeometryGroup>
+                            <!-- Upper arc -->
+                            <PathGeometry>
+                                <PathFigure StartPoint="5,5" IsClosed="False">
+                                    <ArcSegment Point="13,9" Size="6,6" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                </PathFigure>
+                            </PathGeometry>
+                            <!-- Right arrow head -->
+                            <LineGeometry StartPoint="13,9" EndPoint="11.5,7.5"/>
+                            <LineGeometry StartPoint="13,9" EndPoint="11.5,10.5"/>
+                            <!-- Lower arc -->
+                            <PathGeometry>
+                                <PathFigure StartPoint="11,13" IsClosed="False">
+                                    <ArcSegment Point="3,9" Size="6,6" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                </PathFigure>
+                            </PathGeometry>
+                            <!-- Left arrow head -->
+                            <LineGeometry StartPoint="3,9" EndPoint="4.5,7.5"/>
+                            <LineGeometry StartPoint="3,9" EndPoint="4.5,10.5"/>
+                        </GeometryGroup>
                     </GeometryDrawing.Geometry>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -520,7 +538,7 @@
     <SolidColorBrush x:Key="SidebarButtonPressedBrush" Color="{StaticResource DarkAccent}"/>
 
     <Style TargetType="{x:Type controls:SidebarButton}">
-        
+
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -528,7 +546,7 @@
         <Setter Property="Width" Value="40"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="FontSize" Value="18"/>
-        
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:SidebarButton}">

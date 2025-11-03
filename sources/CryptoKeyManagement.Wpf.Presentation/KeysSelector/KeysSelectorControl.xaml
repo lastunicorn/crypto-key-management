@@ -75,13 +75,6 @@
 
             </Button>
 
-            <!--<Button
-                Name="RefreshKeysButton"
-                Content="Refresh"
-                Margin="5 0 0 0"
-                Width="100"
-                Command="{Binding RefreshKeyPairsCommand}"/>-->
-
         </StackPanel>
 
         <ListBox
