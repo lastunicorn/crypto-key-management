@@ -21,18 +21,17 @@
         <DockPanel
             HorizontalAlignment="Center">
 
-            <!-- Theme Toggle Button docked to bottom -->
+            <!-- Bottom sidebar items -->
             <controls:SidebarButton 
                 DockPanel.Dock="Bottom"
                 Content="{Binding ThemeToggleText}"
                 Command="{Binding ToggleThemeCommand}"
                 ToolTip="Toggle between light and dark theme" />
 
-            <!-- Future sidebar items can be added here at the top -->
+            <!-- Top sidebar items -->
             <StackPanel
                 Orientation="Vertical"
                 HorizontalAlignment="Center">
-                <!-- Additional buttons or controls can be added here -->
 
                 <controls:SidebarButton 
                 DockPanel.Dock="Bottom"
