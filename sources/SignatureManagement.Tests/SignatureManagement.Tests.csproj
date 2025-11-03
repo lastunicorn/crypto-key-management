@@ -11,6 +11,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" />
         <PackageReference Include="coverlet.collector" Version="6.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
         <PackageReference Include="Moq" Version="4.20.69" />
@@ -19,14 +20,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SignatureManagement.Ports.StateAccess\SignatureManagement.Ports.StateAccess.csproj" />
+        <ProjectReference Include="..\SignatureManagement.Ports.StateAccess\SignatureManagement.Ports.StateAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.SignatureFormatting\SignatureManagement.SignatureFormatting.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Wpf.Application\SignatureManagement.Wpf.Application.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Domain\SignatureManagement.Domain.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Infrastructure\SignatureManagement.Infrastructure.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Ports.SettingsAccess\SignatureManagement.Ports.SettingsAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\SignatureManagement.Ports.WpfUserAccess\SignatureManagement.Ports.WpfUserAccess.csproj" PrivateAssets="All" />
-        <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" />
+        <ProjectReference Include="..\SignatureManagement.Ports.SignatureAccess\SignatureManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>

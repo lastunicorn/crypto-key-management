@@ -14,9 +14,9 @@ namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.CreateKeyPa
 internal class CreateKeyPairUseCase : ICommandHandler<CreateKeyPairRequest>
 {
     private readonly ISignatureKeyRepository signatureRepository;
-    private readonly EventBus eventBus;
+    private readonly IEventBus eventBus;
 
-    public CreateKeyPairUseCase(ISignatureKeyRepository signatureRepository, EventBus eventBus)
+    public CreateKeyPairUseCase(ISignatureKeyRepository signatureRepository, IEventBus eventBus)
     {
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
