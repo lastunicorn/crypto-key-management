@@ -12,9 +12,9 @@ namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.RefreshKeyP
 internal class RefreshKeyPairsUseCase : ICommandHandler<RefreshKeyPairsRequest>
 {
     private readonly ISignatureKeyRepository signatureKeyRepository;
-    private readonly EventBus eventBus;
+    private readonly IEventBus eventBus;
 
-    public RefreshKeyPairsUseCase(ISignatureKeyRepository signatureKeyRepository, EventBus eventBus)
+    public RefreshKeyPairsUseCase(ISignatureKeyRepository signatureKeyRepository, IEventBus eventBus)
     {
         this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
