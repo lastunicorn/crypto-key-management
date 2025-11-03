@@ -26,7 +26,12 @@
             
             <TabItem>
                 <TabItem.Header>
-                    S
+                    <Image
+                        Source="{DynamicResource SigningIcon}"
+                        Width="24"
+                        Height="24"
+                        Margin="0"
+                        HorizontalAlignment="Center"/>
                 </TabItem.Header>
                 
                 <signingPage:SigningPage
@@ -35,7 +40,12 @@
             
             <TabItem>
                 <TabItem.Header>
-                    P
+                    <Image
+                        Source="{DynamicResource PluginIcon}"
+                        Width="24"
+                        Height="24"
+                        Margin="0"
+                        HorizontalAlignment="Center"/>
                 </TabItem.Header>
 
                 <pluginsPage:PluginsPage

@@ -15,7 +15,7 @@
     <Color x:Key="AccentColor">#FF0078D4</Color>
     <Color x:Key="AccentHoverColor">#FF106EBE</Color>
     <Color x:Key="AccentPressedColor">#FF005A9E</Color>
-    <Color x:Key="IconStrokeColor">#FFA0A0A0</Color>
+    <Color x:Key="IconStrokeColor">#FFB0B0B0</Color>
 
     <!-- Brush Definitions -->
     <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
@@ -529,6 +529,34 @@
                     </GeometryDrawing.Geometry>
                 </GeometryDrawing>
             </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Plugin icon -->
+    <DrawingImage x:Key="PluginIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="Transparent">
+                <GeometryDrawing.Pen>
+                    <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                    <Geometry>M12,2A4,4 0 0,1 16,6V10H20V12H16V16A4,4 0 0,1 12,20H8V16H4V14H8V10A4,4 0 0,1 12,6H16V2H12M12,8A2,2 0 0,0 10,10V14H14A2,2 0 0,0 16,12V8H12Z</Geometry>
+                </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Key Icon for Signing -->
+    <DrawingImage x:Key="SigningIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="Transparent">
+                <GeometryDrawing.Pen>
+                    <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                    <Geometry>M7,6A3,3 0 0,1 10,3A3,3 0 0,1 13,6V7H14A1,1 0 0,1 15,8V16A1,1 0 0,1 14,17H6A1,1 0 0,1 5,16V8A1,1 0 0,1 6,7H7V6M9,6V7H11V6A1,1 0 0,0 10,5A1,1 0 0,0 9,6Z</Geometry>
+                </GeometryDrawing.Geometry>
+            </GeometryDrawing>
         </DrawingImage.Drawing>
     </DrawingImage>
 
