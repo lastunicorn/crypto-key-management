@@ -50,6 +50,7 @@ internal static class Setup
 
         // Presentation services
         serviceCollection.AddTransient<ISignatureFormatter, Base64SignatureFormatter>();
+        serviceCollection.AddSingleton<SignatureFormatterPool>();
 
         // Dialog services
         serviceCollection.AddTransient<IDialogService, DialogService>();
