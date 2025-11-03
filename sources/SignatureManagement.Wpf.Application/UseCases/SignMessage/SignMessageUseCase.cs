@@ -10,10 +10,10 @@ namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.SignMessage
 internal class SignMessageUseCase : ICommandHandler<SignMessageRequest>
 {
     private readonly IApplicationState applicationState;
-    private readonly EventBus eventBus;
+    private readonly IEventBus eventBus;
     private readonly ICryptographyService cryptographyService;
 
-    public SignMessageUseCase(IApplicationState applicationState, EventBus eventBus, ICryptographyService cryptographyService)
+    public SignMessageUseCase(IApplicationState applicationState, IEventBus eventBus, ICryptographyService cryptographyService)
     {
         this.applicationState = applicationState ?? throw new ArgumentNullException(nameof(applicationState));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
