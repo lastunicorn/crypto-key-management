@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Text.Json;
 using DustInTheWind.CryptoKeyManagement.Domain;
 
@@ -39,6 +41,19 @@ public class SettingsService : ISettingsService
             if (userSettings.ThemeType != newValue)
             {
                 userSettings.ThemeType = newValue;
+                SaveSettings();
+            }
+        }
+    }
+    
+    public Guid? SignatureFormatterId
+    {
+        get => userSettings.SignatureFormatterId;
+        set
+        {
+            if (userSettings.SignatureFormatterId != value)
+            {
+                userSettings.SignatureFormatterId = value;
                 SaveSettings();
             }
         }

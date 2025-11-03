@@ -1,4 +1,5 @@
-﻿using AsyncMediator.Extensions.DependencyInjection;
+﻿using System.IO;
+using AsyncMediator.Extensions.DependencyInjection;
 using DustInTheWind.CryptoKeyManagement.Adapter.WpfUserAccess;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
 using DustInTheWind.CryptoKeyManagement.Ports.CryptographyAccess;
@@ -6,20 +7,17 @@ using DustInTheWind.CryptoKeyManagement.Ports.SettingsAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.WpfUserAccess;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting;
+using DustInTheWind.CryptoKeyManagement.SignatureFormatting.DependencyInjection;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.InitializeApp;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Watchers;
+using DustInTheWind.CryptoKeyManagement.Wpf.Main;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Dialogs;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.KeyInfo;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.KeysSelector;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Main;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Sidebar;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.SigningPanel;
-using DustInTheWind.CryptoKeyManagement.Wpf.Main;
 using Microsoft.Extensions.DependencyInjection;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting.DependencyInjection;
-using System.IO;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
 
 namespace DustInTheWind.CryptoKeyManagement.Wpf;
 
@@ -59,19 +57,6 @@ internal static class Setup
             string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string pluginsDirectory = Path.Combine(userProfile, "Crypto Key Management", "Plugins");
             _ = options.AddFromDirectory(pluginsDirectory, includeSubdirectories: true);
-
-            options.SelectDefault(formatters =>
-            {
-                Guid formatterId = new("2FE32152-1639-42EB-9A0D-A70E8F51079F");
-
-                foreach (ISignatureFormatter formatter in formatters)
-                {
-                    if (formatter.Id == formatterId)
-                        return formatter;
-                }
-
-                return null;
-            });
         });
 
         // Dialog services
