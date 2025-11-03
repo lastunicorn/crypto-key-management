@@ -10,10 +10,10 @@ namespace DustInTheWind.SignatureManagement.Wpf.Application.UseCases.ToggleTheme
 internal class ToggleThemeUseCase : ICommandHandler<ToggleThemeRequest>
 {
     private readonly ISettingsService settingsService;
-    private readonly EventBus eventBus;
+    private readonly IEventBus eventBus;
     private readonly IThemeSelector themeSelector;
 
-    public ToggleThemeUseCase(ISettingsService settingsService, EventBus eventBus, IThemeSelector themeSelector)
+    public ToggleThemeUseCase(ISettingsService settingsService, IEventBus eventBus, IThemeSelector themeSelector)
     {
         this.settingsService = settingsService ?? throw new ArgumentNullException(nameof(settingsService));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
