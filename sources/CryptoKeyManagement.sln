@@ -1,0 +1,142 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement", "CryptoKeyManagement\CryptoKeyManagement.csproj", "{4DB81E87-42B2-4B24-BAC1-1C6F7D48D692}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Ports.SignatureAccess", "CryptoKeyManagement.Ports.SignatureAccess\CryptoKeyManagement.Ports.SignatureAccess.csproj", "{9C2364E4-BCC0-4463-8BC5-4D2A8DDA69B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Application", "CryptoKeyManagement.Application\CryptoKeyManagement.Application.csproj", "{CA934451-B028-4E21-9CAF-11A11D31B69C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ports", "Ports", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Ports.UserAccess", "CryptoKeyManagement.Ports.UserAccess\CryptoKeyManagement.Ports.UserAccess.csproj", "{F9A5A09E-0E28-489A-ACE4-51610B944037}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{CD1D8592-E977-41B8-8D97-BCB967DABB3D}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App.Console", "App.Console", "{4ED3B452-6DAF-4DAC-B4FB-CAA1B5D3576C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App.Wpf", "App.Wpf", "{12E32685-BF78-4998-AAED-0122342D48A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Wpf", "CryptoKeyManagement.Wpf\CryptoKeyManagement.Wpf.csproj", "{E5B2FB0D-2DDE-4182-BB79-B6F24FD33DA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Wpf.Application", "CryptoKeyManagement.Wpf.Application\CryptoKeyManagement.Wpf.Application.csproj", "{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Wpf.Presentation", "CryptoKeyManagement.Wpf.Presentation\CryptoKeyManagement.Wpf.Presentation.csproj", "{1663EB14-0585-4888-8EE3-7F2EAC53D8DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Ports.StateAccess", "CryptoKeyManagement.Ports.StateAccess\CryptoKeyManagement.Ports.StateAccess.csproj", "{5C39F1D6-CEB5-47D8-A4FF-5813F0709467}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Infrastructure", "CryptoKeyManagement.Infrastructure\CryptoKeyManagement.Infrastructure.csproj", "{F4BD6706-D501-4E2C-B5BD-592C602216AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Domain", "CryptoKeyManagement.Domain\CryptoKeyManagement.Domain.csproj", "{AE534C6C-0F6C-4128-B290-E44256DB1A59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Ports.CryptographyAccess", "CryptoKeyManagement.Ports.CryptographyAccess\CryptoKeyManagement.Ports.CryptographyAccess.csproj", "{BAC95728-C083-439F-AE87-1229987FADF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Ports.SettingsAccess", "CryptoKeyManagement.Ports.SettingsAccess\CryptoKeyManagement.Ports.SettingsAccess.csproj", "{1ED3DC5C-2EC2-4A66-AC6A-68C9DCC6C703}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Ports.WpfUserAccess", "CryptoKeyManagement.Ports.WpfUserAccess\CryptoKeyManagement.Ports.WpfUserAccess.csproj", "{4145F409-77C0-4595-A50A-02A374913939}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Adapter.WpfUserAccess", "CryptoKeyManagement.Adapter.WpfUserAccess\CryptoKeyManagement.Adapter.WpfUserAccess.csproj", "{BB709307-0BF4-4D7E-9C1E-731D85ED4763}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{8C2F8CD3-66A0-4A44-A448-31F52DD47E16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Tests", "CryptoKeyManagement.Tests\CryptoKeyManagement.Tests.csproj", "{4AFA362B-71BC-46ED-B605-690301769335}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.SignatureFormatting", "CryptoKeyManagement.SignatureFormatting\CryptoKeyManagement.SignatureFormatting.csproj", "{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DB81E87-42B2-4B24-BAC1-1C6F7D48D692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DB81E87-42B2-4B24-BAC1-1C6F7D48D692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DB81E87-42B2-4B24-BAC1-1C6F7D48D692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DB81E87-42B2-4B24-BAC1-1C6F7D48D692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C2364E4-BCC0-4463-8BC5-4D2A8DDA69B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C2364E4-BCC0-4463-8BC5-4D2A8DDA69B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C2364E4-BCC0-4463-8BC5-4D2A8DDA69B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C2364E4-BCC0-4463-8BC5-4D2A8DDA69B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA934451-B028-4E21-9CAF-11A11D31B69C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA934451-B028-4E21-9CAF-11A11D31B69C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA934451-B028-4E21-9CAF-11A11D31B69C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA934451-B028-4E21-9CAF-11A11D31B69C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9A5A09E-0E28-489A-ACE4-51610B944037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9A5A09E-0E28-489A-ACE4-51610B944037}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9A5A09E-0E28-489A-ACE4-51610B944037}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9A5A09E-0E28-489A-ACE4-51610B944037}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5B2FB0D-2DDE-4182-BB79-B6F24FD33DA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5B2FB0D-2DDE-4182-BB79-B6F24FD33DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5B2FB0D-2DDE-4182-BB79-B6F24FD33DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5B2FB0D-2DDE-4182-BB79-B6F24FD33DA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1663EB14-0585-4888-8EE3-7F2EAC53D8DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1663EB14-0585-4888-8EE3-7F2EAC53D8DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1663EB14-0585-4888-8EE3-7F2EAC53D8DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1663EB14-0585-4888-8EE3-7F2EAC53D8DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C39F1D6-CEB5-47D8-A4FF-5813F0709467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C39F1D6-CEB5-47D8-A4FF-5813F0709467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C39F1D6-CEB5-47D8-A4FF-5813F0709467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C39F1D6-CEB5-47D8-A4FF-5813F0709467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4BD6706-D501-4E2C-B5BD-592C602216AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4BD6706-D501-4E2C-B5BD-592C602216AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4BD6706-D501-4E2C-B5BD-592C602216AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4BD6706-D501-4E2C-B5BD-592C602216AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE534C6C-0F6C-4128-B290-E44256DB1A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE534C6C-0F6C-4128-B290-E44256DB1A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE534C6C-0F6C-4128-B290-E44256DB1A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE534C6C-0F6C-4128-B290-E44256DB1A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAC95728-C083-439F-AE87-1229987FADF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAC95728-C083-439F-AE87-1229987FADF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAC95728-C083-439F-AE87-1229987FADF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAC95728-C083-439F-AE87-1229987FADF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ED3DC5C-2EC2-4A66-AC6A-68C9DCC6C703}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED3DC5C-2EC2-4A66-AC6A-68C9DCC6C703}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ED3DC5C-2EC2-4A66-AC6A-68C9DCC6C703}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ED3DC5C-2EC2-4A66-AC6A-68C9DCC6C703}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4145F409-77C0-4595-A50A-02A374913939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4145F409-77C0-4595-A50A-02A374913939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4145F409-77C0-4595-A50A-02A374913939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4145F409-77C0-4595-A50A-02A374913939}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB709307-0BF4-4D7E-9C1E-731D85ED4763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB709307-0BF4-4D7E-9C1E-731D85ED4763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB709307-0BF4-4D7E-9C1E-731D85ED4763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB709307-0BF4-4D7E-9C1E-731D85ED4763}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AFA362B-71BC-46ED-B605-690301769335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AFA362B-71BC-46ED-B605-690301769335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AFA362B-71BC-46ED-B605-690301769335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AFA362B-71BC-46ED-B605-690301769335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4DB81E87-42B2-4B24-BAC1-1C6F7D48D692} = {4ED3B452-6DAF-4DAC-B4FB-CAA1B5D3576C}
+		{9C2364E4-BCC0-4463-8BC5-4D2A8DDA69B5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{CA934451-B028-4E21-9CAF-11A11D31B69C} = {4ED3B452-6DAF-4DAC-B4FB-CAA1B5D3576C}
+		{F9A5A09E-0E28-489A-ACE4-51610B944037} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{E5B2FB0D-2DDE-4182-BB79-B6F24FD33DA7} = {12E32685-BF78-4998-AAED-0122342D48A7}
+		{B7EA1D21-DF0D-43BE-9A7A-8134B0531CDD} = {12E32685-BF78-4998-AAED-0122342D48A7}
+		{1663EB14-0585-4888-8EE3-7F2EAC53D8DA} = {12E32685-BF78-4998-AAED-0122342D48A7}
+		{5C39F1D6-CEB5-47D8-A4FF-5813F0709467} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{BAC95728-C083-439F-AE87-1229987FADF8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1ED3DC5C-2EC2-4A66-AC6A-68C9DCC6C703} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{4145F409-77C0-4595-A50A-02A374913939} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{BB709307-0BF4-4D7E-9C1E-731D85ED4763} = {8C2F8CD3-66A0-4A44-A448-31F52DD47E16}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64FD4C85-8520-4125-B3B5-F78EABDC1801}
+	EndGlobalSection
+EndGlobal

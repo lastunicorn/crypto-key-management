@@ -1,0 +1,120 @@
+<UserControl
+    x:Class="DustInTheWind.CryptoKeyManagement.Wpf.Presentation.KeysSelector.KeysSelectorControl"
+ 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    
+    d:DesignHeight="450"
+    d:DesignWidth="300">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            Text="Signature Keys"
+            FontSize="16"
+            FontWeight="Bold"
+            Margin="10"
+            HorizontalAlignment="Center"/>
+
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="10 5">
+
+            <Button
+                Name="CreateKeyButton"
+                Margin="0 0 5 0"
+                MinWidth="100"
+                MinHeight="30"
+                Command="{Binding CreateKeyPairCommand}"
+                Padding="10 5">
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image
+                        Source="{StaticResource CreateKeyIcon}"
+                        Width="16"
+                        Height="16" 
+                        Margin="0 0 8 0"/>
+                    
+                    <TextBlock 
+                        Text="Create Key"
+                        VerticalAlignment="Center"/>
+                </StackPanel>
+                
+            </Button>
+
+            <Button
+                Name="RefreshKeysButton"
+                Content="Refresh"
+                Margin="5 0 0 0"
+                Width="100"
+                Command="{Binding RefreshKeyPairsCommand}"/>
+
+        </StackPanel>
+
+        <ListBox
+            Grid.Row="2"
+            Name="SignatureKeysListBox"
+            ItemsSource="{Binding SignatureKeys}"
+            SelectedItem="{Binding SelectedSignatureKey}"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto">
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="Transparent">
+                        <Grid>
+                            <!-- Content area with right margin to avoid overlap with delete button -->
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10 5 35 5">
+
+                                <TextBlock
+                                    Text="{Binding Id}"
+                                    FontWeight="Bold"
+                                    FontSize="12"/>
+
+                                <TextBlock
+                                    Text="{Binding CreatedDateText}"
+                                    FontSize="10"
+                                    Foreground="Gray"/>
+
+                            </StackPanel>
+
+                            <!-- Delete button positioned absolutely to the right -->
+                            <Button
+                                Command="{Binding DataContext.DeleteKeyPairCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                CommandParameter="{Binding}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                ToolTip="Delete Key">
+                                
+                                <Image
+                                    Source="{StaticResource DeleteIcon}"
+                                    Width="16"
+                                    Height="16"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+    </Grid>
+
+</UserControl>

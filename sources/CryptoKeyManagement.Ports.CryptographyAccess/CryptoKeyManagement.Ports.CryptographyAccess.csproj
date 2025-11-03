@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
+        <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_").Replace("-", "_"))</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CryptoKeyManagement.Domain\CryptoKeyManagement.Domain.csproj" PrivateAssets="All" />
+    </ItemGroup>
+
+</Project>

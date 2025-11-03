@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
+        <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_").Replace("-", "_"))</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AsyncMediator" Version="2.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CryptoKeyManagement.Domain\CryptoKeyManagement.Domain.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.CryptographyAccess\CryptoKeyManagement.Ports.CryptographyAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.SignatureAccess\CryptoKeyManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.UserAccess\CryptoKeyManagement.Ports.UserAccess.csproj" PrivateAssets="All" />
+    </ItemGroup>
+
+</Project>

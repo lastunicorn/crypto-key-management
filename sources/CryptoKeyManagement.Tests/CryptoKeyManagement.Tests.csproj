@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
+        <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_").Replace("-", "_"))</RootNamespace>
+
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" />
+        <PackageReference Include="coverlet.collector" Version="6.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+        <PackageReference Include="Moq" Version="4.20.69" />
+        <PackageReference Include="xunit" Version="2.5.3" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.StateAccess\CryptoKeyManagement.Ports.StateAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.SignatureFormatting\CryptoKeyManagement.SignatureFormatting.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Wpf.Application\CryptoKeyManagement.Wpf.Application.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Domain\CryptoKeyManagement.Domain.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Infrastructure\CryptoKeyManagement.Infrastructure.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.SettingsAccess\CryptoKeyManagement.Ports.SettingsAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.WpfUserAccess\CryptoKeyManagement.Ports.WpfUserAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.SignatureAccess\CryptoKeyManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.CryptographyAccess\CryptoKeyManagement.Ports.CryptographyAccess.csproj" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit" />
+    </ItemGroup>
+
+</Project>

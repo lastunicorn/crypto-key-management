@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
+        <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_").Replace("-", "_"))</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AsyncMediator" Version="2.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CryptoKeyManagement.Domain\CryptoKeyManagement.Domain.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Infrastructure\CryptoKeyManagement.Infrastructure.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.CryptographyAccess\CryptoKeyManagement.Ports.CryptographyAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.SettingsAccess\CryptoKeyManagement.Ports.SettingsAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.SignatureAccess\CryptoKeyManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.StateAccess\CryptoKeyManagement.Ports.StateAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.WpfUserAccess\CryptoKeyManagement.Ports.WpfUserAccess.csproj" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="DustInTheWind.CryptoKeyManagement.Tests" />
+    </ItemGroup>
+
+</Project>
