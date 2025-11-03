@@ -14,7 +14,7 @@
     <Color x:Key="DarkAccent">#FF0078D4</Color>
     <Color x:Key="DarkAccentHover">#FF106EBE</Color>
     <Color x:Key="DarkAccentPressed">#FF005A9E</Color>
-    <Color x:Key="IconStrokeColor">#FF969696</Color>
+    <Color x:Key="IconStrokeColor">#FFA0A0A0</Color>
 
     <!-- Brush Definitions -->
     <SolidColorBrush x:Key="DarkBackgroundBrush" Color="{StaticResource DarkBackground}"/>

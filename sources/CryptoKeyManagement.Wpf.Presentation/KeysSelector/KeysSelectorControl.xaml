@@ -19,7 +19,7 @@
 
         <TextBlock
             Grid.Row="0"
-            Text="Signature Keys"
+            Text="Key Pairs"
             FontSize="16"
             FontWeight="Bold"
             Margin="10"
