@@ -19,6 +19,7 @@ using DustInTheWind.CryptoKeyManagement.Wpf.Main;
 using Microsoft.Extensions.DependencyInjection;
 using DustInTheWind.CryptoKeyManagement.SignatureFormatting.DependencyInjection;
 using System.IO;
+using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
 
 namespace DustInTheWind.CryptoKeyManagement.Wpf;
 
@@ -58,6 +59,19 @@ internal static class Setup
             string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string pluginsDirectory = Path.Combine(userProfile, "Crypto Key Management", "Plugins");
             _ = options.AddFromDirectory(pluginsDirectory, includeSubdirectories: true);
+
+            options.SelectDefault(formatters =>
+            {
+                Guid formatterId = new("2FE32152-1639-42EB-9A0D-A70E8F51079F");
+
+                foreach (ISignatureFormatter formatter in formatters)
+                {
+                    if (formatter.Id == formatterId)
+                        return formatter;
+                }
+
+                return null;
+            });
         });
 
         // Dialog services

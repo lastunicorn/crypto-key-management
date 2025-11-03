@@ -17,7 +17,7 @@ public class SignatureFormatterPool
     /// <summary>
     /// Gets the default formatter (the first registered one) or null if none exist.
     /// </summary>
-    public ISignatureFormatter DefaultFormatter { get; private set; }
+    public ISignatureFormatter DefaultFormatter { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SignatureFormatterPool"/> class.

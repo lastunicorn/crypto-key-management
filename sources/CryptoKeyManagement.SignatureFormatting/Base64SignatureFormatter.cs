@@ -7,6 +7,10 @@ namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting;
 /// </summary>
 public class Base64SignatureFormatter : ISignatureFormatter
 {
+    public Guid Id => new("CCF75B79-7EA4-46B8-AF31-FBFE88BD0911");
+
+    public string Name => "Base64 Formatter";
+
     /// <summary>
     /// Formats a signature byte array into a Base64 string representation.
     /// </summary>

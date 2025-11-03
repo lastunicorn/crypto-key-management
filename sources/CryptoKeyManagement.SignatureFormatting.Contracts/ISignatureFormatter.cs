@@ -5,6 +5,10 @@ namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
 /// </summary>
 public interface ISignatureFormatter
 {
+    public Guid Id { get; }
+
+    public string Name { get; }
+
     /// <summary>
     /// Formats a signature byte array into a string representation for display.
     /// </summary>
