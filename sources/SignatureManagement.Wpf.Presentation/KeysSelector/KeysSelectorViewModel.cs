@@ -14,7 +14,7 @@ namespace DustInTheWind.SignatureManagement.Wpf.Presentation.KeysSelector;
 public class KeysSelectorViewModel : ViewModelBase, IDisposable
 {
     private readonly IMediator mediator;
-    private readonly EventBus eventBus;
+    private readonly IEventBus eventBus;
     private SignatureKeyViewModel selectedSignatureKey;
 
     /// <summary>
@@ -61,7 +61,7 @@ public class KeysSelectorViewModel : ViewModelBase, IDisposable
     /// Initializes a new instance of the KeysSelectorViewModel class.
     /// </summary>
     /// <param name="mediator">The mediator for handling commands and queries.</param>
-    public KeysSelectorViewModel(IMediator mediator, EventBus eventBus,
+    public KeysSelectorViewModel(IMediator mediator, IEventBus eventBus,
         CreateKeyPairCommand createKeyPairCommand, RefreshKeyPairsCommand refreshKeyPairsCommand,
         DeleteKeyPairCommand deleteKeyPairCommand)
     {

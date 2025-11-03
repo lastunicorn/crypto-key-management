@@ -13,7 +13,7 @@ namespace DustInTheWind.SignatureManagement.Wpf;
 /// </summary>
 public partial class App : System.Windows.Application
 {
-    private IServiceProvider? serviceProvider;
+    private IServiceProvider serviceProvider;
 
     protected override void OnStartup(StartupEventArgs e)
     {

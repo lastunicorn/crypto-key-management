@@ -27,7 +27,7 @@ internal static class Setup
         // Infrastructure
 
         serviceCollection.AddAsyncMediator(typeof(InitializeAppRequest).Assembly);
-        serviceCollection.AddSingleton<EventBus>();
+        serviceCollection.AddSingleton<IEventBus, EventBus>();
 
         // GUI
 

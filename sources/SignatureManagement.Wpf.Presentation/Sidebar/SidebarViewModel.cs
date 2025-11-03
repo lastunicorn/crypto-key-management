@@ -24,7 +24,7 @@ public class SidebarViewModel : ViewModelBase
 
     public ToggleThemeCommand ToggleThemeCommand { get; }
 
-    public SidebarViewModel(IMediator mediator, EventBus eventBus, ToggleThemeCommand toggleThemeCommand)
+    public SidebarViewModel(IMediator mediator, IEventBus eventBus, ToggleThemeCommand toggleThemeCommand)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         ArgumentNullException.ThrowIfNull(eventBus);

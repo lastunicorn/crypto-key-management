@@ -65,7 +65,7 @@ public class KeyInfoViewModel : ViewModelBase
     /// Initializes a new instance of the KeyInfoViewModel class.
     /// </summary>
     /// <param name="eventBus">The event bus for handling signature key selection changes.</param>
-    public KeyInfoViewModel(EventBus eventBus)
+    public KeyInfoViewModel(IEventBus eventBus)
     {
         eventBus.Subscribe<KeyPairSelectionChangedEvent>(HandleSignatureKeySelectionChanged);
     }

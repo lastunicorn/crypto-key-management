@@ -23,7 +23,7 @@ public class MainViewModel : ViewModelBase
 
     public SidebarViewModel SidebarViewModel { get; }
 
-    public MainViewModel(IMediator mediator, EventBus eventBus,
+    public MainViewModel(IMediator mediator, IEventBus eventBus,
         KeysSelectorViewModel keysSelectorViewModel, SigningPanelViewModel signingPanelViewModel,
         KeyInfoViewModel keyInfoViewModel, SidebarViewModel sidebarViewModel)
     {
