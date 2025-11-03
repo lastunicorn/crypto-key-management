@@ -34,14 +34,14 @@
                 HorizontalAlignment="Center">
 
                 <controls:SidebarButton 
-                DockPanel.Dock="Bottom"
-                Content="H"
-                ToolTip="Home page" />
+                    DockPanel.Dock="Bottom"
+                    Content="H"
+                    ToolTip="Home page" />
 
                 <controls:SidebarButton 
-                DockPanel.Dock="Bottom"
-                Content="P"
-                ToolTip="Plug-ins page" />
+                    DockPanel.Dock="Bottom"
+                    Content="P"
+                    ToolTip="Plug-ins page" />
                 
             </StackPanel>
 

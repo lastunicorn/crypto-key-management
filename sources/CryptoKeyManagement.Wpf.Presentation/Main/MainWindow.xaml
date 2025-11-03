@@ -7,6 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sidebar="clr-namespace:DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Sidebar"
     xmlns:signingPage="clr-namespace:DustInTheWind.CryptoKeyManagement.Wpf.Presentation.SigningPage"
+    xmlns:pluginsPage="clr-namespace:DustInTheWind.CryptoKeyManagement.Wpf.Presentation.PluginsPage"
+    xmlns:controls="clr-namespace:DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Controls"
   
     mc:Ignorable="d"
     Title="{Binding WindowTitle, Mode=OneWay}"
@@ -25,15 +27,44 @@
             DockPanel.Dock="Left"
             DataContext="{Binding SidebarViewModel}" />
 
+        <sidebar:SideNavigator>
+            
+            <TabItem>
+                <TabItem.Header>
+                    S
+                </TabItem.Header>
+                
+                <signingPage:SigningPage
+                    DataContext="{Binding SigningPageViewModel}" />
+            </TabItem>
+            
+            <TabItem>
+                <TabItem.Header>
+                    P
+                </TabItem.Header>
+
+                <pluginsPage:PluginsPage />
+            </TabItem>
+
+            <sidebar:SideNavigator.Buttons>
+                <controls:SidebarButton
+                    DockPanel.Dock="Bottom"
+                    Content="{Binding ThemeToggleText}"
+                    Command="{Binding ToggleThemeCommand}"
+                    ToolTip="Toggle between light and dark theme" />
+            </sidebar:SideNavigator.Buttons>
+
+        </sidebar:SideNavigator>
+        
         <!-- Main Content -->
-        <Border
+        <!--<Border
             Margin="10"
             Background="Transparent">
 
             <signingPage:SigningPage
                 DataContext="{Binding SigningPageViewModel}" />
 
-        </Border>
+        </Border>-->
 
     </DockPanel>
 

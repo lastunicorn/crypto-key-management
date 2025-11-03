@@ -8,18 +8,33 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Main;
 public class MainViewModel : ViewModelBase
 {
     private readonly IMediator mediator;
+    private string themeToggleText;
 
     public string WindowTitle { get; }
+
+    public string ThemeToggleText
+    {
+        get => themeToggleText;
+        private set
+        {
+            themeToggleText = value;
+            OnPropertyChanged(nameof(ThemeToggleText));
+        }
+    }
+
+    public ToggleThemeCommand ToggleThemeCommand { get; }
 
     public SidebarViewModel SidebarViewModel { get; }
 
     public SigningPageViewModel SigningPageViewModel { get; }
 
-    public MainViewModel(IMediator mediator, SidebarViewModel sidebarViewModel, SigningPageViewModel signingPageViewModel)
+    public MainViewModel(IMediator mediator, SidebarViewModel sidebarViewModel, SigningPageViewModel signingPageViewModel,
+        ToggleThemeCommand toggleThemeCommand)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         SidebarViewModel = sidebarViewModel ?? throw new ArgumentNullException(nameof(sidebarViewModel));
         SigningPageViewModel = signingPageViewModel ?? throw new ArgumentNullException(nameof(signingPageViewModel));
+        ToggleThemeCommand = toggleThemeCommand ?? throw new ArgumentNullException(nameof(toggleThemeCommand));
 
         WindowTitle = GetWindowTitle();
     }
