@@ -1,5 +1,6 @@
 using System.Text;
 using DustInTheWind.CryptoKeyManagement.SignatureFormatting;
+using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
 
 namespace DustInTheWind.CryptoKeyManagement.Tests.SignatureFormatting;
 
@@ -10,6 +11,12 @@ namespace DustInTheWind.CryptoKeyManagement.Tests.SignatureFormatting;
 public class Base64SignatureFormatterTests
 {
     private readonly Base64SignatureFormatter formatter = new();
+    private readonly KeyPair keyPair = new()
+    {
+        Id = Guid.NewGuid(),
+        PrivateKey = new byte[] { 1, 2, 3 },
+        PublicKey = new byte[] { 4, 5, 6 }
+    };
 
     [Fact]
     public void FormatSignature_WithValidBytes_ReturnsBase64String()
@@ -19,7 +26,7 @@ public class Base64SignatureFormatterTests
         string expected = Convert.ToBase64String(signature);
 
         // Act
-        string result = formatter.FormatSignature(signature);
+        string result = formatter.FormatSignature(signature, keyPair);
 
         // Assert
         Assert.Equal(expected, result);
@@ -29,7 +36,7 @@ public class Base64SignatureFormatterTests
     public void FormatSignature_WithNullBytes_ReturnsEmptyString()
     {
         // Act
-        string result = formatter.FormatSignature(null);
+        string result = formatter.FormatSignature(null, keyPair);
 
         // Assert
         Assert.Equal(string.Empty, result);
@@ -42,7 +49,7 @@ public class Base64SignatureFormatterTests
         byte[] emptySignature = Array.Empty<byte>();
 
         // Act
-        string result = formatter.FormatSignature(emptySignature);
+        string result = formatter.FormatSignature(emptySignature, keyPair);
 
         // Assert
         Assert.Equal(string.Empty, result);

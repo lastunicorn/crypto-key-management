@@ -57,7 +57,14 @@ public class SigningPanelViewModel : ViewModelBase, IDisposable
     {
         ISignatureFormatter signatureFormatter = signatureFormatterPool.DefaultFormatter;
 
-        Signature = signatureFormatter?.FormatSignature(@event.Signature)
+        byte[] signature = @event.Signature;
+        KeyPair keyPair = new()
+        {
+            Id = @event.KeyPair.Id,
+            PrivateKey = @event.KeyPair.PrivateKey,
+            PublicKey = @event.KeyPair.PublicKey
+        };
+        Signature = signatureFormatter?.FormatSignature(signature, keyPair)
             ?? "Please select a signature display formatter.";
 
         return Task.CompletedTask;

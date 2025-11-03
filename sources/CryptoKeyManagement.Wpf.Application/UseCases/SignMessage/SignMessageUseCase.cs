@@ -25,19 +25,19 @@ internal class SignMessageUseCase : ICommandHandler<SignMessageRequest>
         if (string.IsNullOrWhiteSpace(command.Message))
             throw new ArgumentException("Message cannot be empty", nameof(command.Message));
 
-        KeyPair signatureKey = applicationState.CurrentSignatureKey;
+        KeyPair keyPair = applicationState.CurrentSignatureKey;
 
-        if (signatureKey == null)
+        if (keyPair == null)
             throw new InvalidOperationException("No signature key selected");
 
-        byte[] signatureBytes = cryptographyService.Sign(signatureKey, command.Message);
+        byte[] signatureBytes = cryptographyService.Sign(keyPair, command.Message);
 
         // Store the signature and message in application state
         applicationState.CurrentMessage = command.Message;
         applicationState.CurrentSignature = signatureBytes;
 
         // Publish event to notify interested parties
-        await PublishSignatureChangedEvent(command.Message, signatureBytes);
+        await PublishSignatureChangedEvent(command.Message, signatureBytes, keyPair);
 
         SignMessageResponse response = new()
         {
@@ -48,12 +48,13 @@ internal class SignMessageUseCase : ICommandHandler<SignMessageRequest>
         return new CommandWorkflowResult<SignMessageResponse>(response);
     }
 
-    private async Task PublishSignatureChangedEvent(string message, byte[] signature)
+    private async Task PublishSignatureChangedEvent(string message, byte[] signature, KeyPair keyPair)
     {
         SignatureCreatedEvent @event = new()
         {
             Message = message,
-            Signature = signature
+            Signature = signature,
+            KeyPair = keyPair
         };
         await eventBus.PublishAsync(@event);
     }

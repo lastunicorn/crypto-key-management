@@ -16,7 +16,7 @@ public class Base64SignatureFormatter : ISignatureFormatter
     /// </summary>
     /// <param name="signature">The signature bytes to format. Can be null or empty.</param>
     /// <returns>A Base64 string representation of the signature, or empty string if the input is null or empty.</returns>
-    public string FormatSignature(byte[] signature)
+    public string FormatSignature(byte[] signature, KeyPair keyPair)
     {
         return signature != null && signature.Length > 0
             ? Convert.ToBase64String(signature)

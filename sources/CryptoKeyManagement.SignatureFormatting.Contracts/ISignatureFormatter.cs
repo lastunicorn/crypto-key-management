@@ -14,5 +14,5 @@ public interface ISignatureFormatter
     /// </summary>
     /// <param name="signature">The signature bytes to format.</param>
     /// <returns>A formatted string representation of the signature.</returns>
-    string FormatSignature(byte[] signature);
+    string FormatSignature(byte[] signature, KeyPair keyPair);
 }
