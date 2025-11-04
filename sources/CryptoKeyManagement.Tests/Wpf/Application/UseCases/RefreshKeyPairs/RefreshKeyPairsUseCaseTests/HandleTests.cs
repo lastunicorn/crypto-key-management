@@ -1,7 +1,7 @@
 using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Domain;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.RefreshKeyPairs;
@@ -11,22 +11,22 @@ namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.Refre
 
 public class HandleTests
 {
-    private readonly Mock<ISignatureKeyRepository> signatureKeyRepository;
+    private readonly Mock<ICryptoKeyRepository> cryptoKeyRepository;
     private readonly Mock<IEventBus> eventBus;
     private readonly RefreshKeyPairsUseCase useCase;
 
     public HandleTests()
     {
-        signatureKeyRepository = new Mock<ISignatureKeyRepository>();
+        cryptoKeyRepository = new Mock<ICryptoKeyRepository>();
         eventBus = new Mock<IEventBus>();
-        useCase = new RefreshKeyPairsUseCase(signatureKeyRepository.Object, eventBus.Object);
+        useCase = new RefreshKeyPairsUseCase(cryptoKeyRepository.Object, eventBus.Object);
     }
 
     [Fact]
     public async Task Handle_WithNullRequest_ShouldNotThrow()
     {
         // Arrange
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(new List<KeyPair>());
 
@@ -42,7 +42,7 @@ public class HandleTests
     {
         // Arrange
         RefreshKeyPairsRequest request = new();
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(new List<KeyPair>());
 
@@ -59,7 +59,7 @@ public class HandleTests
     {
         // Arrange
         RefreshKeyPairsRequest request = new();
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(new List<KeyPair>());
 
@@ -67,7 +67,7 @@ public class HandleTests
         await useCase.Handle(request);
 
         // Assert
-        signatureKeyRepository.Verify(x => x.GetAll(), Times.Once);
+        cryptoKeyRepository.Verify(x => x.GetAll(), Times.Once);
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public class HandleTests
         List<KeyPair> emptyKeyPairs = [];
         KeyPairsRefreshEvent capturedEvent = null;
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(emptyKeyPairs);
 
@@ -116,7 +116,7 @@ public class HandleTests
         List<KeyPair> keyPairs = [keyPair];
         KeyPairsRefreshEvent capturedEvent = null;
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(keyPairs);
 
@@ -164,7 +164,7 @@ public class HandleTests
         List<KeyPair> keyPairs = [keyPair1, keyPair2];
         KeyPairsRefreshEvent capturedEvent = null;
 
-        _ = signatureKeyRepository
+        _ = cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(keyPairs);
 
@@ -198,7 +198,7 @@ public class HandleTests
     {
         // Arrange
         RefreshKeyPairsRequest request = new();
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(new List<KeyPair>());
 
@@ -216,7 +216,7 @@ public class HandleTests
         RefreshKeyPairsRequest request = new();
         InvalidOperationException expectedException = new("Repository error");
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Throws(expectedException);
 
@@ -237,7 +237,7 @@ public class HandleTests
         RefreshKeyPairsRequest request = new();
         InvalidOperationException expectedException = new("EventBus error");
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(new List<KeyPair>());
 
@@ -252,6 +252,6 @@ public class HandleTests
         });
 
         Assert.Equal(expectedException.Message, exception.Message);
-        signatureKeyRepository.Verify(x => x.GetAll(), Times.Once);
+        cryptoKeyRepository.Verify(x => x.GetAll(), Times.Once);
     }
 }

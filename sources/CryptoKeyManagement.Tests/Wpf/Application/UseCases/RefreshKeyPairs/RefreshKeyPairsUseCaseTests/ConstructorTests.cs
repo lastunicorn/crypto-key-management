@@ -1,5 +1,5 @@
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.RefreshKeyPairs;
 using Moq;
 
@@ -7,17 +7,17 @@ namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.Refre
 
 public class ConstructorTests
 {
-    private readonly Mock<ISignatureKeyRepository> signatureKeyRepository;
+    private readonly Mock<ICryptoKeyRepository> cryptoKeyRepository;
     private readonly Mock<IEventBus> eventBus;
 
     public ConstructorTests()
     {
-        signatureKeyRepository = new Mock<ISignatureKeyRepository>();
+        cryptoKeyRepository = new Mock<ICryptoKeyRepository>();
         eventBus = new Mock<IEventBus>();
     }
 
     [Fact]
-    public void Constructor_WithNullSignatureKeyRepository_ShouldThrowArgumentNullException()
+    public void Constructor_WithNullCryptoKeyRepository_ShouldThrowArgumentNullException()
     {
         // Act & Assert
         ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
@@ -34,7 +34,7 @@ public class ConstructorTests
         // Act & Assert
         ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
         {
-            new RefreshKeyPairsUseCase(signatureKeyRepository.Object, null);
+            new RefreshKeyPairsUseCase(cryptoKeyRepository.Object, null);
         });
 
         Assert.Equal("eventBus", exception.ParamName);
@@ -44,7 +44,7 @@ public class ConstructorTests
     public void Constructor_WithValidParameters_ShouldCreateInstance()
     {
         // Act
-        RefreshKeyPairsUseCase instance = new(signatureKeyRepository.Object, eventBus.Object);
+        RefreshKeyPairsUseCase instance = new(cryptoKeyRepository.Object, eventBus.Object);
 
         // Assert
         Assert.NotNull(instance);

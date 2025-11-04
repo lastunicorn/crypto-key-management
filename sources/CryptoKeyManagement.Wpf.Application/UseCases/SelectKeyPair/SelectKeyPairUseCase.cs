@@ -1,7 +1,7 @@
 using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Domain;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
@@ -10,11 +10,11 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.SelectKeyPa
 
 internal class SelectKeyPairUseCase : ICommandHandler<SelectKeyPairRequest>
 {
-    private readonly ISignatureKeyRepository signatureKeyRepository;
+    private readonly ICryptoKeyRepository signatureKeyRepository;
     private readonly IApplicationState applicationStateService;
     private readonly IEventBus eventBus;
 
-    public SelectKeyPairUseCase(ISignatureKeyRepository signatureKeyRepository, IApplicationState applicationStateService, IEventBus eventBus)
+    public SelectKeyPairUseCase(ICryptoKeyRepository signatureKeyRepository, IApplicationState applicationStateService, IEventBus eventBus)
     {
         this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
         this.applicationStateService = applicationStateService ?? throw new ArgumentNullException(nameof(applicationStateService));

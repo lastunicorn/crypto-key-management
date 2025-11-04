@@ -1,5 +1,5 @@
 using DustInTheWind.CryptoKeyManagement.Domain;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 using Moq;
@@ -8,17 +8,17 @@ namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.Prese
 
 public class QueryTests
 {
-    private readonly Mock<ISignatureKeyRepository> signatureKeyRepository;
+    private readonly Mock<ICryptoKeyRepository> cryptoKeyRepository;
     private readonly Mock<IApplicationState> applicationState;
     private readonly PresentSigningPageUseCase useCase;
 
     public QueryTests()
     {
-        signatureKeyRepository = new Mock<ISignatureKeyRepository>();
+        cryptoKeyRepository = new Mock<ICryptoKeyRepository>();
         applicationState = new Mock<IApplicationState>();
 
         useCase = new PresentSigningPageUseCase(
-            signatureKeyRepository.Object,
+            cryptoKeyRepository.Object,
             applicationState.Object);
     }
 
@@ -29,7 +29,7 @@ public class QueryTests
         PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(2);
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(mockKeys);
 
@@ -41,7 +41,7 @@ public class QueryTests
         await useCase.Query(request);
 
         // Assert
-        signatureKeyRepository.Verify(x => x.GetAll(), Times.Once);
+        cryptoKeyRepository.Verify(x => x.GetAll(), Times.Once);
     }
 
     [Fact]
@@ -51,7 +51,7 @@ public class QueryTests
         PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(3);
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(mockKeys);
 
@@ -73,7 +73,7 @@ public class QueryTests
         // Arrange
         PresentSigningPageRequest request = new();
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(new List<KeyPair>());
 
@@ -97,7 +97,7 @@ public class QueryTests
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(1);
         KeyPair expectedKey = mockKeys.First();
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(mockKeys);
 
@@ -126,7 +126,7 @@ public class QueryTests
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(2);
         KeyPair currentKey = mockKeys.First();
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(mockKeys);
 
@@ -148,7 +148,7 @@ public class QueryTests
         PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(2);
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(mockKeys);
 
@@ -170,7 +170,7 @@ public class QueryTests
         PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(1);
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(mockKeys);
 
@@ -196,7 +196,7 @@ public class QueryTests
         PresentSigningPageRequest request = new();
         IEnumerable<KeyPair> mockKeys = CreateMockKeyPairs(keyCount);
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(mockKeys);
 
@@ -223,7 +223,7 @@ public class QueryTests
             CreateKeyPair(duplicateId, DateTime.Now.AddDays(1))
         };
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(mockKeys);
 
@@ -255,7 +255,7 @@ public class QueryTests
             }
         };
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(mockKeys);
         applicationState
@@ -278,7 +278,7 @@ public class QueryTests
         // Arrange
         PresentSigningPageRequest request = new();
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(new List<KeyPair>());
 
@@ -304,7 +304,7 @@ public class QueryTests
         PresentSigningPageRequest request = new();
         Exception expectedException = new InvalidOperationException("Repository error");
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Throws(expectedException);
 
@@ -321,7 +321,7 @@ public class QueryTests
         // Arrange
         PresentSigningPageRequest request = new();
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(new List<KeyPair>());
 
@@ -349,7 +349,7 @@ public class QueryTests
             CreateKeyPair(Guid.NewGuid(), DateTime.Now.AddDays(1))
         };
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetAll())
             .Returns(allKeys);
 

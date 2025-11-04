@@ -1,5 +1,5 @@
 ﻿using AsyncMediator;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 
@@ -7,10 +7,10 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSign
 
 internal class PresentSigningPageUseCase : IQuery<PresentSigningPageRequest, PresentSigningPageResponse>
 {
-    private readonly ISignatureKeyRepository signatureKeyRepository;
+    private readonly ICryptoKeyRepository signatureKeyRepository;
     private readonly IApplicationState applicationState;
 
-    public PresentSigningPageUseCase(ISignatureKeyRepository signatureKeyRepository, IApplicationState applicationState)
+    public PresentSigningPageUseCase(ICryptoKeyRepository signatureKeyRepository, IApplicationState applicationState)
     {
         this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
         this.applicationState = applicationState ?? throw new ArgumentNullException(nameof(applicationState));

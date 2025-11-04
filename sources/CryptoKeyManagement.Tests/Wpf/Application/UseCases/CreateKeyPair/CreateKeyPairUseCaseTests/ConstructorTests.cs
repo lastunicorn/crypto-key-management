@@ -1,5 +1,5 @@
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.CreateKeyPair;
 using Moq;
 
@@ -7,16 +7,16 @@ namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.Creat
 
 public class ConstructorTests
 {
-    private readonly Mock<ISignatureKeyRepository> signatureRepository;
+    private readonly Mock<ICryptoKeyRepository> cryptoKeyRepository;
     private readonly Mock<IEventBus> eventBus;
     private readonly CreateKeyPairUseCase useCase;
 
     public ConstructorTests()
     {
-        signatureRepository = new Mock<ISignatureKeyRepository>();
+        cryptoKeyRepository = new Mock<ICryptoKeyRepository>();
         eventBus = new Mock<IEventBus>();
 
-        useCase = new CreateKeyPairUseCase(signatureRepository.Object, eventBus.Object);
+        useCase = new CreateKeyPairUseCase(cryptoKeyRepository.Object, eventBus.Object);
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class ConstructorTests
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() =>
         {
-            return new CreateKeyPairUseCase(signatureRepository.Object, null);
+            return new CreateKeyPairUseCase(cryptoKeyRepository.Object, null);
         });
     }
 }

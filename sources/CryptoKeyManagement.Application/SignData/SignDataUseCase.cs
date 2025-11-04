@@ -1,7 +1,7 @@
 ﻿using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Domain;
 using DustInTheWind.CryptoKeyManagement.Ports.CryptographyAccess;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.UserAccess;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Crypto.Signers;
@@ -10,11 +10,11 @@ namespace DustInTheWind.CryptoKeyManagement.Application.SignData;
 
 internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 {
-    private readonly ISignatureKeyRepository signatureRepository;
+    private readonly ICryptoKeyRepository signatureRepository;
     private readonly IUserConsole userConsole;
     private readonly ICryptographyService cryptographyService;
 
-    public SignDataUseCase(ISignatureKeyRepository signatureRepository, IUserConsole userConsole, ICryptographyService cryptographyService)
+    public SignDataUseCase(ICryptoKeyRepository signatureRepository, IUserConsole userConsole, ICryptographyService cryptographyService)
     {
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
         this.userConsole = userConsole ?? throw new ArgumentNullException(nameof(userConsole));

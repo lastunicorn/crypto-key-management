@@ -1,7 +1,7 @@
 using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Domain;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.DeleteKeyPair;
@@ -11,18 +11,18 @@ namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.Delet
 
 public class HandleTests
 {
-    private readonly Mock<ISignatureKeyRepository> signatureKeyRepository;
+    private readonly Mock<ICryptoKeyRepository> cryptoKeyRepository;
     private readonly Mock<IApplicationState> applicationState;
     private readonly Mock<IEventBus> eventBus;
     private readonly DeleteKeyPairUseCase useCase;
 
     public HandleTests()
     {
-        signatureKeyRepository = new Mock<ISignatureKeyRepository>();
+        cryptoKeyRepository = new Mock<ICryptoKeyRepository>();
         applicationState = new Mock<IApplicationState>();
         eventBus = new Mock<IEventBus>();
 
-        useCase = new DeleteKeyPairUseCase(signatureKeyRepository.Object, applicationState.Object, eventBus.Object);
+        useCase = new DeleteKeyPairUseCase(cryptoKeyRepository.Object, applicationState.Object, eventBus.Object);
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class HandleTests
         ICommandWorkflowResult result = await useCase.Handle(request);
 
         // Assert
-        signatureKeyRepository.Verify(x => x.Delete(keyPairId), Times.Once);
+        cryptoKeyRepository.Verify(x => x.Delete(keyPairId), Times.Once);
         Assert.IsType<CommandWorkflowResult>(result);
     }
 
@@ -182,7 +182,7 @@ public class HandleTests
         applicationState.SetupProperty(x => x.CurrentMessage);
         applicationState.SetupProperty(x => x.CurrentSignature);
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.Delete(It.IsAny<Guid>()))
         .Callback(() => operationOrder.Add("Delete"));
 
@@ -215,7 +215,7 @@ public class HandleTests
         applicationState.SetupProperty(x => x.CurrentMessage);
         applicationState.SetupProperty(x => x.CurrentSignature);
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.Delete(It.IsAny<Guid>()))
             .Throws(expectedException);
 
@@ -263,7 +263,7 @@ public class HandleTests
         await useCase.Handle(request);
 
         // Assert
-        signatureKeyRepository.Verify(x => x.Delete(keyPairId), Times.Once);
+        cryptoKeyRepository.Verify(x => x.Delete(keyPairId), Times.Once);
         eventBus.Verify(x => x.PublishAsync(
             It.Is<KeyPairDeletedEvent>(e => e.KeyPairId == keyPairId),
             It.IsAny<CancellationToken>()),

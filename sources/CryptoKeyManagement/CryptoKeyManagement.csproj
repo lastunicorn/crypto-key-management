@@ -16,7 +16,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\CryptoKeyManagement.Application\CryptoKeyManagement.Application.csproj" PrivateAssets="All" />
-        <ProjectReference Include="..\CryptoKeyManagement.Ports.SignatureAccess\CryptoKeyManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.CryptoKeyAccess\CryptoKeyManagement.Ports.CryptoKeyAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\CryptoKeyManagement.Ports.UserAccess\CryptoKeyManagement.Ports.UserAccess.csproj" PrivateAssets="All" />
     </ItemGroup>
 

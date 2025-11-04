@@ -1,8 +1,8 @@
 ﻿using DustInTheWind.CryptoKeyManagement.Domain;
 
-namespace DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+namespace DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 
-public class SignatureKeyRepository : ISignatureKeyRepository
+public class CryptoKeyRepository : ICryptoKeyRepository
 {
     private const string SignaturesDirectory = "signature-keys";
 

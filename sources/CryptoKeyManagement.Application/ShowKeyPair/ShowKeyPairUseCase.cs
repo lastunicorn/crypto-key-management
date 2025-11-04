@@ -1,14 +1,14 @@
 ﻿using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Domain;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 
 namespace DustInTheWind.CryptoKeyManagement.Application.ShowKeyPair;
 
 internal class ShowKeyPairUseCase : IQuery<ShowKeyPairRequest, ShowKeyPairResponse>
 {
-    private readonly ISignatureKeyRepository signatureRepository;
+    private readonly ICryptoKeyRepository signatureRepository;
 
-    public ShowKeyPairUseCase(ISignatureKeyRepository signatureRepository)
+    public ShowKeyPairUseCase(ICryptoKeyRepository signatureRepository)
     {
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
     }

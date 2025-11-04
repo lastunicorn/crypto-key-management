@@ -1,7 +1,7 @@
 using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Domain;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.CreateKeyPair;
 using Moq;
@@ -10,16 +10,16 @@ namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.Creat
 
 public class HandleTests
 {
-    private readonly Mock<ISignatureKeyRepository> signatureRepository;
+    private readonly Mock<ICryptoKeyRepository> cryptoKeyRepository;
     private readonly Mock<IEventBus> eventBus;
     private readonly CreateKeyPairUseCase useCase;
 
     public HandleTests()
     {
-        signatureRepository = new Mock<ISignatureKeyRepository>();
+        cryptoKeyRepository = new Mock<ICryptoKeyRepository>();
         eventBus = new Mock<IEventBus>();
 
-        useCase = new CreateKeyPairUseCase(signatureRepository.Object, eventBus.Object);
+        useCase = new CreateKeyPairUseCase(cryptoKeyRepository.Object, eventBus.Object);
     }
 
     [Fact]
@@ -38,11 +38,11 @@ public class HandleTests
             PublicKey = new byte[32]   // Ed25519 public key size
         };
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()))
             .Returns(keyPairId);
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyPairId))
             .Returns(savedKeyPair);
 
@@ -51,8 +51,8 @@ public class HandleTests
 
         // Assert
         Assert.IsType<CommandWorkflowResult>(result);
-        signatureRepository.Verify(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()), Times.Once);
-        signatureRepository.Verify(x => x.GetById(keyPairId), Times.Once);
+        cryptoKeyRepository.Verify(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()), Times.Once);
+        cryptoKeyRepository.Verify(x => x.GetById(keyPairId), Times.Once);
     }
 
     [Fact]
@@ -72,7 +72,7 @@ public class HandleTests
             PublicKey = new byte[32]
         };
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()))
             .Callback<byte[], byte[]>((privateKey, publicKey) =>
             {
@@ -81,7 +81,7 @@ public class HandleTests
             })
             .Returns(keyPairId);
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyPairId))
             .Returns(savedKeyPair);
 
@@ -111,11 +111,11 @@ public class HandleTests
             PublicKey = new byte[32]
         };
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()))
             .Returns(keyPairId);
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyPairId))
             .Returns(savedKeyPair);
 
@@ -146,11 +146,11 @@ public class HandleTests
             PublicKey = new byte[32]
         };
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()))
             .Returns(keyPairId);
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyPairId))
             .Returns(savedKeyPair);
 
@@ -194,7 +194,7 @@ public class HandleTests
         };
 
         // Setup to capture different keys on each call
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()))
             .Callback<byte[], byte[]>((privateKey, publicKey) =>
             {
@@ -212,11 +212,11 @@ public class HandleTests
             })
             .Returns(() => callCount == 1 ? keyPairId1 : keyPairId2);
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyPairId1))
             .Returns(savedKeyPair1);
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyPairId2))
             .Returns(savedKeyPair2);
 
@@ -242,7 +242,7 @@ public class HandleTests
         CreateKeyPairRequest request = new();
         InvalidOperationException expectedException = new("Repository error");
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()))
             .Throws(expectedException);
 
@@ -271,11 +271,11 @@ public class HandleTests
             PublicKey = new byte[32]
         };
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()))
             .Returns(keyPairId);
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyPairId))
             .Returns(savedKeyPair);
 
@@ -307,11 +307,11 @@ public class HandleTests
             PublicKey = new byte[32]
         };
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()))
             .Returns(keyPairId);
 
-        signatureRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyPairId))
             .Returns(savedKeyPair);
 
@@ -320,7 +320,7 @@ public class HandleTests
 
         // Assert
         // Verify that GetById is called after Add
-        signatureRepository.Verify(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()), Times.Once);
-        signatureRepository.Verify(x => x.GetById(keyPairId), Times.Once);
+        cryptoKeyRepository.Verify(x => x.Add(It.IsAny<byte[]>(), It.IsAny<byte[]>()), Times.Once);
+        cryptoKeyRepository.Verify(x => x.GetById(keyPairId), Times.Once);
     }
 }

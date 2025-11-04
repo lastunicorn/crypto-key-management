@@ -1,4 +1,4 @@
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 using Moq;
@@ -7,17 +7,17 @@ namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.Prese
 
 public class ConstructorTests
 {
-    private readonly Mock<ISignatureKeyRepository> signatureKeyRepository;
+    private readonly Mock<ICryptoKeyRepository> cryptoKeyRepository;
     private readonly Mock<IApplicationState> applicationState;
     private readonly PresentSigningPageUseCase useCase;
 
     public ConstructorTests()
     {
-        signatureKeyRepository = new Mock<ISignatureKeyRepository>();
+        cryptoKeyRepository = new Mock<ICryptoKeyRepository>();
         applicationState = new Mock<IApplicationState>();
 
         useCase = new PresentSigningPageUseCase(
-            signatureKeyRepository.Object,
+            cryptoKeyRepository.Object,
             applicationState.Object);
     }
 
@@ -36,7 +36,7 @@ public class ConstructorTests
     {
         // Act & Assert
         ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
-            new PresentSigningPageUseCase(signatureKeyRepository.Object, null));
+            new PresentSigningPageUseCase(cryptoKeyRepository.Object, null));
 
         Assert.Equal("applicationState", exception.ParamName);
     }
@@ -45,7 +45,7 @@ public class ConstructorTests
     public void Constructor_WithValidParameters_ShouldCreateInstance()
     {
         // Act
-        PresentSigningPageUseCase instance = new(signatureKeyRepository.Object, applicationState.Object);
+        PresentSigningPageUseCase instance = new(cryptoKeyRepository.Object, applicationState.Object);
 
         // Assert
         Assert.NotNull(instance);

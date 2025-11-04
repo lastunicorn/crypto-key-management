@@ -1,7 +1,7 @@
 using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Domain;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 using Org.BouncyCastle.Crypto;
@@ -13,10 +13,10 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.CreateKeyPa
 
 internal class CreateKeyPairUseCase : ICommandHandler<CreateKeyPairRequest>
 {
-    private readonly ISignatureKeyRepository signatureRepository;
+    private readonly ICryptoKeyRepository signatureRepository;
     private readonly IEventBus eventBus;
 
-    public CreateKeyPairUseCase(ISignatureKeyRepository signatureRepository, IEventBus eventBus)
+    public CreateKeyPairUseCase(ICryptoKeyRepository signatureRepository, IEventBus eventBus)
     {
         this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));

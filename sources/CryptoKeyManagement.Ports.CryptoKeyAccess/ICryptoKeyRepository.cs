@@ -1,8 +1,8 @@
 ﻿using DustInTheWind.CryptoKeyManagement.Domain;
 
-namespace DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+namespace DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 
-public interface ISignatureKeyRepository
+public interface ICryptoKeyRepository
 {
     IEnumerable<KeyPair> GetAll();
 

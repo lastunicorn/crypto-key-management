@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement", "CryptoKeyManagement\CryptoKeyManagement.csproj", "{4DB81E87-42B2-4B24-BAC1-1C6F7D48D692}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Ports.SignatureAccess", "CryptoKeyManagement.Ports.SignatureAccess\CryptoKeyManagement.Ports.SignatureAccess.csproj", "{9C2364E4-BCC0-4463-8BC5-4D2A8DDA69B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Ports.CryptoKeyAccess", "CryptoKeyManagement.Ports.CryptoKeyAccess\CryptoKeyManagement.Ports.CryptoKeyAccess.csproj", "{9C2364E4-BCC0-4463-8BC5-4D2A8DDA69B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Application", "CryptoKeyManagement.Application\CryptoKeyManagement.Application.csproj", "{CA934451-B028-4E21-9CAF-11A11D31B69C}"
 EndProject

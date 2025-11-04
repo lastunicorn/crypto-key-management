@@ -4,7 +4,7 @@ using DustInTheWind.CryptoKeyManagement.Adapter.WpfUserAccess;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
 using DustInTheWind.CryptoKeyManagement.Ports.CryptographyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.SettingsAccess;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.WpfUserAccess;
 using DustInTheWind.CryptoKeyManagement.SignatureFormatting.DependencyInjection;
@@ -74,7 +74,7 @@ internal static class Setup
 
         // External services
 
-        serviceCollection.AddTransient<ISignatureKeyRepository, SignatureKeyRepository>();
+        serviceCollection.AddTransient<ICryptoKeyRepository, CryptoKeyRepository>();
         serviceCollection.AddSingleton<IApplicationState, ApplicationState>();
         serviceCollection.AddTransient<ICryptographyService, CryptographyService>();
     }

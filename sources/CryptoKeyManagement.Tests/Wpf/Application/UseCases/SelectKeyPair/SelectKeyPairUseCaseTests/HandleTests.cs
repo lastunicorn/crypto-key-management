@@ -1,7 +1,7 @@
 using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Domain;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.SelectKeyPair;
@@ -11,17 +11,17 @@ namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.Selec
 
 public class HandleTests
 {
-    private readonly Mock<ISignatureKeyRepository> signatureKeyRepository;
+    private readonly Mock<ICryptoKeyRepository> cryptoKeyRepository;
     private readonly Mock<IApplicationState> applicationStateService;
     private readonly Mock<IEventBus> eventBus;
     private readonly SelectKeyPairUseCase useCase;
 
     public HandleTests()
     {
-        signatureKeyRepository = new Mock<ISignatureKeyRepository>();
+        cryptoKeyRepository = new Mock<ICryptoKeyRepository>();
         applicationStateService = new Mock<IApplicationState>();
         eventBus = new Mock<IEventBus>();
-        useCase = new SelectKeyPairUseCase(signatureKeyRepository.Object, applicationStateService.Object, eventBus.Object);
+        useCase = new SelectKeyPairUseCase(cryptoKeyRepository.Object, applicationStateService.Object, eventBus.Object);
     }
 
     [Fact]
@@ -40,7 +40,7 @@ public class HandleTests
         Assert.NotNull(result);
         Assert.IsType<CommandWorkflowResult>(result);
         applicationStateService.VerifySet(x => x.CurrentSignatureKey = null, Times.Once);
-        signatureKeyRepository.Verify(x => x.GetById(It.IsAny<Guid>()), Times.Never);
+        cryptoKeyRepository.Verify(x => x.GetById(It.IsAny<Guid>()), Times.Never);
     }
 
     [Fact]
@@ -61,7 +61,7 @@ public class HandleTests
             SignatureKeyId = keyId
         };
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyId))
             .Returns(expectedKeyPair);
 
@@ -71,7 +71,7 @@ public class HandleTests
         // Assert
         Assert.NotNull(result);
         Assert.IsType<CommandWorkflowResult>(result);
-        signatureKeyRepository.Verify(x => x.GetById(keyId), Times.Once);
+        cryptoKeyRepository.Verify(x => x.GetById(keyId), Times.Once);
         applicationStateService.VerifySet(x => x.CurrentSignatureKey = expectedKeyPair, Times.Once);
     }
 
@@ -99,7 +99,7 @@ public class HandleTests
 
         KeyPairSelectionChangedEvent capturedEvent = null;
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyId))
             .Returns(keyPair);
 
@@ -162,7 +162,7 @@ public class HandleTests
             SignatureKeyId = keyId
         };
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyId))
             .Returns(keyPair);
 
@@ -186,7 +186,7 @@ public class HandleTests
 
         KeyPairSelectionChangedEvent capturedEvent = null;
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyId))
             .Returns((KeyPair)null);
 
@@ -200,7 +200,7 @@ public class HandleTests
         // Assert
         Assert.NotNull(result);
         Assert.IsType<CommandWorkflowResult>(result);
-        signatureKeyRepository.Verify(x => x.GetById(keyId), Times.Once);
+        cryptoKeyRepository.Verify(x => x.GetById(keyId), Times.Once);
         applicationStateService.VerifySet(x => x.CurrentSignatureKey = null, Times.Once);
         eventBus.Verify(x => x.PublishAsync(It.IsAny<KeyPairSelectionChangedEvent>(), It.IsAny<CancellationToken>()), Times.Once);
         Assert.NotNull(capturedEvent);
@@ -241,7 +241,7 @@ public class HandleTests
             SignatureKeyId = keyId
         };
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(keyId))
             .Returns(keyPair);
 
@@ -272,7 +272,7 @@ public class HandleTests
             SignatureKeyId = emptyGuid
         };
 
-        signatureKeyRepository
+        cryptoKeyRepository
             .Setup(x => x.GetById(emptyGuid))
             .Returns(expectedKeyPair);
 
@@ -282,7 +282,7 @@ public class HandleTests
         // Assert
         Assert.NotNull(result);
         Assert.IsType<CommandWorkflowResult>(result);
-        signatureKeyRepository.Verify(x => x.GetById(emptyGuid), Times.Once);
+        cryptoKeyRepository.Verify(x => x.GetById(emptyGuid), Times.Once);
         applicationStateService.VerifySet(x => x.CurrentSignatureKey = expectedKeyPair, Times.Once);
     }
 }

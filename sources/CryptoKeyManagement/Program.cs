@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using AsyncMediator.Extensions.DependencyInjection;
 using DustInTheWind.CryptoKeyManagement.Application.CreateKeyPair;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.UserAccess;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +23,7 @@ internal static class Program
             {
                 services.AddHostedService<HostedService>();
                 
-                services.AddTransient<ISignatureKeyRepository, SignatureKeyRepository>();
+                services.AddTransient<ICryptoKeyRepository, CryptoKeyRepository>();
                 
                 services.AddSingleton<CommandLoop>();
                 services.AddScoped<IUserConsole, UserConsole>();

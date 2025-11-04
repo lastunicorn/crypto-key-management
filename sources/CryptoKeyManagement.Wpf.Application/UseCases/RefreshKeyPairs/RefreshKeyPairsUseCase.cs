@@ -1,6 +1,6 @@
 using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSigningPage;
 
@@ -11,10 +11,10 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.RefreshKeyP
 /// </summary>
 internal class RefreshKeyPairsUseCase : ICommandHandler<RefreshKeyPairsRequest>
 {
-    private readonly ISignatureKeyRepository signatureKeyRepository;
+    private readonly ICryptoKeyRepository signatureKeyRepository;
     private readonly IEventBus eventBus;
 
-    public RefreshKeyPairsUseCase(ISignatureKeyRepository signatureKeyRepository, IEventBus eventBus)
+    public RefreshKeyPairsUseCase(ICryptoKeyRepository signatureKeyRepository, IEventBus eventBus)
     {
         this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));

@@ -1,5 +1,5 @@
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.SelectKeyPair;
 using Moq;
@@ -8,13 +8,13 @@ namespace DustInTheWind.CryptoKeyManagement.Tests.Wpf.Application.UseCases.Selec
 
 public class ConstructorTests
 {
-    private readonly Mock<ISignatureKeyRepository> signatureKeyRepository;
+    private readonly Mock<ICryptoKeyRepository> signatureKeyRepository;
     private readonly Mock<IApplicationState> applicationStateService;
     private readonly Mock<IEventBus> eventBus;
 
     public ConstructorTests()
     {
-        signatureKeyRepository = new Mock<ISignatureKeyRepository>();
+        signatureKeyRepository = new Mock<ICryptoKeyRepository>();
         applicationStateService = new Mock<IApplicationState>();
         eventBus = new Mock<IEventBus>();
     }

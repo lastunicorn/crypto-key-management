@@ -28,7 +28,7 @@
         <ProjectReference Include="..\CryptoKeyManagement.Infrastructure\CryptoKeyManagement.Infrastructure.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\CryptoKeyManagement.Ports.SettingsAccess\CryptoKeyManagement.Ports.SettingsAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\CryptoKeyManagement.Ports.WpfUserAccess\CryptoKeyManagement.Ports.WpfUserAccess.csproj" PrivateAssets="All" />
-        <ProjectReference Include="..\CryptoKeyManagement.Ports.SignatureAccess\CryptoKeyManagement.Ports.SignatureAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Ports.CryptoKeyAccess\CryptoKeyManagement.Ports.CryptoKeyAccess.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\CryptoKeyManagement.Ports.CryptographyAccess\CryptoKeyManagement.Ports.CryptographyAccess.csproj" PrivateAssets="All" />
     </ItemGroup>
 

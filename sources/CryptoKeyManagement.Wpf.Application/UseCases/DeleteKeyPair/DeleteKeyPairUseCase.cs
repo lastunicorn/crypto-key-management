@@ -1,6 +1,6 @@
 using AsyncMediator;
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.Ports.SignatureAccess;
+using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
 
@@ -8,12 +8,12 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.DeleteKeyPa
 
 internal class DeleteKeyPairUseCase : ICommandHandler<DeleteKeyPairRequest>
 {
-    private readonly ISignatureKeyRepository signatureKeyRepository;
+    private readonly ICryptoKeyRepository signatureKeyRepository;
     private readonly IApplicationState applicationState;
     private readonly IEventBus eventBus;
 
     public DeleteKeyPairUseCase(
-        ISignatureKeyRepository signatureKeyRepository,
+        ICryptoKeyRepository signatureKeyRepository,
         IApplicationState applicationState,
         IEventBus eventBus)
     {
