@@ -25,7 +25,7 @@ internal class InitializePluginsPageUseCase : IQuery<InitializePluginsPageReques
 
     private List<PluginDto> LoadPlugins()
     {
-        return signatureFormatterPool.Formatters
+        return signatureFormatterPool
             .Select(x =>
             {
                 Assembly assembly = x.GetType().Assembly;

@@ -54,11 +54,7 @@ internal class InitializeAppUseCase : ICommandHandler<InitializeAppRequest>
         if (formatterId == null)
             return;
 
-        ISignatureFormatter signatureFormatter = signatureFormatterPool.Formatters
-            .FirstOrDefault(x => x.Id == formatterId.Value);
-
-        if (signatureFormatter != null)
-            signatureFormatterPool.DefaultFormatter = signatureFormatter;
+        signatureFormatterPool.ChooseDefaultFormatter(x => x.Id == settingsService.SignatureFormatterId);
     }
 
     private async Task RaiseThemeChangedEvent(ThemeType themeType)

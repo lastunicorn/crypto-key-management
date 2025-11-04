@@ -11,8 +11,6 @@ namespace DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.Dependen
 public class SignatureFormatterPluginsOptions
 {
     private readonly HashSet<Assembly> assemblies = [];
-    
-    internal Func<IReadOnlyCollection<ISignatureFormatter>, ISignatureFormatter> SelectDefaultAction { get; private set; }
 
     public SignatureFormatterPluginsOptions()
     {
@@ -34,12 +32,6 @@ public class SignatureFormatterPluginsOptions
         foreach (Assembly assembly in assemblies)
             _ = this.assemblies.Add(assembly);
 
-        return this;
-    }
-
-    public SignatureFormatterPluginsOptions SelectDefault(Func<IReadOnlyCollection<ISignatureFormatter>, ISignatureFormatter> action)
-    {
-        SelectDefaultAction = action;
         return this;
     }
 

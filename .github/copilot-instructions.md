@@ -1,6 +1,7 @@
 ## Code Conventions
 
 - Do not use `var` keyword. Whenever possible, use the actual type.
+- When using Linq, prefer using the name `x` for the parameter representing the item.
 
 ## Unit Tests
 

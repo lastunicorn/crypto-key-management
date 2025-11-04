@@ -12,10 +12,22 @@ public partial class PluginView : UserControl
         typeof(PluginView),
         new PropertyMetadata(null));
 
+    public static readonly DependencyProperty SetDefaultPluginCommandProperty = DependencyProperty.Register(
+        nameof(SetDefaultPluginCommand),
+        typeof(ICommand),
+        typeof(PluginView),
+        new PropertyMetadata(null));
+
     public ICommand CopyToClipboardCommand
     {
         get => (ICommand)GetValue(CopyToClipboardCommandProperty);
         set => SetValue(CopyToClipboardCommandProperty, value);
+    }
+
+    public ICommand SetDefaultPluginCommand
+    {
+        get => (ICommand)GetValue(SetDefaultPluginCommandProperty);
+        set => SetValue(SetDefaultPluginCommandProperty, value);
     }
 
     public PluginView()

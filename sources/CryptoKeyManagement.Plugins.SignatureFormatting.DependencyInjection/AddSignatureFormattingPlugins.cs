@@ -19,12 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(provider =>
         {
             IEnumerable<ISignatureFormatter> instances = provider.GetServices<ISignatureFormatter>();
-            SignatureFormatterPool signatureFormatterPool = new(instances);
-
-            if (options.SelectDefaultAction != null)
-                signatureFormatterPool.DefaultFormatter = options.SelectDefaultAction(signatureFormatterPool.Formatters);
-
-            return signatureFormatterPool;
+            return new SignatureFormatterPool(instances);
         });
     }
 }

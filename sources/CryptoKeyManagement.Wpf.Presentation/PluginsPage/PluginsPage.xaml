@@ -50,7 +50,8 @@
                     <DataTemplate>
                         <local:PluginView
                             DataContext="{Binding}"
-                            CopyToClipboardCommand="{Binding DataContext.CopyToClipboardCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                            CopyToClipboardCommand="{Binding DataContext.CopyToClipboardCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            SetDefaultPluginCommand="{Binding DataContext.SetDefaultPluginCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
