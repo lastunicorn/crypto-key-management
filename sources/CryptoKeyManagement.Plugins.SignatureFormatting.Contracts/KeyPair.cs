@@ -1,4 +1,4 @@
-namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
+namespace DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.Contracts;
 
 public class KeyPair
 {

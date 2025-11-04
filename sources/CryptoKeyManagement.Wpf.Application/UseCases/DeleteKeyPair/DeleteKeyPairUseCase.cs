@@ -8,16 +8,16 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.DeleteKeyPa
 
 internal class DeleteKeyPairUseCase : ICommandHandler<DeleteKeyPairRequest>
 {
-    private readonly ICryptoKeyRepository signatureKeyRepository;
+    private readonly ICryptoKeyRepository cryptoKeyRepository;
     private readonly IApplicationState applicationState;
     private readonly IEventBus eventBus;
 
     public DeleteKeyPairUseCase(
-        ICryptoKeyRepository signatureKeyRepository,
+        ICryptoKeyRepository cryptoKeyRepository,
         IApplicationState applicationState,
         IEventBus eventBus)
     {
-        this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
+        this.cryptoKeyRepository = cryptoKeyRepository ?? throw new ArgumentNullException(nameof(cryptoKeyRepository));
         this.applicationState = applicationState ?? throw new ArgumentNullException(nameof(applicationState));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
     }
@@ -26,7 +26,7 @@ internal class DeleteKeyPairUseCase : ICommandHandler<DeleteKeyPairRequest>
     {
         ValidateRequest(command);
 
-        signatureKeyRepository.Delete(command.KeyPairId);
+        cryptoKeyRepository.Delete(command.KeyPairId);
         ClearFromState(command.KeyPairId);
         await PublishKeyPairDeletedEvent(command.KeyPairId);
 

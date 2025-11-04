@@ -3,5 +3,5 @@
 namespace DustInTheWind.CryptoKeyManagement.Ports.CryptographyAccess;
 public interface ICryptographyService
 {
-    byte[] Sign(KeyPair signatureKey, string message);
+    byte[] Sign(KeyPair keyPair, string message);
 }

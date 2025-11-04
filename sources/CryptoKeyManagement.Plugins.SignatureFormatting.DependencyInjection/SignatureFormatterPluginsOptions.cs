@@ -1,7 +1,8 @@
 using System.Reflection;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.Contracts;
 
-namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting.DependencyInjection;
+namespace DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.DependencyInjection;
 
 /// <summary>
 /// Builder responsible for discovering all <see cref="ISignatureFormatter"/> implementations
@@ -64,7 +65,6 @@ public class SignatureFormatterPluginsOptions
         string[] dllFiles = Directory.GetFiles(directoryPath, "*.dll", searchOption);
 
         foreach (string dllFile in dllFiles)
-        {
             try
             {
                 Assembly assembly = Assembly.LoadFrom(dllFile);
@@ -78,7 +78,6 @@ public class SignatureFormatterPluginsOptions
             {
                 // Assembly could not be loaded (already loaded or locked); ignore.
             }
-        }
 
         return this;
     }

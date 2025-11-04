@@ -1,6 +1,6 @@
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.Contracts;
 
-namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting;
+namespace DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting;
 
 /// <summary>
 /// Formats signatures as Base64 strings for display in the presentation layer.

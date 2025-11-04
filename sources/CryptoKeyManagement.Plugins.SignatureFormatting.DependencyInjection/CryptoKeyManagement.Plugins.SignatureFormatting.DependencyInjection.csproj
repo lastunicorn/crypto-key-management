@@ -11,8 +11,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CryptoKeyManagement.SignatureFormatting.Contracts\CryptoKeyManagement.SignatureFormatting.Contracts.csproj" PrivateAssets="All" />
-        <ProjectReference Include="..\CryptoKeyManagement.SignatureFormatting\CryptoKeyManagement.SignatureFormatting.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Plugins.SignatureFormatting.Contracts\CryptoKeyManagement.Plugins.SignatureFormatting.Contracts.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\CryptoKeyManagement.Plugins.SignatureFormatting\CryptoKeyManagement.Plugins.SignatureFormatting.csproj" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>

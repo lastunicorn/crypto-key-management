@@ -1,6 +1,6 @@
 using System.Text;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.Contracts;
 
 namespace DustInTheWind.CryptoKeyManagement.Tests.SignatureFormatting;
 

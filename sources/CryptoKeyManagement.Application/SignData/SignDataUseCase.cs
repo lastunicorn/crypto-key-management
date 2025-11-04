@@ -3,33 +3,31 @@ using DustInTheWind.CryptoKeyManagement.Domain;
 using DustInTheWind.CryptoKeyManagement.Ports.CryptographyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.UserAccess;
-using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.Crypto.Signers;
 
 namespace DustInTheWind.CryptoKeyManagement.Application.SignData;
 
 internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
 {
-    private readonly ICryptoKeyRepository signatureRepository;
+    private readonly ICryptoKeyRepository cryptoKeyRepository;
     private readonly IUserConsole userConsole;
     private readonly ICryptographyService cryptographyService;
 
-    public SignDataUseCase(ICryptoKeyRepository signatureRepository, IUserConsole userConsole, ICryptographyService cryptographyService)
+    public SignDataUseCase(ICryptoKeyRepository cryptoKeyRepository, IUserConsole userConsole, ICryptographyService cryptographyService)
     {
-        this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
+        this.cryptoKeyRepository = cryptoKeyRepository ?? throw new ArgumentNullException(nameof(cryptoKeyRepository));
         this.userConsole = userConsole ?? throw new ArgumentNullException(nameof(userConsole));
         this.cryptographyService = cryptographyService ?? throw new ArgumentNullException(nameof(cryptographyService));
     }
 
     public Task<SignDataResponse> Query(SignDataCriteria criteria)
     {
-        List<KeyPair> signatures = GetAllSignatures();
-        DisplaySignatures(signatures);
+        List<KeyPair> keys = GetAllKeys();
+        DisplayKeys(keys);
 
-        KeyPair selectedSignature = AskForSignatureToUse(signatures);
+        KeyPair selectedKeyPair = AskForKeyToUse(keys);
 
         string dataToSign = userConsole.AskForDataToSign();
-        byte[] signature = cryptographyService.Sign(selectedSignature, dataToSign);
+        byte[] signature = cryptographyService.Sign(selectedKeyPair, dataToSign);
 
         SignDataResponse result = new()
         {
@@ -39,21 +37,21 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
         return Task.FromResult(result);
     }
 
-    private List<KeyPair> GetAllSignatures()
+    private List<KeyPair> GetAllKeys()
     {
-        List<KeyPair> signatures = signatureRepository.GetAll()
+        List<KeyPair> keyPairs = cryptoKeyRepository.GetAll()
             .ToList();
 
-        if (signatures.Count == 0)
+        if (keyPairs.Count == 0)
             throw new NoKeysException();
 
-        return signatures;
+        return keyPairs;
     }
 
-    private void DisplaySignatures(List<KeyPair> signatures)
+    private void DisplayKeys(List<KeyPair> keyPairs)
     {
-        IEnumerable<SignatureSummary> signatureSummaries = signatures
-            .Select(x => new SignatureSummary
+        IEnumerable<KeyPairSummary> keyPairSummaries = keyPairs
+            .Select(x => new KeyPairSummary
             {
                 Id = x.Id,
                 PrivateKey = x.PrivateKey,
@@ -61,20 +59,20 @@ internal class SignDataUseCase : IQuery<SignDataCriteria, SignDataResponse>
                 CreatedDate = x.CreatedDate
             });
 
-        userConsole.DisplaySignatures(signatureSummaries);
+        userConsole.DisplayKeyPairs(keyPairSummaries);
     }
 
-    private KeyPair AskForSignatureToUse(List<KeyPair> signatures)
+    private KeyPair AskForKeyToUse(List<KeyPair> keyPairs)
     {
-        Guid? signatureId = userConsole.AskSignatureId();
+        Guid? keyPairId = userConsole.AskKeyPairId();
 
-        if (!signatureId.HasValue)
-            throw new InvalidSignatureIdException("Invalid GUID format");
+        if (!keyPairId.HasValue)
+            throw new InvalidKeyPairIdException("Invalid GUID format");
 
-        KeyPair selectedSignature = signatures.FirstOrDefault(x => x.Id == signatureId.Value);
+        KeyPair selectedKeyPair = keyPairs.FirstOrDefault(x => x.Id == keyPairId.Value);
 
-        return selectedSignature == null
-            ? throw new InvalidSignatureIdException(signatureId.Value.ToString())
-            : selectedSignature;
+        return selectedKeyPair == null
+            ? throw new InvalidKeyPairIdException(keyPairId.Value.ToString())
+            : selectedKeyPair;
     }
 }

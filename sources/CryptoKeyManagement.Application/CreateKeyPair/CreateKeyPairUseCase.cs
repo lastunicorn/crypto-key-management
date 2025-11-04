@@ -10,11 +10,11 @@ namespace DustInTheWind.CryptoKeyManagement.Application.CreateKeyPair;
 
 internal class CreateKeyPairUseCase : ICommandHandler<CreateKeyPairRequest>
 {
-    private readonly ICryptoKeyRepository signatureRepository;
+    private readonly ICryptoKeyRepository cryptoKeyRepository;
 
-    public CreateKeyPairUseCase(ICryptoKeyRepository signatureRepository)
+    public CreateKeyPairUseCase(ICryptoKeyRepository cryptoKeyRepository)
     {
-        this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
+        this.cryptoKeyRepository = cryptoKeyRepository ?? throw new ArgumentNullException(nameof(cryptoKeyRepository));
     }
 
     public Task<ICommandWorkflowResult> Handle(CreateKeyPairRequest command)
@@ -25,16 +25,16 @@ internal class CreateKeyPairUseCase : ICommandHandler<CreateKeyPairRequest>
         Ed25519PrivateKeyParameters privateKey = (Ed25519PrivateKeyParameters)keyPair.Private;
         Ed25519PublicKeyParameters publicKey = (Ed25519PublicKeyParameters)keyPair.Public;
 
-        Guid signatureKeyId = signatureRepository.Add(privateKey.GetEncoded(), publicKey.GetEncoded());
-        KeyPair savedSignatureKey = signatureRepository.GetById(signatureKeyId);
+        Guid signatureKeyId = cryptoKeyRepository.Add(privateKey.GetEncoded(), publicKey.GetEncoded());
+        KeyPair savedKeyPair = cryptoKeyRepository.GetById(signatureKeyId);
 
         CreateKeyPairResponse response = new()
         {
             KeyId = signatureKeyId,
-            PrivateKeyPath = savedSignatureKey.PrivateKeyPath,
-            PublicKeyPath = savedSignatureKey.PublicKeyPath,
-            PrivateKey = savedSignatureKey.PrivateKey,
-            PublicKey = savedSignatureKey.PublicKey
+            PrivateKeyPath = savedKeyPair.PrivateKeyPath,
+            PublicKeyPath = savedKeyPair.PublicKeyPath,
+            PrivateKey = savedKeyPair.PrivateKey,
+            PublicKey = savedKeyPair.PublicKey
         };
 
         ICommandWorkflowResult result = new CommandWorkflowResult<CreateKeyPairResponse>(response);

@@ -4,28 +4,28 @@ namespace DustInTheWind.CryptoKeyManagement.Ports.UserAccess;
 
 public class UserConsole : IUserConsole
 {
-    public void DisplaySignatures(IEnumerable<SignatureSummary> signatures)
+    public void DisplayKeyPairs(IEnumerable<KeyPairSummary> keyPairSummaries)
     {
         Console.WriteLine("Keys:");
 
-        if (!signatures.Any())
+        if (!keyPairSummaries.Any())
         {
             WriteLineColor(ConsoleColor.DarkYellow, "No keys found.\n");
             return;
         }
 
-        foreach (SignatureSummary signature in signatures)
+        foreach (KeyPairSummary keyPairSummary in keyPairSummaries)
         {
-            Console.WriteLine($"ID: {signature.Id}");
-            Console.WriteLine($"  Private Key: {Convert.ToBase64String(signature.PrivateKey)}");
-            Console.WriteLine($"  Public Key: {Convert.ToBase64String(signature.PublicKey)}");
+            Console.WriteLine($"ID: {keyPairSummary.Id}");
+            Console.WriteLine($"  Private Key: {Convert.ToBase64String(keyPairSummary.PrivateKey)}");
+            Console.WriteLine($"  Public Key: {Convert.ToBase64String(keyPairSummary.PublicKey)}");
 
-            Console.WriteLine($"  Created: {signature.CreatedDate:yyyy-MM-dd HH:mm:ss}");
+            Console.WriteLine($"  Created: {keyPairSummary.CreatedDate:yyyy-MM-dd HH:mm:ss}");
             Console.WriteLine();
         }
     }
 
-    public Guid? AskSignatureId()
+    public Guid? AskKeyPairId()
     {
         WriteColor(ConsoleColor.White, "\nEnter key ID to use (GUID): ");
         string rawValue = Console.ReadLine()?.Trim();

@@ -10,13 +10,13 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.SelectKeyPa
 
 internal class SelectKeyPairUseCase : ICommandHandler<SelectKeyPairRequest>
 {
-    private readonly ICryptoKeyRepository signatureKeyRepository;
+    private readonly ICryptoKeyRepository cryptoKeyRepository;
     private readonly IApplicationState applicationStateService;
     private readonly IEventBus eventBus;
 
-    public SelectKeyPairUseCase(ICryptoKeyRepository signatureKeyRepository, IApplicationState applicationStateService, IEventBus eventBus)
+    public SelectKeyPairUseCase(ICryptoKeyRepository cryptoKeyRepository, IApplicationState applicationStateService, IEventBus eventBus)
     {
-        this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
+        this.cryptoKeyRepository = cryptoKeyRepository ?? throw new ArgumentNullException(nameof(cryptoKeyRepository));
         this.applicationStateService = applicationStateService ?? throw new ArgumentNullException(nameof(applicationStateService));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
     }
@@ -43,7 +43,7 @@ internal class SelectKeyPairUseCase : ICommandHandler<SelectKeyPairRequest>
     private KeyPair RetrieveSignatureKey(Guid? signatureKeyId)
     {
         return signatureKeyId.HasValue
-            ? signatureKeyRepository.GetById(signatureKeyId.Value)
+            ? cryptoKeyRepository.GetById(signatureKeyId.Value)
             : null;
     }
 }

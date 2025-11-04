@@ -6,30 +6,30 @@ namespace DustInTheWind.CryptoKeyManagement.Application.ShowKeyPair;
 
 internal class ShowKeyPairUseCase : IQuery<ShowKeyPairRequest, ShowKeyPairResponse>
 {
-    private readonly ICryptoKeyRepository signatureRepository;
+    private readonly ICryptoKeyRepository cryptoKeyRepository;
 
-    public ShowKeyPairUseCase(ICryptoKeyRepository signatureRepository)
+    public ShowKeyPairUseCase(ICryptoKeyRepository cryptoKeyRepository)
     {
-        this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
+        this.cryptoKeyRepository = cryptoKeyRepository ?? throw new ArgumentNullException(nameof(cryptoKeyRepository));
     }
 
     public Task<ShowKeyPairResponse> Query(ShowKeyPairRequest criteria)
     {
-        List<KeyPair> signatures = signatureRepository.GetAll()
+        List<KeyPair> keyPairs = cryptoKeyRepository.GetAll()
             .ToList();
 
-        IEnumerable<KeyPairDetails> signatureDetails = signatures
-            .Select(x => ToSignatureDetails(x));
+        IEnumerable<KeyPairDetails> keyPairDetails = keyPairs
+            .Select(x => ToKeyPairDetails(x));
 
         ShowKeyPairResponse response = new()
         {
-            Signatures = signatureDetails
+            KeyPairs = keyPairDetails
         };
 
         return Task.FromResult(response);
     }
 
-    private static KeyPairDetails ToSignatureDetails(KeyPair x)
+    private static KeyPairDetails ToKeyPairDetails(KeyPair x)
     {
         return new KeyPairDetails
         {

@@ -7,7 +7,6 @@ using DustInTheWind.CryptoKeyManagement.Ports.SettingsAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.StateAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.WpfUserAccess;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting.DependencyInjection;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.InitializeApp;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Watchers;
 using DustInTheWind.CryptoKeyManagement.Wpf.Main;
@@ -20,6 +19,7 @@ using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Sidebar;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.SigningPage;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.SigningPanel;
 using Microsoft.Extensions.DependencyInjection;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.DependencyInjection;
 
 namespace DustInTheWind.CryptoKeyManagement.Wpf;
 

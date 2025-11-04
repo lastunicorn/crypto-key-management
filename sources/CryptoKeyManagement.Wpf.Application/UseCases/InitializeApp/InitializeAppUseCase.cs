@@ -5,8 +5,8 @@ using DustInTheWind.CryptoKeyManagement.Ports.SettingsAccess;
 using DustInTheWind.CryptoKeyManagement.Ports.WpfUserAccess;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Watchers;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.Contracts;
 
 namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.InitializeApp;
 

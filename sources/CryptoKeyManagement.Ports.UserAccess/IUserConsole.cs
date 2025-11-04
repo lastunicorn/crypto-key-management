@@ -2,9 +2,9 @@
 
 public interface IUserConsole
 {
-    void DisplaySignatures(IEnumerable<SignatureSummary> signatures);
+    void DisplayKeyPairs(IEnumerable<KeyPairSummary> keyPairSummaries);
     
-    Guid? AskSignatureId();
+    Guid? AskKeyPairId();
     
     string AskForDataToSign();
 }

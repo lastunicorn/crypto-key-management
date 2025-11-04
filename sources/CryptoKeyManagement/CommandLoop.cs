@@ -92,7 +92,7 @@ internal class CommandLoop
                     ShowKeyPairResponse response = await mediator.Query<ShowKeyPairRequest, ShowKeyPairResponse>(criteria)
                         .ConfigureAwait(false);
                     
-                    DisplaySignatures(response);
+                    DisplayKeyPairs(response);
                     break;
                 }
 
@@ -123,23 +123,23 @@ internal class CommandLoop
         return true;
     }
 
-    private static void DisplaySignatures(ShowKeyPairResponse response)
+    private static void DisplayKeyPairs(ShowKeyPairResponse response)
     {
         Console.WriteLine("Keys:");
 
-        if (!response.Signatures.Any())
+        if (!response.KeyPairs.Any())
         {
             WriteLineColor(ConsoleColor.DarkYellow, "No keys found.\n");
             return;
         }
 
-        foreach (KeyPairDetails signature in response.Signatures)
+        foreach (KeyPairDetails keyPair in response.KeyPairs)
         {
-            Console.WriteLine($"ID: {signature.Id}");
-            Console.WriteLine($"  Private Key: {signature.PrivateKeyValue}");
-            Console.WriteLine($"  Public Key: {signature.PublicKeyValue}");
+            Console.WriteLine($"ID: {keyPair.Id}");
+            Console.WriteLine($"  Private Key: {keyPair.PrivateKeyValue}");
+            Console.WriteLine($"  Public Key: {keyPair.PublicKeyValue}");
 
-            Console.WriteLine($"  Created: {signature.Created:yyyy-MM-dd HH:mm:ss}");
+            Console.WriteLine($"  Created: {keyPair.Created:yyyy-MM-dd HH:mm:ss}");
             Console.WriteLine();
         }
     }

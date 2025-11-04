@@ -13,12 +13,12 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.CreateKeyPa
 
 internal class CreateKeyPairUseCase : ICommandHandler<CreateKeyPairRequest>
 {
-    private readonly ICryptoKeyRepository signatureRepository;
+    private readonly ICryptoKeyRepository cryptoKeyRepository;
     private readonly IEventBus eventBus;
 
-    public CreateKeyPairUseCase(ICryptoKeyRepository signatureRepository, IEventBus eventBus)
+    public CreateKeyPairUseCase(ICryptoKeyRepository cryptoKeyRepository, IEventBus eventBus)
     {
-        this.signatureRepository = signatureRepository ?? throw new ArgumentNullException(nameof(signatureRepository));
+        this.cryptoKeyRepository = cryptoKeyRepository ?? throw new ArgumentNullException(nameof(cryptoKeyRepository));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
     }
 
@@ -29,8 +29,8 @@ internal class CreateKeyPairUseCase : ICommandHandler<CreateKeyPairRequest>
         Ed25519PrivateKeyParameters privateKey = (Ed25519PrivateKeyParameters)keyPair.Private;
         Ed25519PublicKeyParameters publicKey = (Ed25519PublicKeyParameters)keyPair.Public;
 
-        Guid signatureKeyId = signatureRepository.Add(privateKey.GetEncoded(), publicKey.GetEncoded());
-        KeyPair savedSignatureKey = signatureRepository.GetById(signatureKeyId);
+        Guid signatureKeyId = cryptoKeyRepository.Add(privateKey.GetEncoded(), publicKey.GetEncoded());
+        KeyPair savedSignatureKey = cryptoKeyRepository.GetById(signatureKeyId);
 
         KeyPairCreatedEvent @event = new()
         {

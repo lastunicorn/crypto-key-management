@@ -1,6 +1,6 @@
 using DustInTheWind.CryptoKeyManagement.Infrastructure;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.Contracts;
 using DustInTheWind.CryptoKeyManagement.Wpf.Application.Events;
 
 namespace DustInTheWind.CryptoKeyManagement.Wpf.Presentation.SigningPanel;

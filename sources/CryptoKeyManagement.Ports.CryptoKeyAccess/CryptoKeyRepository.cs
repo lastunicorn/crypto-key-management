@@ -15,12 +15,12 @@ public class CryptoKeyRepository : ICryptoKeyRepository
 
     public IEnumerable<KeyPair> GetAll()
     {
-        EnsureSignaturesDirectoryExists();
+        EnsureCryptoKeysDirectoryExists();
 
-        List<KeyPair> signatures = [];
+        List<KeyPair> keyPairs = [];
 
         if (!Directory.Exists(directoryPath))
-            return signatures;
+            return keyPairs;
 
         string[] privateKeyPaths = Directory.GetFiles(directoryPath, "*_private.key");
 
@@ -34,7 +34,7 @@ public class CryptoKeyRepository : ICryptoKeyRepository
                 string publicKeyPath = Path.Combine(directoryPath, $"{id}_public.key");
 
                 if (File.Exists(publicKeyPath))
-                    signatures.Add(new KeyPair
+                    keyPairs.Add(new KeyPair
                     {
                         Id = id,
                         PrivateKeyPath = privateKeyPath,
@@ -46,12 +46,12 @@ public class CryptoKeyRepository : ICryptoKeyRepository
             }
         }
 
-        return signatures;
+        return keyPairs;
     }
 
     public KeyPair GetById(Guid id)
     {
-        EnsureSignaturesDirectoryExists();
+        EnsureCryptoKeysDirectoryExists();
 
         string privateKeyPath = Path.Combine(directoryPath, $"{id}_private.key");
         string publicKeyPath = Path.Combine(directoryPath, $"{id}_public.key");
@@ -72,17 +72,17 @@ public class CryptoKeyRepository : ICryptoKeyRepository
 
     public Guid Add(byte[] privateKey, byte[] publicKey)
     {
-        EnsureSignaturesDirectoryExists();
+        EnsureCryptoKeysDirectoryExists();
 
-        Guid signatureId = Guid.NewGuid();
+        Guid keyPairId = Guid.NewGuid();
 
-        string privateKeyPath = Path.Combine(directoryPath, $"{signatureId}_private.key");
+        string privateKeyPath = Path.Combine(directoryPath, $"{keyPairId}_private.key");
         File.WriteAllText(privateKeyPath, Convert.ToBase64String(privateKey));
 
-        string publicKeyPath = Path.Combine(directoryPath, $"{signatureId}_public.key");
+        string publicKeyPath = Path.Combine(directoryPath, $"{keyPairId}_public.key");
         File.WriteAllText(publicKeyPath, Convert.ToBase64String(publicKey));
 
-        return signatureId;
+        return keyPairId;
     }
 
     public void Delete(Guid id)
@@ -97,7 +97,7 @@ public class CryptoKeyRepository : ICryptoKeyRepository
             File.Delete(publicKeyPath);
     }
 
-    private void EnsureSignaturesDirectoryExists()
+    private void EnsureCryptoKeysDirectoryExists()
     {
         if (!Directory.Exists(directoryPath))
             Directory.CreateDirectory(directoryPath);

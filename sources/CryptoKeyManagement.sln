@@ -46,11 +46,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{8C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Tests", "CryptoKeyManagement.Tests\CryptoKeyManagement.Tests.csproj", "{4AFA362B-71BC-46ED-B605-690301769335}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.SignatureFormatting", "CryptoKeyManagement.SignatureFormatting\CryptoKeyManagement.SignatureFormatting.csproj", "{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Plugins.SignatureFormatting", "CryptoKeyManagement.Plugins.SignatureFormatting\CryptoKeyManagement.Plugins.SignatureFormatting.csproj", "{B389AF8C-FFDB-4C23-9B8F-A05C956EF0DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.SignatureFormatting.DependencyInjection", "CryptoKeyManagement.SignatureFormatting.DependencyInjection\CryptoKeyManagement.SignatureFormatting.DependencyInjection.csproj", "{FC3C0E17-4D7D-41C3-8FDC-E26279E4B82B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Plugins.SignatureFormatting.DependencyInjection", "CryptoKeyManagement.Plugins.SignatureFormatting.DependencyInjection\CryptoKeyManagement.Plugins.SignatureFormatting.DependencyInjection.csproj", "{FC3C0E17-4D7D-41C3-8FDC-E26279E4B82B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.SignatureFormatting.Contracts", "CryptoKeyManagement.SignatureFormatting.Contracts\CryptoKeyManagement.SignatureFormatting.Contracts.csproj", "{C7554493-8020-43BB-90DD-C1F5D54B5B13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoKeyManagement.Plugins.SignatureFormatting.Contracts", "CryptoKeyManagement.Plugins.SignatureFormatting.Contracts\CryptoKeyManagement.Plugins.SignatureFormatting.Contracts.csproj", "{C7554493-8020-43BB-90DD-C1F5D54B5B13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 ﻿namespace DustInTheWind.CryptoKeyManagement.Ports.UserAccess;
 
-public class SignatureSummary
+public class KeyPairSummary
 {
     public Guid Id { get; set; }
 

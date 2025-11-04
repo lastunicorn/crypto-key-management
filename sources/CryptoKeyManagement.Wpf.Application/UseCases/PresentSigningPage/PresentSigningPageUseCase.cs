@@ -7,12 +7,12 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.PresentSign
 
 internal class PresentSigningPageUseCase : IQuery<PresentSigningPageRequest, PresentSigningPageResponse>
 {
-    private readonly ICryptoKeyRepository signatureKeyRepository;
+    private readonly ICryptoKeyRepository cryptoKeyRepository;
     private readonly IApplicationState applicationState;
 
-    public PresentSigningPageUseCase(ICryptoKeyRepository signatureKeyRepository, IApplicationState applicationState)
+    public PresentSigningPageUseCase(ICryptoKeyRepository cryptoKeyRepository, IApplicationState applicationState)
     {
-        this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
+        this.cryptoKeyRepository = cryptoKeyRepository ?? throw new ArgumentNullException(nameof(cryptoKeyRepository));
         this.applicationState = applicationState ?? throw new ArgumentNullException(nameof(applicationState));
     }
 
@@ -29,7 +29,7 @@ internal class PresentSigningPageUseCase : IQuery<PresentSigningPageRequest, Pre
 
     private List<KeyPairDto> LoadSignatureKeys()
     {
-        return signatureKeyRepository.GetAll()
+        return cryptoKeyRepository.GetAll()
             .Select(KeyPairExtensions.ToDto)
             .ToList();
     }

@@ -11,12 +11,12 @@ namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.RefreshKeyP
 /// </summary>
 internal class RefreshKeyPairsUseCase : ICommandHandler<RefreshKeyPairsRequest>
 {
-    private readonly ICryptoKeyRepository signatureKeyRepository;
+    private readonly ICryptoKeyRepository cryptoKeyRepository;
     private readonly IEventBus eventBus;
 
-    public RefreshKeyPairsUseCase(ICryptoKeyRepository signatureKeyRepository, IEventBus eventBus)
+    public RefreshKeyPairsUseCase(ICryptoKeyRepository cryptoKeyRepository, IEventBus eventBus)
     {
-        this.signatureKeyRepository = signatureKeyRepository ?? throw new ArgumentNullException(nameof(signatureKeyRepository));
+        this.cryptoKeyRepository = cryptoKeyRepository ?? throw new ArgumentNullException(nameof(cryptoKeyRepository));
         this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
     }
 
@@ -31,7 +31,7 @@ internal class RefreshKeyPairsUseCase : ICommandHandler<RefreshKeyPairsRequest>
 
     private List<KeyPairDto> LoadSignatureKeys()
     {
-        return signatureKeyRepository.GetAll()
+        return cryptoKeyRepository.GetAll()
             .Select(KeyPairExtensions.ToDto)
             .ToList();
     }

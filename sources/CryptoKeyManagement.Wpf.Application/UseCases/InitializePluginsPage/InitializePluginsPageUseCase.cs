@@ -1,6 +1,6 @@
 using System.Reflection;
 using AsyncMediator;
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting;
 
 namespace DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.InitializePluginsPage;
 

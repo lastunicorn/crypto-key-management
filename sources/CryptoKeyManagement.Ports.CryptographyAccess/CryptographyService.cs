@@ -7,9 +7,9 @@ namespace DustInTheWind.CryptoKeyManagement.Ports.CryptographyAccess;
 
 public class CryptographyService : ICryptographyService
 {
-    public byte[] Sign(KeyPair signatureKey, string message)
+    public byte[] Sign(KeyPair keyPair, string message)
     {
-        Ed25519PrivateKeyParameters privateKey = new(signatureKey.PrivateKey, 0);
+        Ed25519PrivateKeyParameters privateKey = new(keyPair.PrivateKey, 0);
 
         byte[] messageBytes = Encoding.UTF8.GetBytes(message);
         Ed25519Signer signer = new();

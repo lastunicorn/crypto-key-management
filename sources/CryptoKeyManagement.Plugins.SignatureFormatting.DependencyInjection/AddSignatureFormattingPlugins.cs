@@ -1,7 +1,8 @@
-﻿using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
+﻿using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting.DependencyInjection;
+namespace DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {

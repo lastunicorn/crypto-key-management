@@ -1,6 +1,6 @@
-using DustInTheWind.CryptoKeyManagement.SignatureFormatting.Contracts;
+using DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting.Contracts;
 
-namespace DustInTheWind.CryptoKeyManagement.SignatureFormatting;
+namespace DustInTheWind.CryptoKeyManagement.Plugins.SignatureFormatting;
 
 /// <summary>
 /// Provides access to all registered <see cref="ISignatureFormatter"/> implementations and exposes a default formatter.
