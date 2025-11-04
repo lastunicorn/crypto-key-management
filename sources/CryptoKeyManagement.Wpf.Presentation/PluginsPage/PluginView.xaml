@@ -25,104 +25,91 @@
 
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="36"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
             <!-- Plugin Name and Status -->
-            <DockPanel
+            <TextBlock
                 Grid.Row="0"
-                Grid.Column="0">
+                Text="{Binding Name}"
+                FontSize="16"
+                FontWeight="Bold"
+                Margin="0 0 10 0"/>
 
-                <Border
-                    DockPanel.Dock="Right"
-                    Background="{Binding IsDefault, Converter={StaticResource BoolToStatusBrushConverter}}"
-                    CornerRadius="12"
-                    Padding="10 5"
-                    Visibility="{Binding IsDefault, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <!-- Set as Default Button -->
+            <Button
+                Grid.Row="0"
+                Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=SetDefaultPluginCommand}"
+                CommandParameter="{Binding Id}"
+                Content="Set as Default"
+                Visibility="{Binding IsDefault, Converter={StaticResource InvertBooleanToVisibilityConverter}}"
+                Padding="10 5"
+                Margin="10 0 0 0"
+                Background="{DynamicResource AccentBrush}"
+                Foreground="White"
+                BorderThickness="0"
+                ToolTip="Set this plugin as the default formatter"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Height="24"/>
 
-                    <TextBlock
-                        Text="Active"
-                        FontSize="12"
-                        Foreground="DarkGreen"
-                        FontWeight="SemiBold"
-                        HorizontalAlignment="Center"/>
-                </Border>
+            <Ellipse
+                Grid.Row="0"
+                Grid.Column="0"
+                Width="24"
+                Height="24"
+                Fill="Green"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Visibility="{Binding IsDefault, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-                <!-- Set as Default Button -->
-                <Button
-                    DockPanel.Dock="Right"
-                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=SetDefaultPluginCommand}"
-                    CommandParameter="{Binding Id}"
-                    Content="Set as Default"
-                    Visibility="{Binding IsDefault, Converter={StaticResource InvertBooleanToVisibilityConverter}}"
-                    Padding="10 5"
-                    Margin="10 0 0 0"
-                    Background="{DynamicResource AccentBrush}"
-                    Foreground="White"
-                    BorderThickness="0"
-                    Cursor="Hand"
-                    ToolTip="Set this plugin as the default formatter"/>
-
-                <TextBlock
-                    Text="{Binding Name}"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Margin="0 0 10 0"/>
-            </DockPanel>
-
-            <!-- Assembly and Version Info -->
-            <Grid
+            <!-- Assembly Info -->
+            <StackPanel
                 Grid.Row="1"
-                Grid.ColumnSpan="2"
-                Margin="0,8,0,0">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                Orientation="Horizontal"
+                Margin="20 0 0 0">
 
                 <TextBlock
                     Grid.Column="0"
                     Text="Assembly:"
                     FontWeight="SemiBold"
-                    Margin="0 0 5 0"/>
+                    Margin="0 0 8 0"/>
 
                 <TextBlock
                     Grid.Column="1"
-                    Text="{Binding AssemblyName}"
-                    Margin="0 0 20 0"/>
+                    Text="{Binding AssemblyName}"/>
+            </StackPanel>
+
+            <!-- Version Info -->
+            <StackPanel
+                Grid.Row="2"
+                Orientation="Horizontal"
+                Margin="20 0 0 0">
 
                 <TextBlock
                     Grid.Column="2"
                     Text="Version:"
                     FontWeight="SemiBold"
-                    Margin="0 0 5 0"/>
+                    Margin="0 0 8 0"/>
 
                 <TextBlock
                     Grid.Column="3"
                     Text="{Binding Version}"/>
-            </Grid>
+            </StackPanel>
 
             <!-- Plugin ID -->
             <StackPanel
-                Grid.Row="2"
-                Grid.ColumnSpan="2"
+                Grid.Row="3"
                 Orientation="Horizontal"
-                Margin="0 8 0 0">
+                Margin="20 8 0 0">
 
                 <TextBlock
                     Text="ID:"
                     FontWeight="SemiBold"
-                    Margin="0 0 5 0"/>
+                    Margin="0 0 8 0"/>
 
                 <TextBlock
                     Text="{Binding Id}"
