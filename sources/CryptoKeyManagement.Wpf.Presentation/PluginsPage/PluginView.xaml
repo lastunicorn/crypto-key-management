@@ -12,9 +12,9 @@
     d:DesignWidth="600">
 
     <UserControl.Resources>
-        <local:BoolToActiveStatusConverter x:Key="BoolToActiveStatusConverter"/>
         <local:BoolToStatusBrushConverter x:Key="BoolToStatusBrushConverter"/>
         <local:InvertBooleanToVisibilityConverter x:Key="InvertBooleanToVisibilityConverter"/>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
 
     <Border
@@ -43,17 +43,32 @@
                 <Border
                     DockPanel.Dock="Right"
                     Background="{Binding IsDefault, Converter={StaticResource BoolToStatusBrushConverter}}"
-                    CornerRadius="2"
-                    Padding="10 2"
-                    Width="100">
+                    CornerRadius="12"
+                    Padding="10 5"
+                    Visibility="{Binding IsDefault, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                     <TextBlock
-                        Text="{Binding IsDefault, Converter={StaticResource BoolToActiveStatusConverter}}"
+                        Text="Active"
                         FontSize="12"
                         Foreground="DarkGreen"
                         FontWeight="SemiBold"
                         HorizontalAlignment="Center"/>
                 </Border>
+
+                <!-- Set as Default Button -->
+                <Button
+                    DockPanel.Dock="Right"
+                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=SetDefaultPluginCommand}"
+                    CommandParameter="{Binding Id}"
+                    Content="Set as Default"
+                    Visibility="{Binding IsDefault, Converter={StaticResource InvertBooleanToVisibilityConverter}}"
+                    Padding="10 5"
+                    Margin="10 0 0 0"
+                    Background="{DynamicResource AccentBrush}"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    ToolTip="Set this plugin as the default formatter"/>
 
                 <TextBlock
                     Text="{Binding Name}"
@@ -61,22 +76,6 @@
                     FontWeight="Bold"
                     Margin="0 0 10 0"/>
             </DockPanel>
-
-            <!-- Set as Default Button -->
-            <Button
-                Grid.Row="0"
-                Grid.Column="1"
-                Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=SetDefaultPluginCommand}"
-                CommandParameter="{Binding Id}"
-                Content="Set as Default"
-                Visibility="{Binding IsDefault, Converter={StaticResource InvertBooleanToVisibilityConverter}}"
-                Padding="10 5"
-                Margin="10 0 0 0"
-                Background="{DynamicResource AccentBrush}"
-                Foreground="White"
-                BorderThickness="0"
-                Cursor="Hand"
-                ToolTip="Set this plugin as the default formatter"/>
 
             <!-- Assembly and Version Info -->
             <Grid
