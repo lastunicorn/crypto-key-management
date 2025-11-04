@@ -20,7 +20,7 @@
 
         <TextBlock
             Grid.Row="0"
-            Text="Plugins Page"
+            Text="Plugins"
             FontSize="24"
             FontWeight="Bold"
             HorizontalAlignment="Left"

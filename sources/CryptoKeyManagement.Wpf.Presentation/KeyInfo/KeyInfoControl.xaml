@@ -44,7 +44,7 @@
                 Grid.Column="0"
                 Text="Key ID:"
                 FontWeight="Bold"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 Margin="0 0 10 0"/>
 
             <controls:EnhancedTextBox
@@ -59,7 +59,7 @@
                 Grid.Column="0"
                 Text="Private Key:"
                 FontWeight="Bold"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 Margin="0 5 10 0"/>
 
             <controls:EnhancedTextBox
@@ -75,7 +75,7 @@
                 Grid.Column="0"
                 Text="Public Key:"
                 FontWeight="Bold"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 Margin="0 5 10 0"/>
 
             <controls:EnhancedTextBox
