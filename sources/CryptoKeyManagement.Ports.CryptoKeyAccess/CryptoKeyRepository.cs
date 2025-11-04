@@ -4,7 +4,14 @@ namespace DustInTheWind.CryptoKeyManagement.Ports.CryptoKeyAccess;
 
 public class CryptoKeyRepository : ICryptoKeyRepository
 {
-    private const string SignaturesDirectory = "signature-keys";
+    private readonly string directoryPath;
+
+    public CryptoKeyRepository()
+    {
+        string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        string appFolder = Path.Combine(appDataFolder, "Crypto Key Management");
+        directoryPath = Path.Combine(appFolder, "Crypto Keys");
+    }
 
     public IEnumerable<KeyPair> GetAll()
     {
@@ -12,10 +19,10 @@ public class CryptoKeyRepository : ICryptoKeyRepository
 
         List<KeyPair> signatures = [];
 
-        if (!Directory.Exists(SignaturesDirectory))
+        if (!Directory.Exists(directoryPath))
             return signatures;
 
-        string[] privateKeyPaths = Directory.GetFiles(SignaturesDirectory, "*_private.key");
+        string[] privateKeyPaths = Directory.GetFiles(directoryPath, "*_private.key");
 
         foreach (string privateKeyPath in privateKeyPaths)
         {
@@ -24,7 +31,7 @@ public class CryptoKeyRepository : ICryptoKeyRepository
 
             if (Guid.TryParse(guidPart, out Guid id))
             {
-                string publicKeyPath = Path.Combine(SignaturesDirectory, $"{id}_public.key");
+                string publicKeyPath = Path.Combine(directoryPath, $"{id}_public.key");
 
                 if (File.Exists(publicKeyPath))
                     signatures.Add(new KeyPair
@@ -46,8 +53,8 @@ public class CryptoKeyRepository : ICryptoKeyRepository
     {
         EnsureSignaturesDirectoryExists();
 
-        string privateKeyPath = Path.Combine(SignaturesDirectory, $"{id}_private.key");
-        string publicKeyPath = Path.Combine(SignaturesDirectory, $"{id}_public.key");
+        string privateKeyPath = Path.Combine(directoryPath, $"{id}_private.key");
+        string publicKeyPath = Path.Combine(directoryPath, $"{id}_public.key");
 
         if (!File.Exists(privateKeyPath) || !File.Exists(publicKeyPath))
             return null;
@@ -69,10 +76,10 @@ public class CryptoKeyRepository : ICryptoKeyRepository
 
         Guid signatureId = Guid.NewGuid();
 
-        string privateKeyPath = Path.Combine(SignaturesDirectory, $"{signatureId}_private.key");
+        string privateKeyPath = Path.Combine(directoryPath, $"{signatureId}_private.key");
         File.WriteAllText(privateKeyPath, Convert.ToBase64String(privateKey));
 
-        string publicKeyPath = Path.Combine(SignaturesDirectory, $"{signatureId}_public.key");
+        string publicKeyPath = Path.Combine(directoryPath, $"{signatureId}_public.key");
         File.WriteAllText(publicKeyPath, Convert.ToBase64String(publicKey));
 
         return signatureId;
@@ -80,8 +87,8 @@ public class CryptoKeyRepository : ICryptoKeyRepository
 
     public void Delete(Guid id)
     {
-        string privateKeyPath = Path.Combine(SignaturesDirectory, $"{id}_private.key");
-        string publicKeyPath = Path.Combine(SignaturesDirectory, $"{id}_public.key");
+        string privateKeyPath = Path.Combine(directoryPath, $"{id}_private.key");
+        string publicKeyPath = Path.Combine(directoryPath, $"{id}_public.key");
 
         if (File.Exists(privateKeyPath))
             File.Delete(privateKeyPath);
@@ -90,9 +97,9 @@ public class CryptoKeyRepository : ICryptoKeyRepository
             File.Delete(publicKeyPath);
     }
 
-    private static void EnsureSignaturesDirectoryExists()
+    private void EnsureSignaturesDirectoryExists()
     {
-        if (!Directory.Exists(SignaturesDirectory))
-            Directory.CreateDirectory(SignaturesDirectory);
+        if (!Directory.Exists(directoryPath))
+            Directory.CreateDirectory(directoryPath);
     }
 }
