@@ -1,0 +1,19 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Plugin icon -->
+    <DrawingImage x:Key="PluginIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="Transparent">
+                <GeometryDrawing.Pen>
+                    <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                    <Geometry>M12,2A4,4 0 0,1 16,6V10H20V12H16V16A4,4 0 0,1 12,20H8V16H4V14H8V10A4,4 0 0,1 12,6H16V2H12M12,8A2,2 0 0,0 10,10V14H14A2,2 0 0,0 16,12V8H12Z</Geometry>
+                </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

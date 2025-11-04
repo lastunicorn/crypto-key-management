@@ -1,0 +1,19 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Key Icon for Signing -->
+    <DrawingImage x:Key="SigningIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="Transparent">
+                <GeometryDrawing.Pen>
+                    <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                    <Geometry>M7,6A3,3 0 0,1 10,3A3,3 0 0,1 13,6V7H14A1,1 0 0,1 15,8V16A1,1 0 0,1 14,17H6A1,1 0 0,1 5,16V8A1,1 0 0,1 6,7H7V6M9,6V7H11V6A1,1 0 0,0 10,5A1,1 0 0,0 9,6Z</Geometry>
+                </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

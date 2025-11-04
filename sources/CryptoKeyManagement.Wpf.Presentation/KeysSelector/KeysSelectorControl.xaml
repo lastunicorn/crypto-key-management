@@ -41,7 +41,7 @@
                 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image
-                        Source="{StaticResource CreateKeyIcon}"
+                        Source="{DynamicResource CreateKeyIcon}"
                         Width="16"
                         Height="16" 
                         Margin="0 0 8 0"/>
@@ -63,7 +63,7 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image
-                        Source="{StaticResource RefreshIcon}"
+                        Source="{DynamicResource RefreshIcon}"
                         Width="16"
                         Height="16" 
                         Margin="0 0 8 0"/>
@@ -120,7 +120,7 @@
                                 ToolTip="Delete Key">
                                 
                                 <Image
-                                    Source="{StaticResource DeleteIcon}"
+                                    Source="{DynamicResource DeleteIcon}"
                                     Width="16"
                                     Height="16"/>
                             </Button>

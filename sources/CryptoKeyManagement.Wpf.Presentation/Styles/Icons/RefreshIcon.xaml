@@ -1,0 +1,40 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Refresh icon -->
+    <DrawingImage x:Key="RefreshIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round"/>
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <!-- Upper arc -->
+                            <PathGeometry>
+                                <PathFigure StartPoint="5,5" IsClosed="False">
+                                    <ArcSegment Point="13,9" Size="6,6" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                </PathFigure>
+                            </PathGeometry>
+                            <!-- Right arrow head -->
+                            <LineGeometry StartPoint="13,9" EndPoint="11.5,7.5"/>
+                            <LineGeometry StartPoint="13,9" EndPoint="11.5,10.5"/>
+                            <!-- Lower arc -->
+                            <PathGeometry>
+                                <PathFigure StartPoint="11,13" IsClosed="False">
+                                    <ArcSegment Point="3,9" Size="6,6" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                </PathFigure>
+                            </PathGeometry>
+                            <!-- Left arrow head -->
+                            <LineGeometry StartPoint="3,9" EndPoint="4.5,7.5"/>
+                            <LineGeometry StartPoint="3,9" EndPoint="4.5,10.5"/>
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

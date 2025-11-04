@@ -36,7 +36,7 @@
             VerticalAlignment="Top"
             Padding="4">
 
-            <Image Source="{StaticResource CopyIcon}" />
+            <Image Source="{DynamicResource CopyIcon}" />
         </Button>
 
     </Grid>

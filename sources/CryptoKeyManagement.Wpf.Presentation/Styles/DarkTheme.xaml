@@ -3,12 +3,35 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Controls"
     xmlns:sidebar="clr-namespace:DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Sidebar">
+    
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Icons/CopyIcon.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Icons/CreateKeyIcon.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Icons/DeleteIcon.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Icons/KeyIcon.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Icons/MoonIcon.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Icons/PluginIcon.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Icons/RefreshIcon.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Icons/SigningIcon.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Icons/SignMessageIcon.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Icons/SunIcon.xaml"/>
+
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/ButtonStyles.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/TextBlockStyles.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/TextBoxStyles.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/UserControlStyles.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/WindowStyles.xaml"/>
+
+    </ResourceDictionary.MergedDictionaries>
 
     <!-- Color Definitions -->
     <Color x:Key="BackgroundColor">#FF1E1E1E</Color>
     <Color x:Key="SurfaceColor">#FF2D2D30</Color>
     <Color x:Key="SurfaceHoverColor">#FF3E3E42</Color>
+    <Color x:Key="SurfaceDisabledColor">#FF3C3C3C</Color>
     <Color x:Key="BorderColor">#FF3F3F46</Color>
+    <Color x:Key="BorderDisabledColor">#FF464646</Color>
     <Color x:Key="TextColor">#FFFFFFFF</Color>
     <Color x:Key="TextSecondaryColor">#FFCCCCCC</Color>
     <Color x:Key="TextDisabledColor">#FF999999</Color>
@@ -21,7 +44,9 @@
     <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
     <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/>
     <SolidColorBrush x:Key="SurfaceHoverBrush" Color="{StaticResource SurfaceHoverColor}"/>
+    <SolidColorBrush x:Key="SurfaceDisabledBrush" Color="{StaticResource SurfaceDisabledColor}"/>
     <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
+    <SolidColorBrush x:Key="BorderDisabledBrush" Color="{StaticResource BorderDisabledColor}"/>
     <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}"/>
     <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}"/>
     <SolidColorBrush x:Key="TextDisabledBrush" Color="{StaticResource TextDisabledColor}"/>
@@ -29,108 +54,6 @@
     <SolidColorBrush x:Key="AccentHoverBrush" Color="{StaticResource AccentHoverColor}"/>
     <SolidColorBrush x:Key="AccentPressedBrush" Color="{StaticResource AccentPressedColor}"/>
     <SolidColorBrush x:Key="IconStrokeBrush" Color="{StaticResource IconStrokeColor}"/>
-
-    <!-- Window Style -->
-    <Style TargetType="Window">
-        <Setter Property="Background" Value="{StaticResource BackgroundBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
-    </Style>
-
-    <!-- UserControl Style -->
-    <Style TargetType="UserControl">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
-    </Style>
-
-    <!-- TextBlock Style -->
-    <Style TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
-    </Style>
-
-    <!-- Button Style -->
-    <Style TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="8,4"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="2">
-                        <ContentPresenter
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="{TemplateBinding Padding}"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource SurfaceHoverBrush}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="{StaticResource AccentPressedBrush}"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{StaticResource TextDisabledBrush}"/>
-                            <Setter Property="Background" Value="#FF3C3C3C"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <!-- TextBox Style -->
-    <Style TargetType="TextBox">
-        <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="4"/>
-        <Setter Property="CaretBrush" Value="{StaticResource TextBrush}"/>
-        <Setter Property="SelectionBrush" Value="{StaticResource AccentBrush}"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="TextBox">
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="2"
-                        SnapsToDevicePixels="True">
-                        <ScrollViewer
-                            x:Name="PART_ContentHost"
-                            Focusable="false"
-                            HorizontalScrollBarVisibility="Hidden"
-                            VerticalScrollBarVisibility="Hidden"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{StaticResource TextDisabledBrush}"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
-                        </Trigger>
-                        <Trigger Property="IsFocused" Value="true">
-                            <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsReadOnly" Value="True">
-                <!--<Setter Property="Background" Value="#FF3C3C3C"/>-->
-                <Setter Property="Background" Value="#FF1a1a1a"/>
-                <Setter Property="BorderBrush" Value="#FF464646"/>
-                <Setter Property="Foreground" Value="#FFAFAFAF"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
 
     <!-- ListBox Style -->
     <Style TargetType="ListBox">
@@ -326,275 +249,6 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="6,4"/>
     </Style>
-
-    <!-- Copy icon -->
-    <DrawingImage x:Key="CopyIcon">
-        <DrawingImage.Drawing>
-            <DrawingGroup>
-
-                <!-- Background document -->
-                <GeometryDrawing Brush="Transparent">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <RectangleGeometry Rect="2,2,8,10" RadiusX="0.5" RadiusY="0.5"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-
-                <!-- Foreground document (copy) -->
-                <GeometryDrawing Brush="White">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <RectangleGeometry Rect="6,4,8,10" RadiusX="0.5" RadiusY="0.5"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-
-    <!-- Sign message icon -->
-    <DrawingImage x:Key="SignMessageIcon">
-        <DrawingImage.Drawing>
-            <DrawingGroup>
-                <!-- Key head (circle) -->
-                <GeometryDrawing Brush="Transparent">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <EllipseGeometry Center="5,8" RadiusX="3" RadiusY="3"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-                <!-- Plus sign inside head -->
-                <GeometryDrawing>
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <GeometryGroup>
-                            <LineGeometry StartPoint="5,7" EndPoint="5,9"/>
-                            <LineGeometry StartPoint="4,8" EndPoint="6,8"/>
-                        </GeometryGroup>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-                <!-- Key shaft -->
-                <GeometryDrawing Brush="Transparent">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <RectangleGeometry Rect="8,7,5,2" RadiusX="0.5" RadiusY="0.5"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-                <!-- Key tooth -->
-                <GeometryDrawing Brush="Transparent">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <RectangleGeometry Rect="13,7,1.5,2" RadiusX="0.3" RadiusY="0.3"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-
-    <!-- Delete icon -->
-    <DrawingImage x:Key="DeleteIcon">
-        <DrawingImage.Drawing>
-            <DrawingGroup>
-                <!-- Trash can body -->
-                <GeometryDrawing Brush="Transparent">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <RectangleGeometry Rect="4,6,8,8" RadiusX="0.5" RadiusY="0.5"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-
-                <!-- Trash can lid -->
-                <GeometryDrawing>
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <LineGeometry StartPoint="3,6" EndPoint="13,6"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-
-                <!-- Trash can handle -->
-                <GeometryDrawing Brush="Transparent">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <RectangleGeometry Rect="6,4,4,2" RadiusX="1" RadiusY="1"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-
-                <!-- Vertical lines inside trash can -->
-                <GeometryDrawing>
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <LineGeometry StartPoint="6,8" EndPoint="6,12"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-
-                <GeometryDrawing>
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <LineGeometry StartPoint="8,8" EndPoint="8,12"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-
-                <GeometryDrawing>
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <LineGeometry StartPoint="10,8" EndPoint="10,12"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-
-    <!-- Create key icon -->
-    <DrawingImage x:Key="CreateKeyIcon">
-        <DrawingImage.Drawing>
-            <DrawingGroup>
-                <!-- Outer rounded square -->
-                <GeometryDrawing Brush="Transparent">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <RectangleGeometry Rect="2,2,12,12" RadiusX="2" RadiusY="2"/>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-                <!-- Plus sign -->
-                <GeometryDrawing>
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2" StartLineCap="Square" EndLineCap="Square"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <GeometryGroup>
-                            <LineGeometry StartPoint="8,5" EndPoint="8,11"/>
-                            <LineGeometry StartPoint="5,8" EndPoint="11,8"/>
-                        </GeometryGroup>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-
-    <!-- Refresh icon -->
-    <DrawingImage x:Key="RefreshIcon">
-        <DrawingImage.Drawing>
-            <DrawingGroup>
-                <GeometryDrawing Brush="Transparent">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round"/>
-                    </GeometryDrawing.Pen>
-                    <GeometryDrawing.Geometry>
-                        <GeometryGroup>
-                            <!-- Upper arc -->
-                            <PathGeometry>
-                                <PathFigure StartPoint="5,5" IsClosed="False">
-                                    <ArcSegment Point="13,9" Size="6,6" IsLargeArc="False" SweepDirection="Clockwise"/>
-                                </PathFigure>
-                            </PathGeometry>
-                            <!-- Right arrow head -->
-                            <LineGeometry StartPoint="13,9" EndPoint="11.5,7.5"/>
-                            <LineGeometry StartPoint="13,9" EndPoint="11.5,10.5"/>
-                            <!-- Lower arc -->
-                            <PathGeometry>
-                                <PathFigure StartPoint="11,13" IsClosed="False">
-                                    <ArcSegment Point="3,9" Size="6,6" IsLargeArc="False" SweepDirection="Clockwise"/>
-                                </PathFigure>
-                            </PathGeometry>
-                            <!-- Left arrow head -->
-                            <LineGeometry StartPoint="3,9" EndPoint="4.5,7.5"/>
-                            <LineGeometry StartPoint="3,9" EndPoint="4.5,10.5"/>
-                        </GeometryGroup>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-
-    <!-- Plugin icon -->
-    <DrawingImage x:Key="PluginIcon">
-        <DrawingImage.Drawing>
-            <GeometryDrawing Brush="Transparent">
-                <GeometryDrawing.Pen>
-                    <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                </GeometryDrawing.Pen>
-                <GeometryDrawing.Geometry>
-                    <Geometry>M12,2A4,4 0 0,1 16,6V10H20V12H16V16A4,4 0 0,1 12,20H8V16H4V14H8V10A4,4 0 0,1 12,6H16V2H12M12,8A2,2 0 0,0 10,10V14H14A2,2 0 0,0 16,12V8H12Z</Geometry>
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-
-    <!-- Key Icon for Signing -->
-    <DrawingImage x:Key="SigningIcon">
-        <DrawingImage.Drawing>
-            <GeometryDrawing Brush="Transparent">
-                <GeometryDrawing.Pen>
-                    <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                </GeometryDrawing.Pen>
-                <GeometryDrawing.Geometry>
-                    <Geometry>M7,6A3,3 0 0,1 10,3A3,3 0 0,1 13,6V7H14A1,1 0 0,1 15,8V16A1,1 0 0,1 14,17H6A1,1 0 0,1 5,16V8A1,1 0 0,1 6,7H7V6M9,6V7H11V6A1,1 0 0,0 10,5A1,1 0 0,0 9,6Z</Geometry>
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-
-    <!-- Sun Icon for Light Theme -->
-    <DrawingImage x:Key="SunIcon">
-        <DrawingImage.Drawing>
-            <GeometryDrawing Brush="{DynamicResource IconStrokeBrush}">
-                <GeometryDrawing.Geometry>
-                    <PathGeometry>M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8M12,2L14.39,5.42C13.65,5.15 12.84,5 12,5C11.16,5 10.35,5.15 9.61,5.42L12,2M12,22L9.61,18.58C10.35,18.85 11.16,19 12,19C12.84,19 13.65,18.85 14.39,18.58L12,22M22,12L18.58,9.61C18.85,10.35 19,11.16 19,12C19,12.84 18.85,13.65 18.58,14.39L22,12M2,12L5.42,14.39C5.15,13.65 5,12.84 5,12C5,11.16 5.15,10.35 5.42,9.61L2,12M20.07,2.93L16.24,6.76C15.69,6.24 15.09,5.8 14.42,5.46L17.64,2.24L20.07,2.93M3.93,21.07L7.76,17.24C8.31,17.76 8.91,18.2 9.58,18.54L6.36,21.76L3.93,21.07M3.93,2.93L6.36,2.24L9.58,5.46C8.91,5.8 8.31,6.24 7.76,6.76L3.93,2.93M20.07,21.07L17.64,21.76L14.42,18.54C15.09,18.2 15.69,17.76 16.24,17.24L20.07,21.07Z</PathGeometry>
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-
-    <!-- Moon Icon for Dark Theme -->
-    <DrawingImage x:Key="MoonIcon">
-        <DrawingImage.Drawing>
-            <GeometryDrawing Brush="{DynamicResource IconStrokeBrush}">
-                <GeometryDrawing.Geometry>
-                    <PathGeometry>M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95Z</PathGeometry>
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-
-    <!-- Key Icon for Signing -->
-    <DrawingImage x:Key="KeyIcon">
-        <DrawingImage.Drawing>
-            <GeometryDrawing Brush="Transparent">
-                <GeometryDrawing.Pen>
-                    <Pen Brush="{StaticResource IconStrokeBrush}" Thickness="1.2"/>
-                </GeometryDrawing.Pen>
-                <GeometryDrawing.Geometry>
-                    <PathGeometry>M7,14A2,2 0 0,0 5,16A2,2 0 0,0 7,18A2,2 0 0,0 9,16A2,2 0 0,0 7,14M12.65,10C11.83,7.67 9.61,6 7,6A6,6 0 0,0 1,12A6,6 0 0,0 7,18C9.61,18 11.83,16.33 12.65,14H17V18H21V14H23V10H12.65Z</PathGeometry>
-                </GeometryDrawing.Geometry>
-            </GeometryDrawing>
-        </DrawingImage.Drawing>
-    </DrawingImage>
 
     <!-- Sidebar Styles -->
     <SolidColorBrush x:Key="SidebarBorderBrush" Color="{StaticResource BorderColor}"/>

@@ -57,7 +57,7 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image
-                        Source="{StaticResource KeyIcon}"
+                        Source="{DynamicResource KeyIcon}"
                         Width="16"
                         Height="16"
                         Margin="0 0 8 0"/>
