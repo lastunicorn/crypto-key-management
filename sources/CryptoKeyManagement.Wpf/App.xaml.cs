@@ -6,6 +6,7 @@ using DustInTheWind.CryptoKeyManagement.Wpf.Application.UseCases.InitializeApp;
 using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Dialogs;
 using DustInTheWind.CryptoKeyManagement.Wpf.Main;
 using Microsoft.Extensions.DependencyInjection;
+using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Main;
 
 namespace DustInTheWind.CryptoKeyManagement.Wpf;
 
@@ -29,6 +30,7 @@ public partial class App : System.Windows.Application
         _ = Initialize(serviceProvider);
 
         MainWindow = serviceProvider.GetService<MainWindow>();
+        MainWindow.DataContext = serviceProvider.GetService<MainViewModel>();
         MainWindow.Show();
     }
 

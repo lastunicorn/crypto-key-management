@@ -43,12 +43,6 @@
         </Setter>
         
         <Style.Triggers>
-            <!--<Trigger Property="IsReadOnly" Value="True">
-                <Setter Property="Background" Value="#FF1a1a1a"/>
-                <Setter Property="BorderBrush" Value="#FF464646"/>
-                <Setter Property="Foreground" Value="#FFAFAFAF"/>
-            </Trigger>-->
-
             <Trigger Property="IsReadOnly" Value="True">
                 <Setter Property="Background" Value="{StaticResource SurfaceDisabledBrush}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource BorderDisabledBrush}"/>
