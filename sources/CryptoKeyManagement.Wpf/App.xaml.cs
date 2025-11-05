@@ -28,10 +28,6 @@ public partial class App : System.Windows.Application
         serviceProvider = serviceCollection.BuildServiceProvider();
 
         _ = Initialize(serviceProvider);
-
-        MainWindow = serviceProvider.GetService<MainWindow>();
-        MainWindow.DataContext = serviceProvider.GetService<MainViewModel>();
-        MainWindow.Show();
     }
 
     private async Task Initialize(IServiceProvider serviceProvider)
@@ -40,6 +36,10 @@ public partial class App : System.Windows.Application
 
         InitializeAppRequest command = new();
         await mediator.Send(command);
+
+        MainWindow = serviceProvider.GetService<MainWindow>();
+        MainWindow.DataContext = serviceProvider.GetService<MainViewModel>();
+        MainWindow.Show();
     }
 
     private void SetupExceptionHandling()
