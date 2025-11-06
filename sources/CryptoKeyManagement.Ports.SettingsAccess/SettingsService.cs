@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text.Json;
 using DustInTheWind.CryptoKeyManagement.Domain;
+using DustInTheWind.CryptoKeyManagement.Ports.SettingsAccess.Helpers;
 
 namespace DustInTheWind.CryptoKeyManagement.Ports.SettingsAccess;
 
@@ -21,7 +22,7 @@ public class SettingsService : ISettingsService
     {
         string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         string appFolder = Path.Combine(appDataFolder, "Crypto Key Management");
-        Directory.CreateDirectory(appFolder);
+        _ = Directory.CreateDirectory(appFolder);
         settingsFilePath = Path.Combine(appFolder, "settings.json");
 
         LoadSettings();
@@ -45,7 +46,7 @@ public class SettingsService : ISettingsService
             }
         }
     }
-    
+
     public Guid? SignatureFormatterId
     {
         get => userSettings.SignatureFormatterId;
@@ -94,7 +95,6 @@ public class SettingsService : ISettingsService
         }
         catch
         {
-            // If there's any error loading settings, use defaults
             userSettings = new JUserSettings();
             // You might want to log this exception in a real application
         }
@@ -102,10 +102,14 @@ public class SettingsService : ISettingsService
 
     private void SaveSettings()
     {
-        string json = JsonSerializer.Serialize(userSettings, new JsonSerializerOptions
+        FileSafe.ExecuteWithBackup(settingsFilePath, () =>
         {
-            WriteIndented = true
+            string json = JsonSerializer.Serialize(userSettings, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+
+            File.WriteAllText(settingsFilePath, json);
         });
-        File.WriteAllText(settingsFilePath, json);
     }
 }

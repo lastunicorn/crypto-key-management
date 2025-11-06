@@ -3,6 +3,11 @@
 - Do not use `var` keyword. Whenever possible, use the actual type.
 - When using Linq, prefer using the name `x` for the parameter representing the item.
 
+## Code Documentation
+
+- Do not create xml documentation for the types that are used only inside the current solution.
+- Only create xml documentation for public types that are exposed as a NuGet package.
+
 ## Unit Tests
 
 - When using `Assert.Throws` method, always use a block body for the lambda expression.
