@@ -15,27 +15,32 @@
                 <ControlTemplate TargetType="Button">
                     
                     <Border
+                        x:Name="PART_Border"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Padding="{TemplateBinding Padding}"
                         CornerRadius="2">
+
                         <ContentPresenter
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Margin="{TemplateBinding Padding}"/>
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"/>
                     </Border>
                     
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource SurfaceHoverBrush}"/>
+                            <Setter TargetName="PART_Border" Property="Background" Value="{StaticResource SurfaceHoverBrush}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="{StaticResource AccentPressedBrush}"/>
-                            <Setter Property="Foreground" Value="White"/>
+                            <Setter TargetName="PART_Border" Property="Background" Value="{StaticResource AccentPressedBrush}"/>
+                            <Setter TargetName="PART_Border" Property="TextElement.Foreground" Value="Blue"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{StaticResource TextDisabledBrush}"/>
-                            <Setter Property="Background" Value="{StaticResource SurfaceDisabledBrush}"/>
+                            <Setter TargetName="PART_Border" Property="Background" Value="{StaticResource SurfaceDisabledBrush}"/>
+                            <Setter TargetName="PART_Border" Property="TextElement.Foreground" Value="{StaticResource TextDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                     

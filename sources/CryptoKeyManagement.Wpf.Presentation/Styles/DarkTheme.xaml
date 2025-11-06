@@ -18,6 +18,7 @@
         <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/BorderStyles.xaml"/>
         <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/ButtonStyles.xaml"/>
         <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/GridSplitterStyles.xaml"/>
+        <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/ImageButtonStyles.xaml"/>
         <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/ListBoxStyles.xaml"/>
         <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/ScrollBarStyles.xaml"/>
         <ResourceDictionary Source="/DustInTheWind.CryptoKeyManagement.Wpf.Presentation;component/Styles/Controls/SideNavigatorStyles.xaml"/>
