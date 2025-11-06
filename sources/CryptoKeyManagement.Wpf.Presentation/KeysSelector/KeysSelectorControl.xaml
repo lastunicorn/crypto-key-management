@@ -95,7 +95,6 @@
                     <Border Background="Transparent">
                         <DockPanel>
 
-                            <!-- Delete button positioned absolutely to the right -->
                             <controls:ImageButton
                                 DockPanel.Dock="Right"
                                 Image="{DynamicResource DeleteIcon}"
@@ -106,7 +105,6 @@
                                 ToolTip="Delete Key"
                                 Margin="10 0"/>
                             
-                            <!-- Content area with right margin to avoid overlap with delete button -->
                             <StackPanel
                                 Orientation="Vertical"
                                 VerticalAlignment="Center"
