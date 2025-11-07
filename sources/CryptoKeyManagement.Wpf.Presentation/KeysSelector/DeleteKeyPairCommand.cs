@@ -44,7 +44,7 @@ public class DeleteKeyPairCommand : System.Windows.Input.ICommand
                     keyPairId = vm.Id;
                     displayInfo = $"ID: {vm.Id}\nCreated: {vm.CreatedDateText}";
                     break;
-                
+
                 default:
                     throw new ArgumentException("Parameter must be a Guid or SignatureKeyViewModel", nameof(parameter));
             }
@@ -62,11 +62,15 @@ public class DeleteKeyPairCommand : System.Windows.Input.ICommand
                 KeyPairId = keyPairId
             };
 
-            await mediator.Send(request);
+            ICommandWorkflowResult result = await mediator.Send(request);
 
-            dialogService.ShowSuccessDialog(
-                "Delete Successful",
-                "Signature key has been successfully deleted.");
+            if (!result.Success)
+            {
+                dialogService.ShowErrorDialog(
+                    "Delete Error",
+                    $"Error deleting key pair");
+                return;
+            }
         }
         catch (Exception ex)
         {

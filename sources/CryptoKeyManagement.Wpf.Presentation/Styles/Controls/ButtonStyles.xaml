@@ -4,10 +4,10 @@
 
     <!-- Button Style -->
     <Style TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="8 4"/>
         
         <Setter Property="Template">
@@ -27,7 +27,12 @@
                         <ContentPresenter
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{TemplateBinding Content}"/>
+                            Content="{TemplateBinding Content}">
+
+                            <ContentPresenter.Resources>
+                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ResourceKey={x:Type TextBlock}}"/>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
                     </Border>
                     
                     <ControlTemplate.Triggers>
@@ -39,7 +44,6 @@
                             <Setter TargetName="PART_Border" Property="TextElement.Foreground" Value="Blue"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="PART_Border" Property="Background" Value="{StaticResource SurfaceDisabledBrush}"/>
                             <Setter TargetName="PART_Border" Property="TextElement.Foreground" Value="{StaticResource TextDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>

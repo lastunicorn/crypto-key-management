@@ -1,7 +1,6 @@
 using System.Windows;
 using DustInTheWind.CryptoKeyManagement.Domain;
 using DustInTheWind.CryptoKeyManagement.Ports.WpfUserAccess;
-using DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Dialogs;
 
 namespace DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Dialogs;
 

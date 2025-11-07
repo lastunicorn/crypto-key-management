@@ -30,12 +30,18 @@
 
         <Grid Grid.Row="1">
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <TextBox
+                Grid.Row="0"
                 Grid.Column="0"
                 Name="MessageTextBox"
                 Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
@@ -46,16 +52,21 @@
                 VerticalAlignment="Stretch"/>
 
             <Button
-                Grid.Column="1"
+                Grid.Row="1"
+                Grid.Column="0"
                 Name="SignMessageButton"
-                Margin="10 0 0 0"
+                Margin="0 5 0 0"
                 MinHeight="30"
                 VerticalAlignment="Top"
+                HorizontalAlignment="Right"
                 Command="{Binding SignMessageCommand}"
                 CommandParameter="{Binding Message}"
                 Padding="10 5">
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    
                     <Image
                         Source="{DynamicResource KeyIcon}"
                         Width="16"

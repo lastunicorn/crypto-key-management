@@ -5,12 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:DustInTheWind.CryptoKeyManagement.Wpf.Presentation.Dialogs"
 
-    Width="400"
-    Height="160"
-    ResizeMode="NoResize"
+    MinWidth="400"
+    MinHeight="160"
+    ResizeMode="CanResizeWithGrip"
     ShowInTaskbar="False"
-    WindowStyle="SingleBorderWindow"
-    SizeToContent="Height">
+    WindowStyle="SingleBorderWindow">
 
     <Window.Style>
         <DynamicResource ResourceKey="{x:Type Window}" />
@@ -143,42 +142,60 @@
         </Grid.RowDefinitions>
 
         <!-- Message Content -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Image Width="32" Height="32" Margin="0 0 15 0" VerticalAlignment="Top">
+        <DockPanel
+            Grid.Row="0">
+
+            <Image
+                DockPanel.Dock="Left"
+                Width="32" 
+                Height="32" 
+                Margin="0 0 15 0" 
+                VerticalAlignment="Top">
+                
                 <Image.Style>
                     <Style TargetType="Image">
                         <Style.Triggers>
+                            
                             <DataTrigger
                                 Binding="{Binding MessageType, RelativeSource={RelativeSource AncestorType=Window}}"
                                 Value="{x:Static local:MessageTypeEnum.Success}">
+                                
                                 <Setter Property="Source" Value="{StaticResource SuccessIcon}"/>
                             </DataTrigger>
+                            
                             <DataTrigger
                                 Binding="{Binding MessageType, RelativeSource={RelativeSource AncestorType=Window}}"
                                 Value="{x:Static local:MessageTypeEnum.Error}">
+                                
                                 <Setter Property="Source" Value="{StaticResource ErrorIcon}"/>
                             </DataTrigger>
+                            
                             <DataTrigger
                                 Binding="{Binding MessageType, RelativeSource={RelativeSource AncestorType=Window}}"
                                 Value="{x:Static local:MessageTypeEnum.Information}">
+                                
                                 <Setter Property="Source" Value="{StaticResource InformationIcon}"/>
                             </DataTrigger>
+                            
                             <DataTrigger
                                 Binding="{Binding MessageType, RelativeSource={RelativeSource AncestorType=Window}}"
                                 Value="{x:Static local:MessageTypeEnum.Warning}">
+                                
                                 <Setter Property="Source" Value="{StaticResource WarningIcon}"/>
                             </DataTrigger>
+                            
                         </Style.Triggers>
                     </Style>
                 </Image.Style>
+                
             </Image>
 
-            <TextBlock
+            <TextBox
                 Text="{Binding Message, RelativeSource={RelativeSource AncestorType=Window}}"
                 FontSize="14"
-                TextWrapping="Wrap"
-                VerticalAlignment="Center"/>
-        </StackPanel>
+                IsReadOnly="True"/>
+            
+        </DockPanel>
 
         <!-- OK Button -->
         <Button
@@ -194,19 +211,23 @@
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Cursor" Value="Hand"/>
+                    
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
+                                
                                 <Border
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="4"
                                     Padding="8 6">
+                                    
                                     <ContentPresenter
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"/>
                                 </Border>
+                                
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
