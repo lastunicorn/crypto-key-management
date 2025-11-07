@@ -193,7 +193,9 @@
             <TextBox
                 Text="{Binding Message, RelativeSource={RelativeSource AncestorType=Window}}"
                 FontSize="14"
-                IsReadOnly="True"/>
+                IsReadOnly="True"
+                VerticalScrollBarVisibility="Auto"
+                HorizontalScrollBarVisibility="Auto"/>
             
         </DockPanel>
 
