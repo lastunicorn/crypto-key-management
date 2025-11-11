@@ -37,7 +37,7 @@
     <Color x:Key="SurfaceDisabledColor">#FF232323</Color>
     <Color x:Key="BorderColor">#FF3F3F46</Color>
     <Color x:Key="BorderDisabledColor">#FF404040</Color>
-    <Color x:Key="TextColor">#FFFFFFFF</Color>
+    <Color x:Key="TextColor">#FFD0D0D0</Color>
     <Color x:Key="TextSecondaryColor">#FFCCCCCC</Color>
     <Color x:Key="TextDisabledColor">#FF999999</Color>
     <Color x:Key="AccentColor">#FF0078D4</Color>
