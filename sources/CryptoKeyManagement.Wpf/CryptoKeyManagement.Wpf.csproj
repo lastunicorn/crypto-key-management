@@ -6,6 +6,7 @@
         <UseWPF>true</UseWPF>
         <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
         <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_").Replace("-", "_"))</RootNamespace>
+        <ApplicationIcon>app-icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
